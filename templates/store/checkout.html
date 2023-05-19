@@ -1,0 +1,242 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<section class="container-fluid mt-5">
+  <div class="mx-3 mx-lg-5">
+    <div class="row">
+      <aside class="col-lg-6">
+        <div class="card bg-body-tertiary">
+          <div class="card-body">
+            <h4 class="card-title font-poppins mb-4">Billing Details</h4>
+            <form action="{% url 'place_order' %}" method="POST">
+              {% csrf_token %}
+              <div class="row g-4">
+                <div class="col-auto">
+                  <label class="visually-hidden" for="phone">Phone</label>
+                  <div class="input-group">
+                    <div class="input-group-text">+91</div>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="phone"
+                      placeholder="Your phone"
+                      name="phone"
+                      minlength="10"
+                      maxlength="10"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="col-12">
+                  <label for="address_1" class="form-label">Address</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="address_1"
+                    placeholder="1234 Main St"
+                    name="address_1"
+                    required
+                  />
+                </div>
+                <div class="col-12">
+                  <label for="address_2" class="form-label"
+                    >Address 2</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="address_2"
+                    placeholder="Apartment, studio, or floor"
+                    name="address_2"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="city" class="form-label">City</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="city"
+                    name="city"
+                    required
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label for="state" class="form-label">State</label>
+                  <select
+                    id="state"
+                    class="form-select"
+                    name="state"
+                    required
+                  >
+                    <option selected disabled>Choose...</option>
+                    <option>Andaman and Nicobar Islands</option>
+                    <option>Andhra Pradesh</option>
+                    <option>Arunachal Pradesh</option>
+                    <option>Assam</option>
+                    <option>Bihar</option>
+                    <option>Chandigarh</option>
+                    <option>Chhattisgarh</option>
+                    <option>Dadra and Nagar Haveli</option>
+                    <option>Daman and Diu</option>
+                    <option>Delhi</option>
+                    <option>Goa</option>
+                    <option>Gujarat</option>
+                    <option>Haryana</option>
+                    <option>Himachal Pradesh</option>
+                    <option>Jammu and Kashmir</option>
+                    <option>Jharkhand</option>
+                    <option>Karnataka</option>
+                    <option>Kerala</option>
+                    <option>Lakshadweep</option>
+                    <option>Madhya Pradesh</option>
+                    <option>Maharashtra</option>
+                    <option>Manipur</option>
+                    <option>Meghalaya</option>
+                    <option>Mizoram</option>
+                    <option>Nagaland</option>
+                    <option>Odisha</option>
+                    <option>Puducherry</option>
+                    <option>Punjab</option>
+                    <option>Rajasthan</option>
+                    <option>Sikkim</option>
+                    <option>Tamil Nadu</option>
+                    <option>Telangana</option>
+                    <option>Tripura</option>
+                    <option>Uttar Pradesh</option>
+                    <option>Uttarakhand</option>
+                    <option>West Bengal</option>
+                  </select>
+                </div>
+
+                <div class="col-md-2">
+                  <label for="zip" class="form-label">Zip</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="zip"
+                    name="zip"
+                    minlength="6"
+                    maxlength="6"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="order_note" class="form-label">Order Note</label>
+                  <textarea
+                    class="form-control"
+                    id="order_note"
+                    rows="3"
+                    name="order_note"
+                  ></textarea>
+                </div>
+
+                <div class="d-flex">
+                  <img
+                    height="40"
+                    src="{% static 'images/icons/cashfree.svg' %}"
+                  />
+                  <br />
+                  <button class="btn btn-primary ms-auto" type="submit">
+                    Place Order
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </aside>
+      <aside class="col-lg-6 hvr-shadow card mt-3 mt-lg-0">
+        <div>
+          <table class="table table-borderless">
+            <thead class="text-body-secondary">
+              <tr class="small text-lowercase font-poppins">
+                <th class="col-4 col-md-9">product</th>
+                <th class="col-4 col-md-2 px-5 px-md-0">quantity</th>
+                <th class="">price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for cart_item in cart_items %}
+              <tr>
+                <td>
+                  <figure class="d-flex gap-md-4 flex-column flex-md-row">
+                    <div class="aside col-md-2">
+                      <a href="{{cart_item.product.get_url}}"
+                        ><img
+                          src="{{cart_item.product.image.url}}"
+                          class="img-fluid"
+                      /></a>
+                    </div>
+                    <figcaption
+                      class="d-flex justify-content-between flex-column"
+                    >
+                      <a
+                        href="{{cart_item.product.get_url}}"
+                        class="text-dark text-decoration-none font-poppins small d-md-none"
+                        >{{cart_item.product.name}}</a
+                      >
+                      <a
+                        href="{{cart_item.product.get_url}}"
+                        class="text-dark text-decoration-none font-poppins d-none fs-5 d-md-inline"
+                      >
+                        {{cart_item.product.name}}
+                      </a>
+
+                      <p class="text-body-secondary font-poppins small">
+                        {% for variation in cart_item.variations.all %}
+                        <!-- separator -->
+                        {{ variation.variation_category | title }}:
+                        <!-- separator -->
+                        {{ variation.variation_value }}
+                        <!-- separator -->
+                        {% if not forloop.last %}
+                        <!-- separator -->
+                        <br />
+                        {% endif %}
+                        <!-- separator -->
+                        {% endfor %}
+                      </p>
+                    </figcaption>
+                  </figure>
+                </td>
+                <td class="px-5 px-md-0">
+                  <div>{{cart_item.quantity}}</div>
+                </td>
+                <td>
+                  <div class="font-poppins">
+                    <p>&#8377;{{cart_item.subtotal}}</p>
+                    <small>
+                      <var class="text-body-secondary small"
+                        >&#8377;{{cart_item.product.price}} each</var
+                      ></small
+                    >
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="font-poppins">
+          <div>
+            <ul class="list-inline">
+              <li class="list-inline-item">Total:</li>
+              <li class="list-inline-item float-end">&#8377;{{total}}</li>
+            </ul>
+            <ul class="list-inline">
+              <li class="list-inline-item">Tax:</li>
+              <li class="list-inline-item float-end">&#8377;{{tax}}</li>
+            </ul>
+            <ul class="list-inline">
+              <li class="list-inline-item">Grand Total:</li>
+              <li class="list-inline-item float-end fw-bold">
+                &#8377;{{grand_total}}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+{% endblock %}

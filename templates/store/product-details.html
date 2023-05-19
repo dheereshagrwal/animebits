@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+<!-- static -->
+{% load static %}
+<!-- block content  -->
+{% block content %}
+<section class="container-fluid mt-5">
+  <div class="row mx-3 mx-lg-5 g-5">
+    <div class="col-md-6 col-lg-4">
+      <img src="{{product.image.url}}" class="rounded-5 img-thumbnail" />
+    </div>
+    <main class="col-md-6 col-lg-8 d-flex flex-column justify-content-between">
+      <div>
+        <h2 class="fs-4 font-poppins fw-semibold">{{product.name}}</h2>
+        <div class="d-flex">
+          <div>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+          </div>
+          <p class="ms-2 font-poppins">17 reviews</p>
+        </div>
+        <var>&#8377;{{product.price}}</var>
+        <p>{{product.description}}</p>
+      </div>
+
+      <form
+        class="font-poppins"
+        action="{% url 'add_cart' product.id %}"
+        method="POST"
+        id="variationsForm"
+      >
+        {% csrf_token %}
+        <div>
+          <h6>Select Size</h6>
+          <div
+            class="btn-group btn-group-lg"
+            role="group"
+            aria-label="Size options"
+          >
+            {% for i in product.variation_set.sizes %}
+            <input
+              type="radio"
+              class="btn-check"
+              name="size"
+              id="{{ i.variation_value }}"
+              value="{{ i.variation_value }}"
+              required
+            />
+            <label class="btn btn-outline-primary" for="{{ i.variation_value }}"
+              >{{ i.variation_value }}</label
+            >
+            {% endfor %}
+          </div>
+        </div>
+        <br />
+        <div class="form-check animate__animated animate__headShake animate__delay-2s">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value="gift"
+            id="gift"
+            name="gift"
+          />
+          <label class="form-check-label" for="gift">
+            🎁Want to wrap as a gift?
+          </label>
+        </div>
+        <br />
+        <div>
+          <div class="btn-group d-block d-lg-none" role="group">
+            {% if product.stock > 0 and product.is_available %}
+            <button class="btn btn-outline-primary" type="submit">
+              <span>Add to cart</span>
+              <i class="bi bi-cart-plus"></i>
+            </button>
+            <a href="{% url 'cart' %}" class="btn btn-outline-secondary">
+              <span>View Cart</span>
+              <i class="bi bi-cart-fill"></i>
+            </a>
+            {% else %}
+            <button class="btn btn-danger disabled">
+              <span>Out of stock</span>
+              <i class="bi bi-cart-x"></i>
+            </button>
+            <a href="{% url 'cart' %}" class="btn btn-outline-primary">
+              <span>View Cart</span>
+              <i class="bi bi-cart-fill"></i>
+            </a>
+            {% endif %}
+          </div>
+          <div class="btn-group btn-group-lg d-none d-lg-block" role="group">
+            {% if product.stock > 0 and product.is_available %}
+            <button class="btn btn-outline-primary" type="submit">
+              <span>Add to cart</span>
+              <i class="bi bi-cart-plus"></i>
+            </button>
+            <a href="{% url 'cart' %}" class="btn btn-outline-secondary">
+              <span>View Cart</span>
+              <i class="bi bi-cart-fill"></i>
+            </a>
+            {% else %}
+            <button class="btn btn-danger disabled">
+              <span>Out of stock</span>
+              <i class="bi bi-cart-x"></i>
+            </button>
+            <a href="{% url 'cart' %}" class="btn btn-outline-primary">
+              <span>View Cart</span>
+              <i class="bi bi-cart-fill"></i>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </form>
+    </main>
+  </div>
+</section>
+
+<section class="container-fluid mt-5">
+  <div class="mx-3 mx-lg-5">
+    <h5 class="font-poppins fw-bold">Customer Reviews</h5>
+    <img
+      src="{{user_info.picture}}"
+      class="rounded-circle"
+      width="30"
+      height="30"
+    />
+    <var>24.04.2020</var>
+    <h6>Mike John</h6>
+    <!-- icontext.// -->
+    <p>
+      Dummy comment Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+      ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+    </p>
+  </div>
+</section>
+{% endblock %}

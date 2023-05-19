@@ -1,0 +1,100 @@
+{%extends 'base.html' %} {% load static %} {% block content %}
+<link href="{% static 'css/home.css' %} " rel="stylesheet" type="text/css" />
+<!-- ========================= SECTION MAIN ========================= -->
+<section class="my-5 container-fluid">
+  <div
+    id="carouselExampleSlidesOnly"
+    class="carousel slide carousel-fade mx-lg-5"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img
+          src="{% static 'images/banners/cover1.jpg' %}"
+          class="img-fluid rounded-5"
+          alt="..."
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="{% static 'images/banners/cover2.jpg' %}"
+          class="img-fluid rounded-5"
+          alt="..."
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="{% static 'images/banners/cover3.jpg' %}"
+          class="img-fluid rounded-5"
+          alt="..."
+        />
+      </div>
+    </div>
+  </div>
+</section>
+<!-- this is container only -->
+<section class="container mt-5">
+  <div class="row row-cols-3 row-cols-md-6 g-4 g-lg-5 mx-auto">
+    {% for category in categories %}
+    <a
+      href="{{category.get_url}}"
+      class="text-decoration-none hvr-grow"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="{{ category.name }}"
+    >
+      <img
+        src="{{category.image.url}}"
+        class="img-thumbnail rounded-5 shadow-sm"
+        alt="{{ category.name }}"
+      />
+    </a>
+    {% endfor %}
+  </div>
+</section>
+<br />
+<br /><br />
+<section class="container-fluid mt-5">
+  <div class="d-flex mx-md-2 mx-lg-5 font-poppins">
+    <h2>New Arrivals</h2>
+    <a href="{% url 'store' %} " class="ms-auto text-decoration-none"
+      ><button class="btn btn-outline-dark">View All</button>
+    </a>
+  </div>
+</section>
+<br />
+<br /><br />
+<section class="container-fluid mt-5">
+  <div class="row mt-1 mx-md-3 g-5">
+    {% for product in products %}
+    <a
+      href="{{product.get_url}}"
+      class="text-decoration-none hvr-grow card shadow-sm rounded-5 mx-auto"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="{{ product.name }}"
+      style="width: 18rem"
+    >
+      <img
+        src="{{ product.image.url }}"
+        class="card-img-top object-fit"
+        alt="{{ product.name }}"
+      />
+      <div class="card-body">
+        <p class="card-text fs-6">{{ product.name }}</p>
+        <div class="d-flex">
+          <var class="card-text fw-bold">&#8377;{{product.price}}</var>
+          <div class="ms-auto">
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+          </div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

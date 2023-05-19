@@ -53,13 +53,18 @@
                       <p class="text-body-secondary font-poppins small">
                         {% for variation in cart_item.variations.all %}
                         <!-- separator -->
-                        {{ variation.variation_category | title }}:
+                        {% if variation.variation_category|lower == "gift" %}
+                        <!-- separator -->
+                        {% if variation.variation_value|lower != "no" %}
+                        🎁
+                        {% endif %}
+                        <!-- separator -->
+                        {% else %}
+                        <!-- separator -->
+                        {{ variation.variation_category|title }}:
                         <!-- separator -->
                         {{ variation.variation_value }}
                         <!-- separator -->
-                        {% if not forloop.last %}
-                        <!-- separator -->
-                        <br />
                         {% endif %}
                         <!-- separator -->
                         {% endfor %}

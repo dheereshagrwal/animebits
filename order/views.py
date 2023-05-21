@@ -2,28 +2,28 @@ from django.shortcuts import render, redirect
 from cart.models import Cart, CartItem
 from django.contrib.auth.decorators import login_required
 from .forms import OrderForm
-from .models import Order, OrderProduct
+from .models import Order, OrderProduct, Payment
 from product.models import Product
 import uuid
 import requests
 from django.urls import reverse
-
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 
 @login_required(login_url="login")
 def payment(request, order_id):
     # check if user is admin
     if request.user.is_superuser:
         return redirect("home")
-    print("order_id inside payment", order_id)
     order = Order.objects.get(user=request.user, is_ordered=False, order_id=order_id)
-    #check if order already exists
+    # check if order already exists
     url = f"https://sandbox.cashfree.com/pg/orders/{order_id}"
 
     headers = {
         "accept": "application/json",
         "x-client-id": "TEST389775d23cbf608bdfac150118577983",
         "x-client-secret": "TEST22f3e90a364cf1b20b9b5f7cdd0f7f82c8027e21",
-        "x-api-version": "2022-09-01"
+        "x-api-version": "2022-09-01",
     }
 
     response = requests.get(url, headers=headers)
@@ -66,7 +66,80 @@ def payment(request, order_id):
 
 @login_required(login_url="login")
 def payment_success(request):
-    return render(request, "order/payment-success.html")
+    # get the order id from the url
+    order_id = request.GET.get("order_id")
+    # TODO: the below is the correct one
+    # order = Order.objects.get(user=request.user, is_ordered=False, order_id=order_id)
+    order = Order.objects.get(user=request.user, order_id=order_id)
+
+    url = f"https://sandbox.cashfree.com/pg/orders/{order_id}/payments"
+    headers = {
+        "accept": "application/json",
+        "x-client-id": "TEST389775d23cbf608bdfac150118577983",
+        "x-client-secret": "TEST22f3e90a364cf1b20b9b5f7cdd0f7f82c8027e21",
+        "x-api-version": "2022-09-01",
+    }
+    response = requests.get(url, headers=headers)
+    response = response.json()[0]
+    payment_id = response["cf_payment_id"]
+    status = response["payment_status"]
+    payment_method = response["payment_method"]
+    payment_method = list(payment_method.keys())[0]
+    print("payment_id", payment_id)
+    print("status", status)
+    print("payment_method", payment_method)
+    payment = Payment(
+        user=request.user,
+        payment_id=payment_id,
+        payment_method=payment_method,
+        status=status,
+        amount_paid=response["order_amount"],
+    )
+    payment.save()
+    order.payment = payment
+    order.is_ordered = True
+    order.save()
+    #move the cart items to order product table
+    # cart = Cart.objects.get(user=request.user)
+    # cart_items = CartItem.objects.filter(cart=cart, is_active=True)
+    # for item in cart_items:
+    #     order_product = OrderProduct()
+    #     order_product.order = order
+    #     order_product.payment = payment
+    #     order_product.user = request.user
+    #     order_product.product = item.product
+    #     order_product.quantity = item.quantity
+    #     order_product.product_price = item.product.price
+    #     order_product.ordered = True
+    #     order_product.save()
+
+    #     cart_item = CartItem.objects.get(id=item.id)
+    #     product_variation = cart_item.variations.all()
+    #     order_product = OrderProduct.objects.get(id=order_product.id)
+    #     order_product.variations.set(product_variation)
+    #     order_product.save()
+    #     # reduce the quantity of the sold products
+    #     product = Product.objects.get(id=item.product.id)
+    #     product.stock -= item.quantity
+    #     product.save()
+    
+    # # clear the cart
+    # cart.delete()
+    # # send order received email to customer
+    # mail_subject = "Thank you for your order!"
+    # message = render_to_string(
+    #     "order/order-received-email.html",
+    #     {
+    #         "user": request.user,
+    #         "order": order,
+    #     },
+    # )
+    # to_email = request.user.email
+    # send_email = EmailMessage(mail_subject, message, to=[to_email])
+    # print("send_email", send_email)
+    # send_email.send()
+    context = {"order": order}
+    return render(request, "order/payment-success.html", context)
 
 
 @login_required(login_url="login")
@@ -93,8 +166,8 @@ def place_order(request):
             data.state = form.cleaned_data["state"]
             data.city = form.cleaned_data["city"]
             data.zip = form.cleaned_data["zip"]
-            data.order_note = form.cleaned_data["order_note"]
-            data.order_total = total
+            data.note = form.cleaned_data["order_note"]
+            data.total = total
             data.tax = tax
             data.gift_charge = gift_charge
             data.grand_total = grand_total

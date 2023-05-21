@@ -1,8 +1,104 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <section class="container-fluid mt-5">
-  <h5>success</h5>
-</section>
+  <div>
+    <div class="text-center">
+      <i class="bi bi-check-circle-fill"></i>
+      <h2>Payment Successful</h2>
+      <a href="{% url 'store' %}" class="btn btn-success">Shop more</a>
+    </div>
+    <div class="col-lg-6 card mt-3 mx-auto bg-body-tertiary">
+      <div>
+        <table class="table">
+          <thead class="text-body-secondary">
+            <tr class="small text-lowercase font-poppins">
+              <th class="col-4 col-md-9">product</th>
+              <th class="col-4 col-md-2 px-5 px-md-0">quantity</th>
+              <th class="">price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for cart_item in cart_items %}
+            <tr>
+              <td>
+                <figure class="d-flex gap-md-4 flex-column flex-md-row">
+                  <div class="aside col-md-2">
+                    <a href="{{cart_item.product.get_url}}"
+                      ><img
+                        src="{{cart_item.product.image.url}}"
+                        class="img-fluid"
+                    /></a>
+                  </div>
+                  <figcaption
+                    class="d-flex justify-content-between flex-column"
+                  >
+                    <a
+                      href="{{cart_item.product.get_url}}"
+                      class="text-dark text-decoration-none font-poppins small d-md-none"
+                      >{{cart_item.product.name}}</a
+                    >
+                    <a
+                      href="{{cart_item.product.get_url}}"
+                      class="text-dark text-decoration-none font-poppins d-none fs-5 d-md-inline"
+                    >
+                      {{cart_item.product.name}}
+                    </a>
 
+                    <p class="text-body-secondary font-poppins small">
+                      {% for variation in cart_item.variations.all %}
+                      <!-- separator -->
+                      {{ variation.variation_category | title }}:
+                      <!-- separator -->
+                      {{ variation.variation_value }}
+                      <!-- separator -->
+                      {% if not forloop.last %}
+                      <!-- separator -->
+                      <br />
+                      {% endif %}
+                      <!-- separator -->
+                      {% endfor %}
+                    </p>
+                  </figcaption>
+                </figure>
+              </td>
+              <td class="px-5 px-md-0">
+                <div>{{cart_item.quantity}}</div>
+              </td>
+              <td>
+                <div class="font-poppins">
+                  <p>&#8377;{{cart_item.subtotal}}</p>
+                  <small>
+                    <var class="text-body-secondary small"
+                      >&#8377;{{cart_item.product.price}} each</var
+                    ></small
+                  >
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="font-poppins ms-auto p-2">
+        <div>
+          <ul class="list-inline">
+            <li class="list-inline-item">Total:</li>
+            <li class="list-inline-item float-end">&#8377;{{order.total}}</li>
+          </ul>
+          <ul class="list-inline">
+            <li class="list-inline-item">Tax:</li>
+            <li class="list-inline-item float-end">&#8377;{{order.tax}}</li>
+          </ul>
+          <ul class="list-inline">
+            <li class="list-inline-item">Grand Total:</li>
+            <li class="list-inline-item float-end fw-bold">
+              &#8377;{{order.grand_total}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ========================= SECTION CONTENT END// ========================= -->
 {% endblock %}

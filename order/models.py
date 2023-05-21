@@ -34,8 +34,8 @@ class Order(models.Model):
     state = models.CharField(max_length=25)
     city = models.CharField(max_length=20)
     zip = models.IntegerField(null=True)
-    order_note = models.TextField(blank=True)
-    order_total = models.FloatField()
+    note = models.TextField(blank=True)
+    total = models.FloatField()
     gift_charge = models.FloatField(null=True)
     tax = models.FloatField()
     grand_total = models.FloatField(null=True)
@@ -44,8 +44,8 @@ class Order(models.Model):
     is_ordered = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    def full_address(self):
-        return f"{self.address_1} {self.address_2}"
+    def email(self):
+        return self.user.email
 
     def __str__(self):
         return str(self.user)
@@ -58,9 +58,7 @@ class OrderProduct(models.Model):
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    variation = models.ForeignKey(Variation, on_delete=models.CASCADE)
-    size = models.CharField(max_length=20, blank=True)
-    gift = models.CharField(max_length=20, blank=True)
+    variations = models.ManyToManyField(Variation, blank=True)
     quantity = models.IntegerField()
     product_price = models.FloatField()
     ordered = models.BooleanField(default=False)

@@ -251,9 +251,63 @@
       {% endif %}
     </form>
     <h3 class="font-poppins fw-bold mt-5">Customer Reviews</h3>
+    <div class="mb-4">
+      {% if product.average_rating > 0 and product.average_rating <= 0.5 %}
+      <i class="bi bi-star-half text-warning"></i>
+      {% endif %}
+      {% if product.average_rating > 0.5 and product.average_rating <= 1 %}
+      <i class="bi bi-star-fill text-warning"></i>
+      {% endif %}
+      {% if product.average_rating > 1 and product.average_rating <= 1.5 %}
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-half text-warning"></i>
+      {% endif %}
+      {% if product.average_rating > 1.5 and product.average_rating <= 2 %}
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-fill text-warning"></i>
+      {% endif %}
+      {% if product.average_rating > 2 and product.average_rating <= 2.5 %}
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-half text-warning"></i>
+      {% endif %}
+      {% if product.average_rating > 2.5 and product.average_rating <= 3 %}
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-fill text-warning"></i>
+      {% endif %}
+      {% if product.average_rating > 3 and product.average_rating <= 3.5 %}
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-half text-warning"></i>
+      {% endif %}
+      {% if product.average_rating > 3.5 and product.average_rating <= 4 %}
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-fill text-warning"></i>
+      {% endif %}
+      {% if product.average_rating > 4 and product.average_rating <= 4.5 %}
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-half text-warning"></i>
+      {% endif %}
+      {% if product.average_rating > 4.5 and product.average_rating <= 5 %}
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-fill text-warning"></i>
+      <i class="bi bi-star-fill text-warning"></i>
+      {% endif %}
+      <span class="text-secondary">{{reviews.count}} reviews</span>
+
+    </div>
     {% for review in reviews %}
-    <div class="card px-3 pt-3 bg-light">
-      <div class="d-flex mb-3">
+    <div class="px-3 pt-3 bg-light">
+      <div class="d-flex">
         <div class="d-flex gap-2">
           <img
             src="{{user_info.picture}}"
@@ -265,63 +319,63 @@
         </div>
         <date class="ms-auto">{{review.updated_at}}</date>
       </div>
-      <div class="rating">
+      <div class="mb-3">
         {% if review.rating == 5 %}
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
         {% elif review.rating == 4.5 %}
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-half"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-half text-warning"></i>
         {% elif review.rating == 4 %}
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
         <i class="bi bi-star"></i>
         {% elif review.rating == 3.5 %}
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-half"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-half text-warning"></i>
         <i class="bi bi-star"></i>
         {% elif review.rating == 3 %}
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
         <i class="bi bi-star"></i>
         <i class="bi bi-star"></i>
         {% elif review.rating == 2.5 %}
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-half"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-half text-warning"></i>
         <i class="bi bi-star"></i>
         <i class="bi bi-star"></i>
         {% elif review.rating == 2 %}
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
         <i class="bi bi-star"></i>
         <i class="bi bi-star"></i>
         <i class="bi bi-star"></i>
         {% elif review.rating == 1.5 %}
-        <i class="bi bi-star-fill"></i>
-        <i class="bi bi-star-half"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-half text-warning"></i>
         <i class="bi bi-star"></i>
         <i class="bi bi-star"></i>
         <i class="bi bi-star"></i>
         {% elif review.rating == 1 %}
-        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill text-warning"></i>
         <i class="bi bi-star"></i>
         <i class="bi bi-star"></i>
         <i class="bi bi-star"></i>
         <i class="bi bi-star"></i>
         {% elif review.rating == 0.5 %}
-        <i class="bi bi-star-half"></i>
+        <i class="bi bi-star-half text-warning"></i>
         <i class="bi bi-star"></i>
         <i class="bi bi-star"></i>
         <i class="bi bi-star"></i>

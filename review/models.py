@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from product.models import Product
 class ReviewRating(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey("product.Product", on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, blank=True)
     review = models.TextField(max_length=500, blank=True)

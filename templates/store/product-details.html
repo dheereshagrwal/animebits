@@ -123,7 +123,9 @@
     <form method="POST" action="{% url 'submit_review' product.id %}">
       {% csrf_token %}
       <div class="mb-3">
-        <label class="form-label" for="rating">How do you rate this product?</label>
+        <label class="form-label" for="rating"
+          >How do you rate this product?</label
+        >
         <br />
         <div class="rating" id="rating">
           <input
@@ -249,26 +251,87 @@
       {% endif %}
     </form>
     <h3 class="font-poppins fw-bold mt-5">Customer Reviews</h3>
-    <hr />
-    <div class="d-flex">
-      <div class="d-flex gap-2">
-        <img
-          src="{{user_info.picture}}"
-          class="rounded-circle"
-          width="30"
-          height="30"
-        />
-        <h6 class="mt-auto">Mike John</h6>
+    {% for review in reviews %}
+    <div class="card px-3 pt-3 bg-light">
+      <div class="d-flex mb-3">
+        <div class="d-flex gap-2">
+          <img
+            src="{{user_info.picture}}"
+            class="rounded-circle"
+            width="30"
+            height="30"
+          />
+          <h6 class="mt-auto">{{review.user}}</h6>
+        </div>
+        <date class="ms-auto">{{review.updated_at}}</date>
       </div>
-      <date class="ms-auto">24.04.2020</date>
+      <div class="rating">
+        {% if review.rating == 5 %}
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        {% elif review.rating == 4.5 %}
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-half"></i>
+        {% elif review.rating == 4 %}
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star"></i>
+        {% elif review.rating == 3.5 %}
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-half"></i>
+        <i class="bi bi-star"></i>
+        {% elif review.rating == 3 %}
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        {% elif review.rating == 2.5 %}
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-half"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        {% elif review.rating == 2 %}
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        {% elif review.rating == 1.5 %}
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-half"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        {% elif review.rating == 1 %}
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        {% elif review.rating == 0.5 %}
+        <i class="bi bi-star-half"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        <i class="bi bi-star"></i>
+        {% endif %}
+      </div>
+      <h6>{{review.title}}</h6>
+      <p>{{review.review}}</p>
     </div>
-
-    <!-- icontext.// -->
-    <p>
-      Dummy comment Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-      ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-    </p>
+    {% endfor %}
   </div>
 </section>
 

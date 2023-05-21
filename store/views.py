@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, InvalidPage, PageNotAnIn
 from django.db.models import Q
 from review.models import ReviewRating
 from review.forms import ReviewForm
+from order.models import OrderProduct
 
 # Create your views here.
 
@@ -39,7 +40,14 @@ def product_details(request, category_slug, product_slug):
         )
     except Exception as e:
         raise e
-    return render(request, "store/product-details.html", {"product": product})
+    try:
+        order_product = OrderProduct.objects.filter(
+            user=request.user, product=product
+        ).exists()
+    except OrderProduct.DoesNotExist:
+        order_product = None
+    context = {"product": product, "order_product": order_product}
+    return render(request, "store/product-details.html", context)
 
 
 def search(request):

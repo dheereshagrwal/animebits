@@ -119,10 +119,11 @@
     </main>
   </div>
   <div class="mx-3 mx-lg-5 mt-5">
+    <h5 class="font-poppins fw-bold mt-5">Write Your Review</h5>
     <form method="POST" action="{% url 'submit_review' product.id %}">
       {% csrf_token %}
       <div class="mb-3">
-        <label class="form-label" for="rating">Rating</label>
+        <label class="form-label" for="rating">How do you rate this product?</label>
         <br />
         <div class="rating" id="rating">
           <input
@@ -233,16 +234,21 @@
         ></textarea>
       </div>
       {% if user.is_authenticated %}
+      <!-- separator -->
+      {% if order_product %}
       <input type="submit" class="btn btn-primary" value="Submit Review" />
+      {% else %}
+      <p>You must purchase this product to add a review.</p>
+      {% endif %}
+      <!-- separator -->
       {% else %}
       <p>
         You must be logged in to post a review.
         <a href="{% url 'login' %}" class="text-decoration-none">Login now</a>
       </p>
-
       {% endif %}
     </form>
-    <h5 class="font-poppins fw-bold mt-5">Customer Reviews</h5>
+    <h3 class="font-poppins fw-bold mt-5">Customer Reviews</h3>
     <hr />
     <div class="d-flex">
       <div class="d-flex gap-2">

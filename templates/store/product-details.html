@@ -3,6 +3,7 @@
 {% load static %}
 <!-- block content  -->
 {% block content %}
+<link href="{% static 'css/rating.css' %}" rel="stylesheet" type="text/css" />
 <section class="container-fluid mt-5">
   <div class="row mx-3 mx-lg-5 g-5">
     <div class="col-md-6 col-lg-4">
@@ -55,7 +56,9 @@
           </div>
         </div>
         <br />
-        <div class="form-check animate__animated animate__headShake animate__delay-2s">
+        <div
+          class="form-check animate__animated animate__headShake animate__delay-2s"
+        >
           <input
             class="form-check-input"
             type="checkbox"
@@ -120,14 +123,136 @@
 <section class="container-fluid mt-5">
   <div class="mx-3 mx-lg-5">
     <h5 class="font-poppins fw-bold">Customer Reviews</h5>
-    <img
-      src="{{user_info.picture}}"
-      class="rounded-circle"
-      width="30"
-      height="30"
-    />
-    <var>24.04.2020</var>
-    <h6>Mike John</h6>
+    <hr />
+    <form method="POST" action="">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label" for="rating">Rating</label>
+        <br />
+        <div class="rating" id="rating">
+          <input
+            class="form-check-input d-none"
+            type="radio"
+            name="rating"
+            id="star10"
+            value="5"
+          />
+          <label class="form-check-label" for="star10" title="5"></label>
+          <input
+            class="form-check-input d-none"
+            type="radio"
+            name="rating"
+            id="star9"
+            value="4.5"
+          />
+          <label class="form-check-label half" for="star9" title="4.5"></label>
+          <input
+            class="form-check-input d-none"
+            type="radio"
+            name="rating"
+            id="star8"
+            value="4"
+          />
+          <label class="form-check-label" for="star8" title="4"></label>
+
+          <input
+            class="form-check-input d-none"
+            type="radio"
+            name="rating"
+            id="star7"
+            value="3.5"
+          />
+          <label class="form-check-label half" for="star7" title="3.5"></label>
+
+          <input
+            class="form-check-input d-none"
+            type="radio"
+            name="rating"
+            id="star6"
+            value="3"
+          />
+          <label class="form-check-label" for="star6" title="3"></label>
+
+          <input
+            class="form-check-input d-none"
+            type="radio"
+            name="rating"
+            id="star5"
+            value="2.5"
+          />
+          <label class="form-check-label half" for="star5" title="2.5"></label>
+          <input
+            class="form-check-input d-none"
+            type="radio"
+            name="rating"
+            id="star4"
+            value="2"
+          />
+          <label class="form-check-label" for="star4" title="2"></label>
+
+          <input
+            class="form-check-input d-none"
+            type="radio"
+            name="rating"
+            id="star3"
+            value="1.5"
+          />
+          <label class="form-check-label half" for="star3" title="1.5"></label>
+
+          <input
+            class="form-check-input d-none"
+            type="radio"
+            name="rating"
+            id="star2"
+            value="1"
+          />
+          <label class="form-check-label" for="star2" title="1"></label>
+
+          <input
+            class="form-check-input d-none"
+            type="radio"
+            name="rating"
+            id="star1"
+            value="0.5"
+          />
+          <label class="form-check-label half" for="star1" title="0.5"></label>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="title" class="form-label">Review Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          name="title"
+          required
+          placeholder="Awesome T-shirt"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="review" class="form-label">Write a review</label>
+        <textarea
+          class="form-control"
+          id="review"
+          rows="3"
+          name="comment"
+        ></textarea>
+      </div>
+      <input type="submit" class="btn btn-primary" value="Submit Review" />
+    </form>
+    <div class="d-flex">
+      <div class="d-flex gap-2">
+        <img
+          src="{{user_info.picture}}"
+          class="rounded-circle"
+          width="30"
+          height="30"
+        />
+        <h6 class="mt-auto">Mike John</h6>
+      </div>
+      <date class="ms-auto">24.04.2020</date>
+    </div>
+
     <!-- icontext.// -->
     <p>
       Dummy comment Lorem ipsum dolor sit amet, consectetur adipisicing elit,

@@ -59,20 +59,27 @@
                         {{cart_item.product.name}}
                       </a>
 
-                      <p class="text-body-secondary font-poppins small">
-                        {% for variation in cart_item.variations.all %}
-                        <!-- separator -->
-                        {{ variation.variation_category | title }}:
-                        <!-- separator -->
-                        {{ variation.variation_value }}
-                        <!-- separator -->
-                        {% if not forloop.last %}
-                        <!-- separator -->
-                        <br />
-                        {% endif %}
-                        <!-- separator -->
-                        {% endfor %}
-                      </p>
+                     <p class="text-body-secondary font-poppins small">
+                      {% for variation in cart_item.variations.all %}
+                      <!-- separator -->
+                      {% if variation.variation_category|lower == "gift" %}
+                      <!-- separator -->
+                      {% if variation.variation_value|lower != "no" %}
+                      <!-- separator -->
+                      🎁
+                      <!-- separator -->
+                      {% endif %}
+                      <!-- separator -->
+                      {% else %}
+                      <!-- separator -->
+                      {{ variation.variation_category|title }}:
+                      <!-- separator -->
+                      {{ variation.variation_value }}
+                      <!-- separator -->
+                      {% endif %}
+                      <!-- separator -->
+                      {% endfor %}
+                    </p>
                     </figcaption>
                   </figure>
                 </td>
@@ -109,9 +116,9 @@
               <li class="list-inline-item float-end">&#8377;{{order.tax}}</li>
             </ul>
             <ul class="list-inline">
-              <li class="list-inline-item">Gift Charge:</li>
+              <li class="list-inline-item">Gift Charges:</li>
               <li class="list-inline-item float-end">
-                &#8377;{{order.gift_charge}}
+                &#8377;{{order.gift_charges}}
               </li>
             </ul>
             <ul class="list-inline">

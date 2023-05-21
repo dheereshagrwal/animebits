@@ -37,9 +37,7 @@
                   />
                 </div>
                 <div class="col-12">
-                  <label for="address_2" class="form-label"
-                    >Address 2</label
-                  >
+                  <label for="address_2" class="form-label">Address 2</label>
                   <input
                     type="text"
                     class="form-control"
@@ -61,12 +59,7 @@
                 </div>
                 <div class="col-md-4">
                   <label for="state" class="form-label">State</label>
-                  <select
-                    id="state"
-                    class="form-select"
-                    name="state"
-                    required
-                  >
+                  <select id="state" class="form-select" name="state" required>
                     <option selected disabled>Choose...</option>
                     <option>Andaman and Nicobar Islands</option>
                     <option>Andhra Pradesh</option>
@@ -184,13 +177,20 @@
                       <p class="text-body-secondary font-poppins small">
                         {% for variation in cart_item.variations.all %}
                         <!-- separator -->
-                        {{ variation.variation_category | title }}:
+                        {% if variation.variation_category|lower == "gift" %}
+                        <!-- separator -->
+                        {% if variation.variation_value|lower != "no" %}
+                        <!-- separator -->
+                        🎁
+                        <!-- separator -->
+                        {% endif %}
+                        <!-- separator -->
+                        {% else %}
+                        <!-- separator -->
+                        {{ variation.variation_category|title }}:
                         <!-- separator -->
                         {{ variation.variation_value }}
                         <!-- separator -->
-                        {% if not forloop.last %}
-                        <!-- separator -->
-                        <br />
                         {% endif %}
                         <!-- separator -->
                         {% endfor %}

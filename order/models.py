@@ -37,7 +37,7 @@ class Order(models.Model):
     zip = models.IntegerField(null=True)
     note = models.TextField(blank=True)
     total = models.FloatField()
-    gift_charge = models.FloatField(null=True)
+    gift_charges = models.FloatField(null=True)
     tax = models.FloatField()
     grand_total = models.FloatField(null=True)
     status = models.CharField(max_length=20, choices=STATUS, default="New")
@@ -47,11 +47,6 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     def email(self):
         return self.user.email
-    def get_local_created_at(self):
-        return timezone.localtime(self.created_at)
-
-    def get_local_updated_at(self):
-        return timezone.localtime(self.updated_at)
     def __str__(self):
         return str(self.user)
 
@@ -65,10 +60,11 @@ class OrderProduct(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     variations = models.ManyToManyField(Variation, blank=True)
     quantity = models.IntegerField()
-    product_price = models.FloatField()
     ordered = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def subtotal(self):
+        return self.product.price * self.quantity
     def __str__(self):
         return self.product.name

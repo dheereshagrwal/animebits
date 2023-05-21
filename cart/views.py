@@ -104,7 +104,7 @@ def cart_checkout(request, template_name):
         cart_items = None
         tax = 0
         grand_total = 0
-        gift_charge = 0
+        gift_charges = 0
         cart = Cart.objects.get(user=request.user)
         cart_items = CartItem.objects.filter(cart=cart, is_active=True)
         for cart_item in cart_items:
@@ -113,7 +113,7 @@ def cart_checkout(request, template_name):
                     variation.variation_category == "gift"
                     and variation.variation_value == "gift"
                 ):
-                    gift_charge += 10 * cart_item.quantity
+                    gift_charges += 10 * cart_item.quantity
             total += cart_item.product.price * cart_item.quantity
             quantity += cart_item.quantity
         tax = (5 * total) / 100
@@ -124,7 +124,7 @@ def cart_checkout(request, template_name):
         "total": total,
         "quantity": quantity,
         "tax": tax,
-        "gift_charge": gift_charge,
+        "gift_charges": gift_charges,
         "grand_total": grand_total,
     }
     return render(request, template_name, context)

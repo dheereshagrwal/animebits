@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 
+
 @login_required(login_url="login")
 def payment(request, order_id):
     # check if user is admin
@@ -68,9 +69,12 @@ def payment(request, order_id):
 def payment_success(request):
     # get the order id from the url
     order_id = request.GET.get("order_id")
-    # TODO: the below is the correct one
-    # order = Order.objects.get(user=request.user, is_ordered=False, order_id=order_id)
     order = Order.objects.get(user=request.user, order_id=order_id)
+    # check if order is already ordered
+    if order.is_ordered:
+        ordered_products = OrderProduct.objects.filter(order=order)
+        context = {"order": order, "ordered_products": ordered_products}
+        return render(request, "order/payment-success.html", context)
 
     url = f"https://sandbox.cashfree.com/pg/orders/{order_id}/payments"
     headers = {
@@ -85,9 +89,6 @@ def payment_success(request):
     status = response["payment_status"]
     payment_method = response["payment_method"]
     payment_method = list(payment_method.keys())[0]
-    print("payment_id", payment_id)
-    print("status", status)
-    print("payment_method", payment_method)
     payment = Payment(
         user=request.user,
         payment_id=payment_id,
@@ -108,7 +109,6 @@ def payment_success(request):
         order_product.user = request.user
         order_product.product = item.product
         order_product.quantity = item.quantity
-        order_product.product_price = item.product.price
         order_product.ordered = True
         order_product.save()
 
@@ -121,24 +121,22 @@ def payment_success(request):
         product = Product.objects.get(id=item.product.id)
         product.stock -= item.quantity
         product.save()
-    
-    # clear the cart
-    cart.delete()
-    ordered_products = OrderProduct.objects.filter(user=request.user, ordered=True)
-    # send order received email to customer
+
+    # 
+    ordered_products = OrderProduct.objects.filter(order=order)
+    cart_items.delete()
     mail_subject = "Thank you for your order!"
     message = render_to_string(
         "order/order-received-email.html",
         {
-            "user": request.user,
             "order": order,
         },
     )
     to_email = request.user.email
     send_email = EmailMessage(mail_subject, message, to=[to_email])
-    print("send_email", send_email)
+    send_email.content_subtype = "html"
     send_email.send()
-    context = {"order": order, "payment": payment, "ordered_products": ordered_products}
+    context = {"order": order, "ordered_products": ordered_products}
     return render(request, "order/payment-success.html", context)
 
 
@@ -151,8 +149,8 @@ def place_order(request):
     if cart_items_count <= 0:
         return redirect("store")
 
-    total, tax, grand_total, gift_charge = calculate_totals(cart_items)
-    print(total, tax, grand_total, gift_charge)
+    total, tax, grand_total, gift_charges = calculate_totals(cart_items)
+    print(total, tax, grand_total, gift_charges)
     if request.method == "POST":
         form = OrderForm(request.POST)
         print(form.errors)
@@ -169,7 +167,7 @@ def place_order(request):
             data.note = form.cleaned_data["note"]
             data.total = total
             data.tax = tax
-            data.gift_charge = gift_charge
+            data.gift_charges = gift_charges
             data.grand_total = grand_total
             data.ip = request.META.get("REMOTE_ADDR")
             data.order_id = order_id
@@ -191,7 +189,7 @@ def calculate_totals(cart_items):
     quantity = 0
     tax = 0
     grand_total = 0
-    gift_charge = 0
+    gift_charges = 0
 
     for cart_item in cart_items:
         for variation in cart_item.variations.all():
@@ -199,11 +197,11 @@ def calculate_totals(cart_items):
                 variation.variation_category == "gift"
                 and variation.variation_value == "gift"
             ):
-                gift_charge += 10 * cart_item.quantity
+                gift_charges += 10 * cart_item.quantity
         total += cart_item.product.price * cart_item.quantity
         quantity += cart_item.quantity
 
     tax = (5 * total) / 100
     grand_total = total + tax
 
-    return total, tax, grand_total, gift_charge
+    return total, tax, grand_total, gift_charges

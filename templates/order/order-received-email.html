@@ -1,5 +1,11 @@
-{% autoescape off %} 
-Hi {{user_info.name}} 
-YOUR ORDER HAS BEEN RECEIVED 
-Order id: {{order.id}} 
-{% endautoescape %}
+Hi {{user_info.name}} YOUR ORDER HAS BEEN RECEIVED
+
+<div>
+  Total: &#8377;{{order.total}}
+  <br />
+  Gift Charges: &#8377;{{order.gift_charges}}
+  <br />
+  Tax:&#8377;{{order.tax}}
+  <br />
+  Grand Total:&#8377;{{order.grand_total}}
+</div>

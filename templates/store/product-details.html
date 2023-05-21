@@ -12,15 +12,67 @@
     <main class="col-md-6 col-lg-8 d-flex flex-column justify-content-between">
       <div>
         <h2 class="fs-4 font-poppins fw-semibold">{{product.name}}</h2>
-        <div class="d-flex">
-          <div>
-            <i class="bi bi-star-fill text-warning"></i>
-            <i class="bi bi-star-fill text-warning"></i>
-            <i class="bi bi-star-fill text-warning"></i>
-            <i class="bi bi-star-fill text-warning"></i>
-            <i class="bi bi-star-fill text-warning"></i>
-          </div>
-          <p class="ms-2 font-poppins">17 reviews</p>
+        <div class="mb-4">
+          {% if product.average_rating > 0 and product.average_rating <= 0.5 %}
+          <i class="bi bi-star-half text-warning"></i>
+          {% endif %}
+          <!-- separator -->
+          {% if product.average_rating > 0.5 and product.average_rating <= 1 %}
+          <i class="bi bi-star-fill text-warning"></i>
+          {% endif %}
+          <!-- separator -->
+          {% if product.average_rating > 1 and product.average_rating <= 1.5 %}
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-half text-warning"></i>
+          {% endif %}
+          <!-- separator -->
+          {% if product.average_rating > 1.5 and product.average_rating <= 2 %}
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          {% endif %}
+          <!-- separator -->
+          {% if product.average_rating > 2 and product.average_rating <= 2.5 %}
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-half text-warning"></i>
+          {% endif %}
+          <!-- separator -->
+          {% if product.average_rating > 2.5 and product.average_rating <= 3 %}
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          {% endif %}
+          <!-- separator -->
+          {% if product.average_rating > 3 and product.average_rating <= 3.5 %}
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-half text-warning"></i>
+          {% endif %}
+          <!-- separator -->
+          {% if product.average_rating > 3.5 and product.average_rating <= 4 %}
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          {% endif %}
+          <!-- separator -->
+          {% if product.average_rating > 4 and product.average_rating <= 4.5 %}
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-half text-warning"></i>
+          {% endif %}
+          <!-- separator -->
+          {% if product.average_rating > 4.5 and product.average_rating <= 5 %}
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          {% endif %}
+          <span class="text-secondary">{{reviews.count}} reviews</span>
         </div>
         <var>&#8377;{{product.price}}</var>
         <p>{{product.description}}</p>
@@ -255,39 +307,47 @@
       {% if product.average_rating > 0 and product.average_rating <= 0.5 %}
       <i class="bi bi-star-half text-warning"></i>
       {% endif %}
+      <!-- separator -->
       {% if product.average_rating > 0.5 and product.average_rating <= 1 %}
       <i class="bi bi-star-fill text-warning"></i>
       {% endif %}
+      <!-- separator -->
       {% if product.average_rating > 1 and product.average_rating <= 1.5 %}
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-half text-warning"></i>
       {% endif %}
+      <!-- separator -->
       {% if product.average_rating > 1.5 and product.average_rating <= 2 %}
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-fill text-warning"></i>
       {% endif %}
+      <!-- separator -->
       {% if product.average_rating > 2 and product.average_rating <= 2.5 %}
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-half text-warning"></i>
       {% endif %}
+      <!-- separator -->
       {% if product.average_rating > 2.5 and product.average_rating <= 3 %}
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-fill text-warning"></i>
       {% endif %}
+      <!-- separator -->
       {% if product.average_rating > 3 and product.average_rating <= 3.5 %}
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-half text-warning"></i>
       {% endif %}
+      <!-- separator -->
       {% if product.average_rating > 3.5 and product.average_rating <= 4 %}
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-fill text-warning"></i>
       {% endif %}
+      <!-- separator -->
       {% if product.average_rating > 4 and product.average_rating <= 4.5 %}
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-fill text-warning"></i>
@@ -295,6 +355,7 @@
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-half text-warning"></i>
       {% endif %}
+      <!-- separator -->
       {% if product.average_rating > 4.5 and product.average_rating <= 5 %}
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-fill text-warning"></i>
@@ -303,7 +364,6 @@
       <i class="bi bi-star-fill text-warning"></i>
       {% endif %}
       <span class="text-secondary">{{reviews.count}} reviews</span>
-
     </div>
     {% for review in reviews %}
     <div class="px-3 pt-3 bg-light">

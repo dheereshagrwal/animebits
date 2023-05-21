@@ -118,13 +118,8 @@
       </form>
     </main>
   </div>
-</section>
-
-<section class="container-fluid mt-5">
-  <div class="mx-3 mx-lg-5">
-    <h5 class="font-poppins fw-bold">Customer Reviews</h5>
-    <hr />
-    <form method="POST" action="">
+  <div class="mx-3 mx-lg-5 mt-5">
+    <form method="POST" action="{% url 'submit_review' product.id %}">
       {% csrf_token %}
       <div class="mb-3">
         <label class="form-label" for="rating">Rating</label>
@@ -225,7 +220,6 @@
           class="form-control"
           id="title"
           name="title"
-          required
           placeholder="Awesome T-shirt"
         />
       </div>
@@ -235,11 +229,21 @@
           class="form-control"
           id="review"
           rows="3"
-          name="comment"
+          name="review"
         ></textarea>
       </div>
+      {% if user.is_authenticated %}
       <input type="submit" class="btn btn-primary" value="Submit Review" />
+      {% else %}
+      <p>
+        You must be logged in to post a review.
+        <a href="{% url 'login' %}" class="text-decoration-none">Login now</a>
+      </p>
+
+      {% endif %}
     </form>
+    <h5 class="font-poppins fw-bold mt-5">Customer Reviews</h5>
+    <hr />
     <div class="d-flex">
       <div class="d-flex gap-2">
         <img
@@ -261,4 +265,5 @@
     </p>
   </div>
 </section>
+
 {% endblock %}

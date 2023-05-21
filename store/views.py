@@ -1,8 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from product.models import Product
 from category.models import Category
 from django.core.paginator import Paginator, EmptyPage, InvalidPage, PageNotAnInteger
 from django.db.models import Q
+from review.models import ReviewRating
+from review.forms import ReviewForm
+
 # Create your views here.
 
 
@@ -38,13 +41,38 @@ def product_details(request, category_slug, product_slug):
         raise e
     return render(request, "store/product-details.html", {"product": product})
 
+
 def search(request):
     print("search")
-    if 'keyword' in request.GET:
-        keyword = request.GET['keyword']
+    if "keyword" in request.GET:
+        keyword = request.GET["keyword"]
         print(f"keyword: {keyword}")
         if keyword:
-            products = Product.objects.order_by('-created_date').filter(Q(description__icontains=keyword) | Q(name__icontains=keyword))
+            products = Product.objects.order_by("-created_date").filter(
+                Q(description__icontains=keyword) | Q(name__icontains=keyword)
+            )
             products_count = products.count()
-    context = {'products': products, 'products_count': products_count}
-    return render(request, 'store/store.html', context)
+    context = {"products": products, "products_count": products_count}
+    return render(request, "store/store.html", context)
+
+
+def submit_review(request, product_id):
+    url = request.META.get("HTTP_REFERER")
+    if request.method == "POST":
+        try:
+            review = ReviewRating.objects.get(user=request.user, product__id=product_id)
+            form = ReviewForm(request.POST, instance=review)
+            form.save()
+            return redirect(url)
+        except ReviewRating.DoesNotExist:
+            form = ReviewForm(request.POST)
+            if form.is_valid():
+                data = ReviewRating()
+                data.title = form.cleaned_data["title"]
+                data.rating = form.cleaned_data["rating"]
+                data.review = form.cleaned_data["review"]
+                data.ip = request.META.get("REMOTE_ADDR")
+                data.product_id = product_id
+                data.user = request.user
+                data.save()
+                return redirect(url)

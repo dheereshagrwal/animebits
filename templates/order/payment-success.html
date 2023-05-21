@@ -6,10 +6,35 @@
       <h2>Payment Successful</h2>
       <a href="{% url 'store' %}" class="btn btn-success">Shop more</a>
     </div>
-    <div class="col-lg-6 card mt-3 mx-auto bg-body-tertiary">
+    <div class="col-lg-8 card mt-3 mx-auto bg-body-tertiary">
       <div>
+        <div class="d-flex justify-content-between">
+          <img
+            src="{% static 'images/icons/logo.svg' %}"
+            alt="logo"
+            height="50"
+            width="50"
+            class="p-2"
+          />
+          <div class="p-2">
+            <p class="mb-0 fw-bold">Invoiced To</p>
+            <p class="mb-0">{{user_info.name}}</p>
+            <p class="mb-0">{{order.address_1}}, {{order.address_2}}</p>
+            <p class="mb-0">{{order.city}}, {{order.state}}, {{order.zip}}</p>
+            <p class="mb-0">{{order.email}}</p>
+            <p class="mb-0">{{order.phone}}</p>
+            {% if order.note %}
+            <p class="mb-0"><b>Order Note: </b>{{order.note}}</p>
+            {% endif %}
+          </div>
+        </div>
+        <div class="p-2 small text-secondary fw-bold">
+          <p class="mb-0">{{order.order_id}}</p>
+          <p class="mb-0">{{order.get_local_updated_at}}</p>
+          <p class="mb-0 text-success">{{payment.status}}</p>
+        </div>
         <table class="table">
-          <thead class="text-body-secondary">
+          <thead class="text-body-secondary card-header">
             <tr class="small text-lowercase font-poppins">
               <th class="col-4 col-md-9">product</th>
               <th class="col-4 col-md-2 px-5 px-md-0">quantity</th>
@@ -42,17 +67,23 @@
                     >
                       {{cart_item.product.name}}
                     </a>
-
                     <p class="text-body-secondary font-poppins small">
                       {% for variation in cart_item.variations.all %}
                       <!-- separator -->
-                      {{ variation.variation_category | title }}:
+                      {% if variation.variation_category|lower == "gift" %}
+                      <!-- separator -->
+                      {% if variation.variation_value|lower != "no" %}
+                      <!-- separator -->
+                      🎁
+                      <!-- separator -->
+                      {% endif %}
+                      <!-- separator -->
+                      {% else %}
+                      <!-- separator -->
+                      {{ variation.variation_category|title }}:
                       <!-- separator -->
                       {{ variation.variation_value }}
                       <!-- separator -->
-                      {% if not forloop.last %}
-                      <!-- separator -->
-                      <br />
                       {% endif %}
                       <!-- separator -->
                       {% endfor %}
@@ -100,5 +131,4 @@
   </div>
 </section>
 
-<!-- ========================= SECTION CONTENT END// ========================= -->
 {% endblock %}

@@ -99,46 +99,46 @@ def payment_success(request):
     order.payment = payment
     order.is_ordered = True
     order.save()
-    #move the cart items to order product table
-    # cart = Cart.objects.get(user=request.user)
-    # cart_items = CartItem.objects.filter(cart=cart, is_active=True)
-    # for item in cart_items:
-    #     order_product = OrderProduct()
-    #     order_product.order = order
-    #     order_product.payment = payment
-    #     order_product.user = request.user
-    #     order_product.product = item.product
-    #     order_product.quantity = item.quantity
-    #     order_product.product_price = item.product.price
-    #     order_product.ordered = True
-    #     order_product.save()
+    cart = Cart.objects.get(user=request.user)
+    cart_items = CartItem.objects.filter(cart=cart, is_active=True)
+    for item in cart_items:
+        order_product = OrderProduct()
+        order_product.order = order
+        order_product.payment = payment
+        order_product.user = request.user
+        order_product.product = item.product
+        order_product.quantity = item.quantity
+        order_product.product_price = item.product.price
+        order_product.ordered = True
+        order_product.save()
 
-    #     cart_item = CartItem.objects.get(id=item.id)
-    #     product_variation = cart_item.variations.all()
-    #     order_product = OrderProduct.objects.get(id=order_product.id)
-    #     order_product.variations.set(product_variation)
-    #     order_product.save()
-    #     # reduce the quantity of the sold products
-    #     product = Product.objects.get(id=item.product.id)
-    #     product.stock -= item.quantity
-    #     product.save()
+        cart_item = CartItem.objects.get(id=item.id)
+        product_variation = cart_item.variations.all()
+        order_product = OrderProduct.objects.get(id=order_product.id)
+        order_product.variations.set(product_variation)
+        order_product.save()
+        # reduce the quantity of the sold products
+        product = Product.objects.get(id=item.product.id)
+        product.stock -= item.quantity
+        product.save()
     
-    # # clear the cart
-    # cart.delete()
-    # # send order received email to customer
-    # mail_subject = "Thank you for your order!"
-    # message = render_to_string(
-    #     "order/order-received-email.html",
-    #     {
-    #         "user": request.user,
-    #         "order": order,
-    #     },
-    # )
-    # to_email = request.user.email
-    # send_email = EmailMessage(mail_subject, message, to=[to_email])
-    # print("send_email", send_email)
-    # send_email.send()
-    context = {"order": order}
+    # clear the cart
+    cart.delete()
+    ordered_products = OrderProduct.objects.filter(user=request.user, ordered=True)
+    # send order received email to customer
+    mail_subject = "Thank you for your order!"
+    message = render_to_string(
+        "order/order-received-email.html",
+        {
+            "user": request.user,
+            "order": order,
+        },
+    )
+    to_email = request.user.email
+    send_email = EmailMessage(mail_subject, message, to=[to_email])
+    print("send_email", send_email)
+    send_email.send()
+    context = {"order": order, "payment": payment, "ordered_products": ordered_products}
     return render(request, "order/payment-success.html", context)
 
 
@@ -166,7 +166,7 @@ def place_order(request):
             data.state = form.cleaned_data["state"]
             data.city = form.cleaned_data["city"]
             data.zip = form.cleaned_data["zip"]
-            data.note = form.cleaned_data["order_note"]
+            data.note = form.cleaned_data["note"]
             data.total = total
             data.tax = tax
             data.gift_charge = gift_charge
@@ -177,26 +177,6 @@ def place_order(request):
             order = Order.objects.get(
                 user=request.user, is_ordered=False, order_id=order_id
             )
-            # # move the cart items to Order Product table
-            # for item in cart_items:
-            #     order_product = OrderProduct()
-            #     order_product.order = data
-            #     order_product.payment = None
-            #     order_product.user = request.user
-            #     order_product.product = item.product
-            #     order_product.quantity = item.quantity
-            #     order_product.product_price = item.product.price
-            #     order_product.ordered = True
-            #     order_product.save()
-
-            #     # reduce the quantity of the sold products
-            #     product = Product.objects.get(id=item.product_id)
-            #     product.stock -= item.quantity
-            #     product.save()
-
-            # # clear cart
-            # cart.delete()
-            # return redirect("orders")
             context = {
                 "order": order,
                 "payment_session_id": None,

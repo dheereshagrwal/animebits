@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from product.models import Product, Variation
+from django.utils import timezone
 
 
 # Create your models here.
@@ -46,7 +47,11 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     def email(self):
         return self.user.email
+    def get_local_created_at(self):
+        return timezone.localtime(self.created_at)
 
+    def get_local_updated_at(self):
+        return timezone.localtime(self.updated_at)
     def __str__(self):
         return str(self.user)
 

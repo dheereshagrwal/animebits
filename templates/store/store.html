@@ -10,8 +10,8 @@
 </section>
 <section class="container-fluid mt-5">
   <div class="mx-2 mx-lg-5">
-    <div class="row">
-      <div class="col-11 col-md-3 col-lg-2">
+    <div class="row g-5">
+      <div class="col-md-3 col-xl-2">
         <aside>
           <div class="card">
             <header class="card-header">
@@ -84,25 +84,25 @@
           </div>
         </aside>
       </div>
-      <main class="col-md-8 mx-auto col-lg-9">
-        <header class="border-bottom my-4 my-md-0">
+      <main class="col-md-9 col-xl-10">
+        <header class="mb-4 font-pacifico fs-5">
           {% if products_count == 1 %}
-          <span><b>{{products_count}}</b> item found </span>
+          <span>{{products_count}} item found </span>
           {% else %}
-          <span><b>{{products_count}}</b> items found </span>
+          <span>{{products_count}} items found </span>
           {% endif %}
         </header>
-        <div class="row g-4 mt-2 g-md-5">
+        <div class="d-flex flex-wrap gap-3 gap-lg-5">
           {% if products %}
           <!-- looping through products -->
           {% for product in products %}
           <a
             href="{{product.get_url}}"
-            class="text-decoration-none hvr-grow card shadow-sm mx-auto rounded-5"
+            class="text-decoration-none hvr-grow card shadow-sm rounded-5"
             data-bs-toggle="tooltip"
             data-bs-placement="top"
             title="{{ product.name }}"
-            style="width: 14rem"
+            style="width: 16rem"
           >
             <img
               src="{{ product.image.url }}"

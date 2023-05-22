@@ -19,27 +19,27 @@
                     <th scope="col">Grand Total</th>
                     <th scope="col">Status</th>
                     <th scope="col"></th>
-                    <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody class="font-rubik">
                   {% for order in orders %}
                   <tr>
-                    <td>{{ order.order_id }}</td>
+                    <td>
+                      <a
+                        class="text-decoration-none"
+                        href="http://{{ request.get_host }}/order/payment_success/?order_id={{ order.order_id }}"
+                        >{{ order.order_id }}</a
+                      >
+                    </td>
                     <td>{{ order.phone }}</td>
                     <td>{{ order.updated_at }}</td>
                     <td>&#8377;{{ order.grand_total }}</td>
                     <td>{{ order.status }}</td>
-                    <td>
-                      <a class="text-decoration-none" href="http://{{ request.get_host }}/order/payment_success/?order_id={{ order.order_id }}">
-                        <span>View</span
-                        ><i class="bi bi-binoculars-fill ms-1"></i>
-                      </a>
-                    </td>
+
                     <td>
                       <a class="text-decoration-none" href="">
                         <span>Track</span
-                        ><i class="bi bi-box-arrow-right ms-2"></i>
+                        ><i class="bi bi-geo-alt-fill ms-1"></i>
                       </a>
                     </td>
                   </tr>

@@ -124,43 +124,22 @@
         </div>
         <br />
         <div>
-          <div class="btn-group d-block d-lg-none" role="group">
+          <div class="btn-group" role="group">
             {% if product.stock > 0 and product.is_available %}
-            <button class="btn btn-outline-primary" type="submit">
+            <button class="btn btn-outline-primary font-inter" type="submit">
               <span>Add to cart</span>
               <i class="bi bi-cart-plus"></i>
             </button>
-            <a href="{% url 'cart' %}" class="btn btn-outline-secondary">
+            <a href="{% url 'cart' %}" class="btn btn-outline-secondary font-inter">
               <span>View Cart</span>
               <i class="bi bi-cart-fill"></i>
             </a>
             {% else %}
-            <button class="btn btn-danger disabled">
+            <button class="btn btn-danger disabled font-inter">
               <span>Out of stock</span>
               <i class="bi bi-cart-x"></i>
             </button>
-            <a href="{% url 'cart' %}" class="btn btn-outline-primary">
-              <span>View Cart</span>
-              <i class="bi bi-cart-fill"></i>
-            </a>
-            {% endif %}
-          </div>
-          <div class="btn-group btn-group-lg d-none d-lg-block" role="group">
-            {% if product.stock > 0 and product.is_available %}
-            <button class="btn btn-outline-primary" type="submit">
-              <span>Add to cart</span>
-              <i class="bi bi-cart-plus"></i>
-            </button>
-            <a href="{% url 'cart' %}" class="btn btn-outline-secondary">
-              <span>View Cart</span>
-              <i class="bi bi-cart-fill"></i>
-            </a>
-            {% else %}
-            <button class="btn btn-danger disabled">
-              <span>Out of stock</span>
-              <i class="bi bi-cart-x"></i>
-            </button>
-            <a href="{% url 'cart' %}" class="btn btn-outline-primary">
+            <a href="{% url 'cart' %}" class="btn btn-outline-primary font-inter">
               <span>View Cart</span>
               <i class="bi bi-cart-fill"></i>
             </a>

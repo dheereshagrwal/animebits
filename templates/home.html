@@ -57,7 +57,7 @@
 <section class="container-fluid mt-5">
   <div class="d-flex mx-md-2 mx-lg-5 font-poppins">
     <h2>New Arrivals</h2>
-    <a href="{% url 'store' %} " class="ms-auto text-decoration-none"
+    <a href="{% url 'store' %} " class="ms-auto text-decoration-none font-inter"
       ><button class="btn btn-outline-dark">View All</button>
     </a>
   </div>
@@ -65,7 +65,7 @@
 <br />
 <br /><br />
 <section class="container-fluid mt-5">
-  <div class="row mt-1 mx-md-3 g-5">
+  <div class="d-flex flex-wrap mt-1 gap-3">
     {% for product in products %}
     <a
       href="{{product.get_url}}"
@@ -77,7 +77,7 @@
     >
       <img
         src="{{ product.image.url }}"
-        class="card-img-top object-fit"
+        class="card-img-top"
         alt="{{ product.name }}"
       />
       <div class="card-body">
@@ -85,11 +85,66 @@
         <div class="d-flex">
           <var class="card-text fw-bold">&#8377;{{product.price}}</var>
           <div class="ms-auto">
+            {%if product.average_rating > 0 and product.average_rating <= 0.5%}
+            <!-- separator -->
+            <i class="bi bi-star-half text-warning"></i>
+            {% endif %}
+            <!-- separator -->
+            {%if product.average_rating > 0.5 and product.average_rating <= 1%}
+            <i class="bi bi-star-fill text-warning"></i>
+            {% endif %}
+            <!-- separator -->
+            {%if product.average_rating > 1 and product.average_rating <= 1.5%}
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-half text-warning"></i>
+            {% endif %}
+            <!-- separator -->
+            {%if product.average_rating > 1.5 and product.average_rating <= 2%}
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            {% endif %}
+            <!-- separator -->
+            {%if product.average_rating > 2 and product.average_rating <= 2.5%}
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-half text-warning"></i>
+            {% endif %}
+            <!-- separator -->
+            {%if product.average_rating > 2.5 and product.average_rating <= 3%}
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            {% endif %}
+            <!-- separator -->
+            {%if product.average_rating > 3 and product.average_rating <= 3.5%}
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-half text-warning"></i>
+            {% endif %}
+            <!-- separator -->
+            {%if product.average_rating > 3.5 and product.average_rating <= 4%}
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            {% endif %}
+            <!-- separator -->
+            {%if product.average_rating > 4 and product.average_rating <= 4.5%}
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star-half text-warning"></i>
+            {% endif %}
+            <!-- separator -->
+            {%if product.average_rating > 4.5 and product.average_rating <= 5%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
+            {% endif %}
           </div>
         </div>
       </div>

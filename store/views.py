@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from product.models import Product
+from product.models import Product, ProductGallery
 from category.models import Category
 from django.core.paginator import Paginator, EmptyPage, InvalidPage, PageNotAnInteger
 from django.db.models import Q
@@ -51,7 +51,14 @@ def product_details(request, category_slug, product_slug):
         order_product = None
     # get the reviews
     reviews = ReviewRating.objects.filter(product=product, status=True)
-    context = {"product": product, "order_product": order_product, "reviews": reviews}
+    # get the product gallery
+    product_gallery = ProductGallery.objects.filter(product=product)
+    context = {
+        "product": product,
+        "order_product": order_product,
+        "reviews": reviews,
+        "product_gallery": product_gallery,
+    }
     return render(request, "store/product-details.html", context)
 
 

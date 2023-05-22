@@ -9,6 +9,7 @@ import requests
 from django.urls import reverse
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+from django.http import Http404
 
 
 @login_required(login_url="login")
@@ -16,7 +17,10 @@ def payment(request, order_id):
     # check if user is admin
     if request.user.is_superuser:
         return redirect("home")
-    order = Order.objects.get(user=request.user, is_ordered=False, order_id=order_id)
+    try:
+        order = Order.objects.get(user=request.user, is_ordered=False, order_id=order_id)
+    except Order.DoesNotExist:
+        raise Http404("Order does not exist")
     # check if order already exists
     url = f"https://sandbox.cashfree.com/pg/orders/{order_id}"
 
@@ -69,7 +73,10 @@ def payment(request, order_id):
 def payment_success(request):
     # get the order id from the url
     order_id = request.GET.get("order_id")
-    order = Order.objects.get(user=request.user, order_id=order_id)
+    try:
+        order = Order.objects.get(user=request.user, order_id=order_id)
+    except Order.DoesNotExist:
+        raise Http404("Order does not exist")
     # check if order is already ordered
     if order.is_ordered:
         ordered_products = OrderProduct.objects.filter(order=order)

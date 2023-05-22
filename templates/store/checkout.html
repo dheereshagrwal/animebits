@@ -14,11 +14,14 @@
                   <div class="input-group">
                     <div class="input-group-text">+91</div>
                     <input
-                      type="number"
+                      type="text"
                       class="form-control"
                       id="phone"
                       placeholder="Your phone"
                       name="phone"
+                      oninput="javascript: if (isNaN(this.value) || /\s/.test(this.value)) this.value = '';"
+                      maxlength="10"
+                      minlength="10"
                       required
                     />
                   </div>
@@ -101,10 +104,13 @@
                 <div class="col-md-2">
                   <label for="zip" class="form-label">Zip</label>
                   <input
-                    type="number"
+                    type="text"
                     class="form-control"
                     id="zip"
                     name="zip"
+                    oninput="javascript: if (isNaN(this.value) || /\s/.test(this.value)) this.value = '';"
+                    maxlength="6"
+                    minlength="6"
                     required
                   />
                 </div>

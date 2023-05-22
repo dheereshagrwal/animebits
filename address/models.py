@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Address(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    hash = models.CharField(max_length=255, null=True)
     phone = models.IntegerField()
     address_1 = models.CharField(max_length=50)
     address_2 = models.CharField(max_length=50, blank=True)

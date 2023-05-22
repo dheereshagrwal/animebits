@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "cart",
     "order",
     "review",
+    "address",
 ]
 
 SOCIALACCOUNT_PROVIDERS = {

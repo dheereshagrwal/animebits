@@ -23,11 +23,12 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
-    path("dashboard/", views.dashboard, name="dashboard"),
     path("", views.home, name="home"),
     path("login/", views.login, name="login"),
     path("logout", auth_views.LogoutView.as_view(next_page="/"), name="logout"),
     path("store/", include("store.urls")),
     path("cart/", include("cart.urls")),
     path("order/", include("order.urls")),
+    path("addresses/", include("address.urls")),
+    path('my_orders/', views.my_orders, name='my_orders'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

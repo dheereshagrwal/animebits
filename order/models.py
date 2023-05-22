@@ -21,14 +21,17 @@ class Order(models.Model):
     STATUS = (
         ("New", "New"),
         ("Accepted", "Accepted"),
-        ("Completed", "Completed"),
         ("Cancelled", "Cancelled"),
+        ("Delivered", "Delivered"),
+        ("In Return", "In Return"),
+        ("Refunded", "Refunded"),
+        ("Completed", "Completed")
     )
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     payment = models.ForeignKey(
         Payment, on_delete=models.SET_NULL, null=True, blank=True
     )
-    order_id = models.CharField(max_length=255,null=True)
+    order_id = models.CharField(max_length=255, null=True)
     phone = models.IntegerField()
     address_1 = models.CharField(max_length=50)
     address_2 = models.CharField(max_length=50, blank=True)
@@ -45,8 +48,11 @@ class Order(models.Model):
     is_ordered = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    awb = models.CharField(max_length=255, null=True, blank=True)
+
     def email(self):
         return self.user.email
+
     def __str__(self):
         return str(self.user)
 
@@ -66,5 +72,6 @@ class OrderProduct(models.Model):
 
     def subtotal(self):
         return self.product.price * self.quantity
+
     def __str__(self):
         return self.product.name

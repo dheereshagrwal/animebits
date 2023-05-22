@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
-
+from order.models import Order
 
 @receiver(user_logged_in)
 def post_login(sender, user, request, **kwargs):
@@ -29,9 +29,13 @@ def login(request):
     return redirect(redirect_url)
 
 
+
+
 @login_required(login_url="login")
-def dashboard(request):
+def my_orders(request):
+    orders = Order.objects.order_by("-created_at").filter(user=request.user, is_ordered=True)
+    context = {"orders": orders}
     if request.user.is_authenticated:
-        return render(request, "dashboard.html")
+        return render(request, "my-orders.html", context)
     else:
         return redirect("login")

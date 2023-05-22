@@ -1,0 +1,56 @@
+{%extends 'base.html' %} {% load static %} {% block content %}
+<section class="container-fluid">
+  <div class="mx-3 mx-lg-5 mt-5">
+    <div class="row">
+      {% include 'includes/dashboard-sidebar.html' %}
+      <main class="col-md-9 col-xl-10">
+        <div class="card">
+          <header class="card-header">
+            <strong class="card-title font-nunito">Order History</strong>
+          </header>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr class="text-secondary font-nunito">
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Grand Total</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody class="font-rubik">
+                  {% for order in orders %}
+                  <tr>
+                    <td>{{ order.order_id }}</td>
+                    <td>{{ order.phone }}</td>
+                    <td>{{ order.updated_at }}</td>
+                    <td>&#8377;{{ order.grand_total }}</td>
+                    <td>{{ order.status }}</td>
+                    <td>
+                      <a class="text-decoration-none" href="http://{{ request.get_host }}/order/payment_success/?order_id={{ order.order_id }}">
+                        <span>View</span
+                        ><i class="bi bi-binoculars-fill ms-1"></i>
+                      </a>
+                    </td>
+                    <td>
+                      <a class="text-decoration-none" href="">
+                        <span>Track</span
+                        ><i class="bi bi-box-arrow-right ms-2"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</section>
+{% endblock %}

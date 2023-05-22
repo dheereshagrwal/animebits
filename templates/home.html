@@ -1,6 +1,9 @@
 {%extends 'base.html' %} {% load static %} {% block content %}
-<link href="{% static 'css/home.css' %} " rel="stylesheet" type="text/css" />
-<!-- ========================= SECTION MAIN ========================= -->
+<link
+  href="{% static 'css/carousel.css' %} "
+  rel="stylesheet"
+  type="text/css"
+/><!-- ========================= SECTION MAIN ========================= -->
 <section class="my-5 container-fluid">
   <div
     id="carouselExampleSlidesOnly"
@@ -86,34 +89,51 @@
           <var class="card-text fw-bold">&#8377;{{product.price}}</var>
           <div class="ms-auto">
             {%if product.average_rating > 0 and product.average_rating <= 0.5%}
-            <!-- separator -->
             <i class="bi bi-star-half text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
             {% endif %}
             <!-- separator -->
             {%if product.average_rating > 0.5 and product.average_rating <= 1%}
             <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
             {% endif %}
             <!-- separator -->
             {%if product.average_rating > 1 and product.average_rating <= 1.5%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-half text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
             {% endif %}
             <!-- separator -->
             {%if product.average_rating > 1.5 and product.average_rating <= 2%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
             {% endif %}
             <!-- separator -->
             {%if product.average_rating > 2 and product.average_rating <= 2.5%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-half text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
             {% endif %}
             <!-- separator -->
             {%if product.average_rating > 2.5 and product.average_rating <= 3%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
             {% endif %}
             <!-- separator -->
             {%if product.average_rating > 3 and product.average_rating <= 3.5%}
@@ -121,6 +141,7 @@
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-half text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
             {% endif %}
             <!-- separator -->
             {%if product.average_rating > 3.5 and product.average_rating <= 4%}
@@ -128,6 +149,7 @@
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
+            <i class="bi bi-star text-warning"></i>
             {% endif %}
             <!-- separator -->
             {%if product.average_rating > 4 and product.average_rating <= 4.5%}

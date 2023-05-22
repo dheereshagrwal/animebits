@@ -5,42 +5,115 @@
 {% block content %}
 <link href="{% static 'css/rating.css' %}" rel="stylesheet" type="text/css" />
 <section class="container-fluid mt-5">
-  <div class="row mx-3 mx-lg-5 g-5">
-    <div class="col-md-6 col-lg-4">
-      <img src="{{product.image.url}}" class="rounded-5 img-thumbnail" />
+  <div class="row">
+    <div class="col-lg-5">
+      <div id="product_gallery" class="carousel slide">
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#product_gallery"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          {% for image in product_gallery %}
+          <button
+            type="button"
+            data-bs-target="#product_gallery"
+            data-bs-slide-to="{{ forloop.counter }}"
+            aria-label="Slide {{ forloop.counter|add:1 }}"
+          ></button>
+          {% endfor %}
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="{{product.image.url}}"
+              class="d-block w-100"
+              alt="product image"
+            />
+          </div>
+          {% for image in product_gallery %}
+          <div class="carousel-item">
+            <img
+              src="{{image.image.url}}"
+              class="d-block w-100"
+              alt="product image"
+            />
+          </div>
+          {% endfor %}
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#product_gallery"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#product_gallery"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
     </div>
-    <main class="col-md-6 col-lg-8 d-flex flex-column justify-content-between">
+    <main class="col-lg-6 d-flex flex-column justify-content-between mx-auto">
       <div>
         <h2 class="fs-4 font-poppins fw-semibold">{{product.name}}</h2>
         <div class="mb-4">
           {% if product.average_rating > 0 and product.average_rating <= 0.5 %}
           <i class="bi bi-star-half text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
           {% endif %}
           <!-- separator -->
           {% if product.average_rating > 0.5 and product.average_rating <= 1 %}
           <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
           {% endif %}
           <!-- separator -->
           {% if product.average_rating > 1 and product.average_rating <= 1.5 %}
           <i class="bi bi-star-fill text-warning"></i>
           <i class="bi bi-star-half text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
           {% endif %}
           <!-- separator -->
           {% if product.average_rating > 1.5 and product.average_rating <= 2 %}
           <i class="bi bi-star-fill text-warning"></i>
           <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
           {% endif %}
           <!-- separator -->
           {% if product.average_rating > 2 and product.average_rating <= 2.5 %}
           <i class="bi bi-star-fill text-warning"></i>
           <i class="bi bi-star-fill text-warning"></i>
           <i class="bi bi-star-half text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
           {% endif %}
           <!-- separator -->
           {% if product.average_rating > 2.5 and product.average_rating <= 3 %}
           <i class="bi bi-star-fill text-warning"></i>
           <i class="bi bi-star-fill text-warning"></i>
           <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
           {% endif %}
           <!-- separator -->
           {% if product.average_rating > 3 and product.average_rating <= 3.5 %}
@@ -48,6 +121,7 @@
           <i class="bi bi-star-fill text-warning"></i>
           <i class="bi bi-star-fill text-warning"></i>
           <i class="bi bi-star-half text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
           {% endif %}
           <!-- separator -->
           {% if product.average_rating > 3.5 and product.average_rating <= 4 %}
@@ -55,6 +129,7 @@
           <i class="bi bi-star-fill text-warning"></i>
           <i class="bi bi-star-fill text-warning"></i>
           <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star text-warning"></i>
           {% endif %}
           <!-- separator -->
           {% if product.average_rating > 4 and product.average_rating <= 4.5 %}
@@ -130,7 +205,10 @@
               <span>Add to cart</span>
               <i class="bi bi-cart-plus"></i>
             </button>
-            <a href="{% url 'cart' %}" class="btn btn-outline-secondary font-inter">
+            <a
+              href="{% url 'cart' %}"
+              class="btn btn-outline-secondary font-inter"
+            >
               <span>View Cart</span>
               <i class="bi bi-cart-fill"></i>
             </a>
@@ -139,7 +217,10 @@
               <span>Out of stock</span>
               <i class="bi bi-cart-x"></i>
             </button>
-            <a href="{% url 'cart' %}" class="btn btn-outline-primary font-inter">
+            <a
+              href="{% url 'cart' %}"
+              class="btn btn-outline-primary font-inter"
+            >
               <span>View Cart</span>
               <i class="bi bi-cart-fill"></i>
             </a>

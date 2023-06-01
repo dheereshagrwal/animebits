@@ -5,11 +5,6 @@
       href="{% url 'my_orders' %}"
       >Order History</a
     >
-    <a
-      class="list-group-item {% if '/addresses/' == request.path %}active{% endif %}"
-      href="{% url 'addresses' %}"
-      >Addresses</a
-    >
   </ul>
   <br />
   <a class="btn btn-outline-dark" href="{% url 'logout' %}">

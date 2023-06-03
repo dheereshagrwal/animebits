@@ -2,7 +2,12 @@
 <nav class="navbar mt-3 mx-lg-5">
   <div class="container-fluid d-flex align-items-center">
     <a class="navbar-brand" href="/">
-      <img width="30" height="30" src="{% static 'images/icons/logo.svg' %}" />
+      <img
+        width="30"
+        height="30"
+        src="{% static 'images/icons/logo.svg' %}"
+        style="filter: invert(1)"
+      />
     </a>
     <div class="d-none d-sm-block w-50 me-1">
       <form
@@ -12,7 +17,7 @@
         method="GET"
       >
         <input
-          class="form-control me-2"
+          class="form-control me-2 bg-dark text-white border-2 border-secondary"
           type="search"
           placeholder="Search"
           aria-label="Search"
@@ -27,7 +32,7 @@
       {% load socialaccount %} {% if not user.is_authenticated %}
       <a
         href="{% url 'login' %}"
-        class="btn btn-outline-secondary rounded-4 hvr-icon-pulse-grow d-flex align-items-center gap-2"
+        class="btn btn-outline-light rounded-4 hvr-icon-pulse-grow d-flex align-items-center gap-2"
       >
         <span class="font-poppins">Login</span>
         <i class="ci ci-google ci-sm hvr-icon"></i>

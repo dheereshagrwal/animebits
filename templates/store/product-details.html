@@ -66,7 +66,7 @@
     </div>
     <main class="col-lg-6 d-flex flex-column justify-content-between mx-auto">
       <div>
-        <h2 class="fs-4 font-poppins fw-semibold">{{product.name}}</h2>
+        <h2 class="font-rubik fw-semibold text-white fs-1">{{product.name}}</h2>
         <div class="mb-4">
           {% if product.average_rating > 0 and product.average_rating <= 0.5 %}
           <i class="bi bi-star-half text-warning"></i>
@@ -147,10 +147,10 @@
           <i class="bi bi-star-fill text-warning"></i>
           <i class="bi bi-star-fill text-warning"></i>
           {% endif %}
-          <span class="text-secondary">{{reviews.count}} reviews</span>
+          <span class="text-secondary font-rubik">{{reviews.count}} reviews</span>
         </div>
-        <var>&#8377;{{product.price}}</var>
-        <p>{{product.description}}</p>
+        <var class="text-secondary fw-bold fs-3 font-rubik">&#8377;{{product.price}}</var>
+        <p class="text-white font-rubik fs-5">{{product.description}}</p>
       </div>
 
       <form
@@ -161,7 +161,7 @@
       >
         {% csrf_token %}
         <div>
-          <h6>Select Size</h6>
+          <h6 class="text-white">Select Size</h6>
           <div
             class="btn-group btn-group-lg"
             role="group"
@@ -193,7 +193,7 @@
             id="gift"
             name="gift"
           />
-          <label class="form-check-label fw-semibold" for="gift">
+          <label class="form-check-label fw-semibold text-white" for="gift">
             🎁Want to wrap as a gift?
           </label>
         </div>
@@ -201,13 +201,13 @@
         <div>
           <div class="btn-group" role="group">
             {% if product.stock > 0 and product.is_available %}
-            <button class="btn btn-outline-primary font-inter" type="submit">
+            <button class="btn btn-primary font-inter me-1" type="submit">
               <span>Add to cart</span>
               <i class="bi bi-cart-plus"></i>
             </button>
             <a
               href="{% url 'cart' %}"
-              class="btn btn-outline-secondary font-inter"
+              class="btn btn-secondary font-inter"
             >
               <span>View Cart</span>
               <i class="bi bi-cart-fill"></i>
@@ -219,7 +219,7 @@
             </button>
             <a
               href="{% url 'cart' %}"
-              class="btn btn-outline-primary font-inter"
+              class="btn btn-primary font-inter"
             >
               <span>View Cart</span>
               <i class="bi bi-cart-fill"></i>
@@ -231,11 +231,11 @@
     </main>
   </div>
   <div class="mx-3 mx-lg-5 mt-5">
-    <h5 class="font-poppins fw-bold mt-5">Write Your Review</h5>
+    <h5 class="font-karla fw-bold mt-5 text-white">Write Your Review</h5>
     <form method="POST" action="{% url 'submit_review' product.id %}">
       {% csrf_token %}
       <div class="mb-3">
-        <label class="form-label" for="rating"
+        <label class="form-label text-white font-karla" for="rating"
           >How do you rate this product?</label
         >
         <br />
@@ -329,19 +329,19 @@
         </div>
       </div>
       <div class="mb-3">
-        <label for="title" class="form-label">Review Title</label>
+        <label for="title" class="form-label text-white">Review Title</label>
         <input
           type="text"
-          class="form-control"
+          class="form-control bg-dark text-white border border-secondary"
           id="title"
           name="title"
           placeholder="Awesome T-shirt"
         />
       </div>
       <div class="mb-3">
-        <label for="review" class="form-label">Write a review</label>
+        <label for="review" class="form-label text-white">Write a review</label>
         <textarea
-          class="form-control"
+          class="form-control bg-dark text-white border border-secondary"
           id="review"
           rows="3"
           name="review"
@@ -352,17 +352,17 @@
       {% if order_product %}
       <input type="submit" class="btn btn-primary" value="Submit Review" />
       {% else %}
-      <p>You must purchase this product to add a review.</p>
+      <p class="text-white font-karla">You must purchase this product to add a review.</p>
       {% endif %}
       <!-- separator -->
       {% else %}
-      <p>
+      <p class="text-white">
         You must be logged in to post a review.
         <a href="{% url 'login' %}" class="text-decoration-none">Login now</a>
       </p>
       {% endif %}
     </form>
-    <h3 class="font-poppins fw-bold mt-5">Customer Reviews</h3>
+    <h3 class="font-poppins fw-bold mt-5 text-white">Customer Reviews</h3>
     <div class="mb-4">
       {% if product.average_rating > 0 and product.average_rating <= 0.5 %}
       <i class="bi bi-star-half text-warning"></i>
@@ -423,7 +423,7 @@
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-fill text-warning"></i>
       {% endif %}
-      <span class="text-secondary">{{reviews.count}} reviews</span>
+      <span class="text-white">{{reviews.count}} reviews</span>
     </div>
     {% for review in reviews %}
     <div class="px-3 pt-3 bg-light">

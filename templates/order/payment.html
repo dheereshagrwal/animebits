@@ -3,22 +3,22 @@
   <div class="mx-3 mx-lg-5">
     <h3 class="mb-5">Order Summary</h3>
     <div class="row">
-      <aside class="col-lg-9 hvr-shadow">
-        <div class="card mb-2">
-          <h5 class="card-header">Billing Address</h5>
-          <div class="card-body">
+      <aside class="col-lg-9">
+        <div class="card mb-2 bg-dark text-white border">
+          <h5 class="card-header font-poppins border">Billing Address</h5>
+          <div class="card-body font-karla">
             <p class="card-text mb-0">{{user_info.name}}</p>
             <p class="card-text mb-0">
               {{order.address_1}}, {{order.address_2}}
             </p>
             <p class="card-text mb-0">
-              {{order.city}}, {{order.state}}, {{order.zip}}
+              {{order.city}}, {{order.state}}, <span class="font-rubik">{{order.zip}}</span>
             </p>
             <p class="card-text mb-0">{{order.email}}</p>
-            <p class="card-text mb-0">{{order.phone}}</p>
+            <p class="card-text mb-0 font-rubik">{{order.phone}}</p>
             {% if order.note %}
             <p class="card-text mb-0">
-              <b>Order Note: </b>{{order.note}}
+              <span class="fw-bold">Order Note: </span>{{order.note}}
             </p>
             {% endif %}
           </div>
@@ -26,7 +26,7 @@
         <div>
           <table class="table table-borderless">
             <thead class="text-body-secondary">
-              <tr class="small text-lowercase font-poppins">
+              <tr class="small text-lowercase font-poppins text-secondary">
                 <th class="col-3 col-md-8">product</th>
                 <th class="col-6 col-md-3 ps-5">quantity</th>
                 <th>price</th>
@@ -49,17 +49,17 @@
                     >
                       <a
                         href="{{cart_item.product.get_url}}"
-                        class="text-dark text-decoration-none font-poppins small d-md-none"
+                        class="text-white text-decoration-none font-poppins small d-md-none"
                         >{{cart_item.product.name}}</a
                       >
                       <a
                         href="{{cart_item.product.get_url}}"
-                        class="text-dark text-decoration-none font-poppins d-none fs-5 d-md-inline"
+                        class="text-white text-decoration-none font-poppins d-none fs-5 d-md-inline"
                       >
                         {{cart_item.product.name}}
                       </a>
 
-                     <p class="text-body-secondary font-poppins small">
+                     <p class="text-secondary font-poppins small">
                       {% for variation in cart_item.variations.all %}
                       <!-- separator -->
                       {% if variation.variation_category|lower == "gift" %}
@@ -84,15 +84,15 @@
                   </figure>
                 </td>
                 <td class="ps-5">
-                  <p class="text-body-secondary font-poppins small">
+                  <p class="text-white font-rubik small">
                     {{cart_item.quantity}}
                   </p>
                 </td>
                 <td>
-                  <div class="font-poppins">
+                  <div class="text-white font-rubik">
                     <p>&#8377;{{cart_item.subtotal}}</p>
                     <small>
-                      <var class="text-body-secondary small"
+                      <var class="text-secondary small"
                         >&#8377;{{cart_item.product.price}} each</var
                       ></small
                     >
@@ -105,8 +105,8 @@
         </div>
       </aside>
       <aside class="col-lg-3 mt-4 mt-lg-0">
-        <div class="card font-poppins">
-          <div class="card-body hvr-shadow">
+        <div class="card font-rubik text-white bg-dark">
+          <div class="card-body border rounded-2 hvr-shadow">
             <ul class="list-inline">
               <li class="list-inline-item">Total:</li>
               <li class="list-inline-item float-end">&#8377;{{order.total}}</li>
@@ -131,11 +131,11 @@
             <div
               class="d-flex flex-lg-column align-items-center align-items-lg-start"
             >
-              <img height="50" src="{% static 'images/icons/cashfree.svg' %}" />
+              <i class="ci ci-cashfree ci-3x"></i>
               <br />
               <a
                 href="{% url 'payment' order.order_id %}"
-                class="btn btn-primary ms-auto ms-lg-0"
+                class="btn btn-primary ms-auto ms-lg-0 font-inter"
                 >Pay</a
               >
             </div>

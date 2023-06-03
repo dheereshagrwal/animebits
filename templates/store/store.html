@@ -2,9 +2,9 @@
 <section class="container-fluid mt-5">
   <div class="mx-2 mx-lg-5">
     {% if 'search' in request.path %}
-    <h2 class="title-page">Search Results</h2>
+    <h2 class="title-page text-white">Search Results</h2>
     {% else %}
-    <h2 class="title-page">Our Store</h2>
+    <h2 class="title-page text-white font-poppins">Our Store</h2>
     {% endif %}
   </div>
 </section>
@@ -13,8 +13,8 @@
     <div class="row g-5">
       <div class="col-md-3 col-xl-2">
         <aside>
-          <div class="card">
-            <header class="card-header">
+          <div class="card bg-dark border">
+            <header class="card-header bg-secondary text-white">
               <div
                 data-bs-toggle="collapse"
                 data-bs-target="#collapse_categories"
@@ -22,7 +22,7 @@
                 class="d-flex"
                 role="button"
               >
-                <h6 class="title">Categories</h6>
+                <h6 class="title font-poppins">Categories</h6>
                 <i class="bi bi-chevron-down ms-auto"></i>
               </div>
             </header>
@@ -30,7 +30,7 @@
               <div class="card-body">
                 <ul class="list-unstyled">
                   <li>
-                    <a href="{% url 'store' %}" class="text-decoration-none"
+                    <a href="{% url 'store' %}" class="text-decoration-none font-karla"
                       >All Products</a
                     >
                   </li>
@@ -38,7 +38,7 @@
                   <li>
                     <a
                       href="{{category.get_url}}"
-                      class="text-decoration-none {% if category.get_url in request.path %}text-success{% else %}text-black{% endif %}"
+                      class="text-decoration-none font-karla {% if category.get_url in request.path %}text-success{% else %}text-white{% endif %}"
                     >
                       {{category.name}}
                     </a>
@@ -50,8 +50,8 @@
           </div>
         </aside>
         <aside class="mt-2">
-          <div class="card">
-            <header class="card-header">
+          <div class="card bg-dark border">
+            <header class="card-header bg-secondary text-white">
               <div
                 data-bs-toggle="collapse"
                 data-bs-target="#collapse_animes"
@@ -59,7 +59,7 @@
                 class="d-flex"
                 role="button"
               >
-                <h6 class="title">Anime</h6>
+                <h6 class="title font-poppins">Anime</h6>
                 <i class="bi bi-chevron-down ms-auto"></i>
               </div>
             </header>
@@ -67,13 +67,13 @@
               <div class="card-body">
                 <ul class="list-unstyled">
                   <li>
-                    <a href="{% url 'store' %}" class="text-decoration-none"
+                    <a href="{% url 'store' %}" class="text-decoration-none font-karla"
                       >All Products</a
                     >
                   </li>
                   {% for anime in animes %}
                   <li>
-                    <a href="#" class="text-decoration-none text-secondary"
+                    <a href="#" class="text-decoration-none text-secondary font-karla"
                       >{{anime.name}}</a
                     >
                   </li>
@@ -85,7 +85,7 @@
         </aside>
       </div>
       <main class="col-md-9 col-xl-10">
-        <header class="mb-4 font-pacifico fs-5">
+        <header class="mb-4 font-rubik fs-6 text-white">
           {% if products_count == 1 %}
           <span>{{products_count}} item found </span>
           {% else %}
@@ -106,13 +106,13 @@
           >
             <img
               src="{{ product.image.url }}"
-              class="card-img-top rounded-5"
+              class="card-img-top rounded-top-5"
               alt="{{ product.name }}"
             />
             <div class="card-body">
-              <p class="card-text fs-6">{{ product.name }}</p>
+              <p class="card-text fs-6 font-dm-sans">{{ product.name }}</p>
               <div class="d-flex">
-                <var class="card-text fw-bold">&#8377;{{product.price}}</var>
+                <var class="card-text fw-bold font-rubik text-secondary">&#8377;{{product.price}}</var>
                 <div class="ms-auto">
                   <i class="bi bi-star-fill text-warning"></i>
                   <i class="bi bi-star-fill text-warning"></i>

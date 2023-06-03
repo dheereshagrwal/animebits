@@ -3,41 +3,40 @@
   <div>
     <div class="text-center">
       <i
-        class="bi bi-check-circle-fill text-success"
-        style="font-size: 5rem"
+        class="bi bi-check-circle-fill text-success fs-1"
       ></i>
-      <h2 class="font-karla">Payment Successful</h2>
+      <h2 class="font-dm-sans text-white">Payment Successful</h2>
       <a href="{% url 'store' %}" class="btn btn-success mt-5 font-inter">Shop more</a>
     </div>
-    <div class="col-lg-8 card mt-3 mx-auto bg-body-tertiary">
-      <div>
+    <div class="col-lg-8 card mt-3 mx-auto bg-dark border">
+      <div class="p-4">
         <div class="d-flex justify-content-between">
           <img
             src="{% static 'images/icons/logo.svg' %}"
             alt="logo"
             height="50"
             width="50"
-            class="p-2"
+            style="filter: invert(1)"
           />
-          <div class="p-2">
+          <div class="text-white font-karla">
             <p class="mb-0 fw-bold">Invoiced To</p>
             <p class="mb-0">{{user_info.name}}</p>
             <p class="mb-0">{{order.address_1}}, {{order.address_2}}</p>
-            <p class="mb-0">{{order.city}}, {{order.state}}, {{order.zip}}</p>
+            <p class="mb-0">{{order.city}}, {{order.state}}, <span class="font-rubik">{{order.zip}}</span></p>
             <p class="mb-0">{{order.email}}</p>
-            <p class="mb-0">{{order.phone}}</p>
+            <p class="mb-0 font-rubik">{{order.phone}}</p>
             {% if order.note %}
             <p class="mb-0"><b>Order Note: </b>{{order.note}}</p>
             {% endif %}
           </div>
         </div>
-        <div class="p-2 small text-secondary fw-bold mt-5">
+        <div class="small text-secondary fw-bold my-5 font-rubik">
           <p class="mb-0">{{order.order_id}}</p>
           <p class="mb-0">{{order.updated_at}}</p>
           <p class="mb-0 text-success">SUCCESS</p>
         </div>
-        <table class="table">
-          <thead class="text-body-secondary card-header">
+        <table class="table table-borderless">
+          <thead class="text-secondary card-header border-0">
             <tr class="small text-lowercase font-poppins">
               <th class="col-4 col-md-9">product</th>
               <th class="col-4 col-md-2 px-5 px-md-0">quantity</th>
@@ -61,16 +60,16 @@
                   >
                     <a
                       href="{{ordered_product.product.get_url}}"
-                      class="text-dark text-decoration-none font-poppins small d-md-none"
+                      class="text-white text-decoration-none font-poppins small d-md-none text-capitalize"
                       >{{ordered_product.product.name}}</a
                     >
                     <a
                       href="{{ordered_product.product.get_url}}"
-                      class="text-dark text-decoration-none font-poppins d-none fs-5 d-md-inline"
+                      class="text-white text-decoration-none font-poppins d-none fs-5 d-md-inline text-capitalize"
                     >
                       {{ordered_product.product.name}}
                     </a>
-                    <p class="text-body-secondary font-poppins small">
+                    <p class="text-secondary font-poppins small">
                       {% for variation in ordered_product.variations.all %}
                       <!-- separator -->
                       {% if variation.variation_category|lower == "gift" %}
@@ -94,14 +93,14 @@
                   </figcaption>
                 </figure>
               </td>
-              <td class="px-5 px-md-0">
+              <td class="px-5 px-md-0 font-rubik text-white">
                 <div>{{ordered_product.quantity}}</div>
               </td>
               <td>
-                <div class="font-poppins">
+                <div class="font-rubik text-white">
                   <p>&#8377;{{ordered_product.subtotal}}</p>
                   <small>
-                    <var class="text-body-secondary small"
+                    <var class="text-secondary small"
                       >&#8377;{{ordered_product.product.price}} each</var
                     ></small
                   >
@@ -112,7 +111,7 @@
           </tbody>
         </table>
       </div>
-      <div class="font-poppins ms-auto p-2">
+      <div class="font-rubik text-white ms-auto p-4">
         <div>
           <ul class="list-inline">
             <li class="list-inline-item">Total:</li>

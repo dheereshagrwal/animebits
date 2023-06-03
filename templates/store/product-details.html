@@ -6,7 +6,7 @@
 <link href="{% static 'css/rating.css' %}" rel="stylesheet" type="text/css" />
 <section class="container-fluid mt-5">
   <div class="row">
-    <div class="col-lg-5">
+    <div class="col-lg-4">
       <div id="product_gallery" class="carousel slide">
         <div class="carousel-indicators">
           <button
@@ -64,9 +64,9 @@
         </button>
       </div>
     </div>
-    <main class="col-lg-6 d-flex flex-column justify-content-between mx-auto">
+    <main class="col-lg-7 d-flex flex-column justify-content-between mx-auto">
       <div>
-        <h2 class="font-rubik fw-semibold text-white fs-1">{{product.name}}</h2>
+        <h2 class="font-poppins text-white fs-1 text-capitalize">{{product.name}}</h2>
         <div class="mb-4">
           {% if product.average_rating > 0 and product.average_rating <= 0.5 %}
           <i class="bi bi-star-half text-warning"></i>
@@ -150,7 +150,7 @@
           <span class="text-secondary font-rubik">{{reviews.count}} reviews</span>
         </div>
         <var class="text-secondary fw-bold fs-3 font-rubik">&#8377;{{product.price}}</var>
-        <p class="text-white font-rubik fs-5">{{product.description}}</p>
+        <p class="text-white font-dm-sans fs-5">{{product.description}}</p>
       </div>
 
       <form
@@ -329,17 +329,17 @@
         </div>
       </div>
       <div class="mb-3">
-        <label for="title" class="form-label text-white">Review Title</label>
+        <label for="title" class="form-label text-white font-karla">Review Title</label>
         <input
           type="text"
-          class="form-control bg-dark text-white border border-secondary"
+          class="form-control bg-dark text-white border border-secondary font-karla"
           id="title"
           name="title"
           placeholder="Awesome T-shirt"
         />
       </div>
       <div class="mb-3">
-        <label for="review" class="form-label text-white">Write a review</label>
+        <label for="review" class="form-label text-white font-karla">Write a review</label>
         <textarea
           class="form-control bg-dark text-white border border-secondary"
           id="review"
@@ -423,7 +423,7 @@
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-fill text-warning"></i>
       {% endif %}
-      <span class="text-white">{{reviews.count}} reviews</span>
+      <span class="text-white font-rubik">{{reviews.count}} reviews</span>
     </div>
     {% for review in reviews %}
     <div class="px-3 pt-3 bg-light">

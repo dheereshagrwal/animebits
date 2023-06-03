@@ -40,12 +40,12 @@
                     >
                       <a
                         href="{{cart_item.product.get_url}}"
-                        class="text-white text-decoration-none font-rubik small d-md-none"
+                        class="text-white text-decoration-none font-poppins small d-md-none text-capitalize"
                         >{{cart_item.product.name}}</a
                       >
                       <a
                         href="{{cart_item.product.get_url}}"
-                        class="text-white text-decoration-none font-rubik d-none fs-5 d-md-inline"
+                        class="text-white text-decoration-none font-poppins d-none fs-5 d-md-inline text-capitalize"
                       >
                         {{cart_item.product.name}}
                       </a>
@@ -139,7 +139,7 @@
         </div>
       </aside>
       <aside class="col-lg-3 mt-4 mt-lg-0">
-        <div class="card font-poppins bg-dark text-white">
+        <div class="card font-rubik bg-dark text-white">
           <div class="card-body hvr-shadow">
             <ul class="list-inline">
               <li class="list-inline-item">Total:</li>
@@ -167,7 +167,7 @@
               <br />
               <a
                 href="{% url 'checkout' %}"
-                class="btn btn-primary ms-auto ms-lg-0"
+                class="btn btn-primary ms-auto ms-lg-0 font-inter"
                 >Checkout</a
               >
             </div>

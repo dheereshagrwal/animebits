@@ -66,7 +66,9 @@
     </div>
     <main class="col-lg-7 d-flex flex-column justify-content-between mx-auto">
       <div>
-        <h2 class="font-poppins text-white fs-1 text-capitalize">{{product.name}}</h2>
+        <h2 class="font-poppins text-white fs-1 text-capitalize">
+          {{product.name}}
+        </h2>
         <div class="mb-4">
           {% if product.average_rating > 0 and product.average_rating <= 0.5 %}
           <i class="bi bi-star-half text-warning"></i>
@@ -147,17 +149,20 @@
           <i class="bi bi-star-fill text-warning"></i>
           <i class="bi bi-star-fill text-warning"></i>
           {% endif %}
-          <span class="text-secondary font-rubik">{{reviews.count}} reviews</span>
+          <span class="text-secondary font-rubik"
+            >{{reviews.count}} reviews</span
+          >
         </div>
-        <var class="text-secondary fw-bold fs-3 font-rubik">&#8377;{{product.price}}</var>
+        <var class="text-secondary fw-bold fs-3 font-rubik"
+          >&#8377;{{product.price}}</var
+        >
         <p class="text-white font-dm-sans fs-5">{{product.description}}</p>
       </div>
 
       <form
-        class="font-poppins"
+        class="font-karla"
         action="{% url 'add_cart' product.id %}"
         method="POST"
-        id="variationsForm"
       >
         {% csrf_token %}
         <div>
@@ -193,7 +198,7 @@
             id="gift"
             name="gift"
           />
-          <label class="form-check-label fw-semibold text-white" for="gift">
+          <label class="form-check-label fw-semibold text-white font-karla" for="gift">
             🎁Want to wrap as a gift?
           </label>
         </div>
@@ -205,10 +210,7 @@
               <span>Add to cart</span>
               <i class="bi bi-cart-plus"></i>
             </button>
-            <a
-              href="{% url 'cart' %}"
-              class="btn btn-secondary font-inter"
-            >
+            <a href="{% url 'cart' %}" class="btn btn-secondary font-inter">
               <span>View Cart</span>
               <i class="bi bi-cart-fill"></i>
             </a>
@@ -217,10 +219,7 @@
               <span>Out of stock</span>
               <i class="bi bi-cart-x"></i>
             </button>
-            <a
-              href="{% url 'cart' %}"
-              class="btn btn-primary font-inter"
-            >
+            <a href="{% url 'cart' %}" class="btn btn-primary font-inter">
               <span>View Cart</span>
               <i class="bi bi-cart-fill"></i>
             </a>
@@ -329,7 +328,9 @@
         </div>
       </div>
       <div class="mb-3">
-        <label for="title" class="form-label text-white font-karla">Review Title</label>
+        <label for="title" class="form-label text-white font-karla"
+          >Review Title</label
+        >
         <input
           type="text"
           class="form-control bg-dark text-white border border-secondary font-karla"
@@ -339,7 +340,9 @@
         />
       </div>
       <div class="mb-3">
-        <label for="review" class="form-label text-white font-karla">Write a review</label>
+        <label for="review" class="form-label text-white font-karla"
+          >Write a review</label
+        >
         <textarea
           class="form-control bg-dark text-white border border-secondary"
           id="review"
@@ -350,13 +353,19 @@
       {% if user.is_authenticated %}
       <!-- separator -->
       {% if order_product %}
-      <input type="submit" class="btn btn-primary" value="Submit Review" />
+      <input
+        type="submit"
+        class="btn btn-primary font-inter"
+        value="Submit Review"
+      />
       {% else %}
-      <p class="text-white font-karla">You must purchase this product to add a review.</p>
+      <p class="text-white font-karla">
+        You must purchase this product to add a review.
+      </p>
       {% endif %}
       <!-- separator -->
       {% else %}
-      <p class="text-white">
+      <p class="text-white font-dm-sans">
         You must be logged in to post a review.
         <a href="{% url 'login' %}" class="text-decoration-none">Login now</a>
       </p>

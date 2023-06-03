@@ -17,7 +17,7 @@
                       type="text"
                       class="form-control bg-dark text-white font-rubik"
                       id="phone"
-                      placeholder="Your phone"
+                      placeholder="1234567890"
                       name="phone"
                       oninput="javascript: if (isNaN(this.value) || /\s/.test(this.value)) this.value = '';"
                       maxlength="10"
@@ -27,10 +27,10 @@
                   </div>
                 </div>
                 <div class="col-12">
-                  <label for="address_1" class="form-label text-white font-poppins">Address</label>
+                  <label for="address_1" class="form-label text-white font-karla">Address</label>
                   <input
                     type="text"
-                    class="form-control bg-dark text-white font-rubik border-secondary"
+                    class="form-control bg-dark text-white font-karla border-secondary"
                     id="address_1"
                     placeholder="1234 Main St"
                     name="address_1"
@@ -38,10 +38,10 @@
                   />
                 </div>
                 <div class="col-12">
-                  <label for="address_2" class="form-label text-white font-poppins">Address 2</label>
+                  <label for="address_2" class="form-label text-white font-karla">Address 2</label>
                   <input
                     type="text"
-                    class="form-control bg-dark text-white font-rubik border-secondary"
+                    class="form-control bg-dark text-white font-karla border-secondary"
                     id="address_2"
                     placeholder="Apartment, studio, or floor"
                     name="address_2"
@@ -49,10 +49,10 @@
                   />
                 </div>
                 <div class="col-md-6">
-                  <label for="city" class="form-label text-white font-poppins">City</label>
+                  <label for="city" class="form-label text-white font-karla">City</label>
                   <input
                     type="text"
-                    class="form-control bg-dark text-white font-rubik border-secondary"
+                    class="form-control bg-dark text-white font-karla border-secondary"
                     id="city"
                     name="city"
                     placeholder="New Delhi"
@@ -60,8 +60,8 @@
                   />
                 </div>
                 <div class="col-md-4">
-                  <label for="state" class="form-label text-white font-poppins">State</label>
-                  <select id="state" class="form-select bg-dark text-white font-rubik border-secondary" name="state" required>
+                  <label for="state" class="form-label text-white font-karla">State</label>
+                  <select id="state" class="form-select bg-dark text-white font-karla border-secondary" name="state" required>
                     <option selected disabled>Choose...</option>
                     <option>Andaman and Nicobar Islands</option>
                     <option>Andhra Pradesh</option>
@@ -103,7 +103,7 @@
                 </div>
 
                 <div class="col-md-2">
-                  <label for="zip" class="form-label font-poppins text-white">Zip</label>
+                  <label for="zip" class="form-label font-karla text-white">Zip</label>
                   <input
                     type="text"
                     class="form-control bg-dark text-white font-rubik border-secondary"
@@ -117,9 +117,9 @@
                   />
                 </div>
                 <div>
-                  <label for="note" class="form-label text-white font-poppins">Order Note</label>
+                  <label for="note" class="form-label text-white font-karla">Order Note</label>
                   <textarea
-                    class="form-control bg-dark text-white font-rubik border-secondary"
+                    class="form-control bg-dark text-white font-karla border-secondary"
                     id="note"
                     rows="3"
                     name="note"
@@ -203,10 +203,10 @@
                   <div class="text-white font-rubik">{{cart_item.quantity}}</div>
                 </td>
                 <td>
-                  <div class="font-poppins">
+                  <div class="font-rubik text-white">
                     <p>&#8377;{{cart_item.subtotal}}</p>
                     <small>
-                      <var class="text-body-secondary small"
+                      <var class="text-secondary small"
                         >&#8377;{{cart_item.product.price}} each</var
                       ></small
                     >

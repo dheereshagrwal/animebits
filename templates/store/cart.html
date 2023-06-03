@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <section class="container-fluid mt-5">
   {% if not cart_items %}
-  <div class="d-flex flex-column align-items-center">
+  <div class="d-flex flex-column align-items-center text-white">
     <h2>Your Shopping Cart is Empty</h2>
     <br />
     <a href="{% url 'store' %}" class="btn btn-outline-primary text-center"
@@ -12,10 +12,10 @@
   {% else %}
   <div class="mx-3 mx-lg-5">
     <div class="row">
-      <aside class="col-lg-9 hvr-shadow card">
+      <aside class="col-lg-9 hvr-shadow card bg-dark">
         <div>
           <table class="table table-borderless">
-            <thead class="text-body-secondary">
+            <thead class="text-secondary">
               <tr class="small text-lowercase font-poppins">
                 <th class="col-2 col-md-6">product</th>
                 <th class="col-4 col-md-2">quantity</th>
@@ -40,17 +40,17 @@
                     >
                       <a
                         href="{{cart_item.product.get_url}}"
-                        class="text-dark text-decoration-none font-poppins small d-md-none"
+                        class="text-white text-decoration-none font-rubik small d-md-none"
                         >{{cart_item.product.name}}</a
                       >
                       <a
                         href="{{cart_item.product.get_url}}"
-                        class="text-dark text-decoration-none font-poppins d-none fs-5 d-md-inline"
+                        class="text-white text-decoration-none font-rubik d-none fs-5 d-md-inline"
                       >
                         {{cart_item.product.name}}
                       </a>
 
-                      <p class="text-body-secondary font-poppins small">
+                      <p class="text-secondary font-rubik small">
                         {% for variation in cart_item.variations.all %}
                         <!-- separator -->
                         {% if variation.variation_category|lower == "gift" %}
@@ -80,13 +80,13 @@
                       <a
                         href="{% url 'remove_cart' cart_item.product.id cart_item.id %}"
                       >
-                        <button class="btn btn-light btn-sm" id="button-minus">
+                        <button class="btn btn-dark btn-sm" id="button-minus">
                           <i class="bi bi-dash-lg"></i>
                         </button>
                       </a>
                       <input
                         type="number"
-                        class="form-control text-center font-poppins"
+                        class="form-control text-center font-rubik bg-dark text-white border-0 hvr-box-shadow-inset"
                         value="{{cart_item.quantity}}"
                       />
                       <form
@@ -103,7 +103,7 @@
                         />
                         {% endfor %}
                         <button
-                          class="btn btn-light btn-sm"
+                          class="btn btn-dark btn-sm"
                           id="button-plus"
                           type="submit"
                         >
@@ -114,10 +114,10 @@
                   </div>
                 </td>
                 <td class="px-md-5">
-                  <div class="font-poppins">
+                  <div class="font-rubik text-white">
                     <p>&#8377;{{cart_item.subtotal}}</p>
                     <small>
-                      <var class="text-body-secondary small"
+                      <var class="text-secondary small"
                         >&#8377;{{cart_item.product.price}} each</var
                       ></small
                     >
@@ -139,7 +139,7 @@
         </div>
       </aside>
       <aside class="col-lg-3 mt-4 mt-lg-0">
-        <div class="card font-poppins">
+        <div class="card font-poppins bg-dark text-white">
           <div class="card-body hvr-shadow">
             <ul class="list-inline">
               <li class="list-inline-item">Total:</li>
@@ -163,7 +163,7 @@
             <div
               class="d-flex flex-lg-column align-items-center align-items-lg-start"
             >
-              <img height="50" src="{% static 'images/icons/cashfree.svg' %}" />
+              <i class="ci ci-cashfree ci-4x"></i>
               <br />
               <a
                 href="{% url 'checkout' %}"

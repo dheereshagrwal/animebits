@@ -48,7 +48,7 @@
     >
       <img
         src="{{category.image.url}}"
-        class="img-thumbnail rounded-5 bg-dark border-0 shadow-sm"
+        class="img-thumbnail rounded-5 bg-dark border border-black shadow"
         alt="{{ category.name }}"
       />
       <span
@@ -71,12 +71,12 @@
 </section>
 <br />
 <br /><br />
-<section class="container-fluid mt-5">
-  <div class="d-flex flex-wrap mt-1 gap-3">
+<section class="container-fluid">
+  <div class="d-flex flex-wrap mt-1">
     {% for product in products %}
     <a
       href="{{product.get_url}}"
-      class="text-decoration-none hvr-grow card shadow-sm rounded-5 mx-auto"
+      class="text-decoration-none hvr-shrink card shadow rounded-5 mx-auto bg-dark border border-black mb-5"
       style="width: 18rem"
     >
       <img
@@ -85,11 +85,11 @@
         alt="{{ product.name }}"
       />
       <div class="card-body">
-        <p class="card-text font-dm-sans fw-semibold text-capitalize">
+        <p class="card-text font-dm-sans fw-semibold text-capitalize text-white">
           {{ product.name }}
         </p>
         <div class="d-flex">
-          <var class="card-text font-rubik text-secondary fw-bold"
+          <var class="card-text font-rubik text-white fs-5 fw-bold"
             >&#8377;{{product.price}}</var
           >
           <div

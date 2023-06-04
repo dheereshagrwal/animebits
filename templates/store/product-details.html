@@ -66,7 +66,7 @@
     </div>
     <main class="col-lg-7 d-flex flex-column justify-content-between mx-auto">
       <div>
-        <h2 class="font-poppins text-white fs-1 text-capitalize">
+        <h2 class="font-dm-sans text-white fs-1 fw-semibold text-capitalize">
           {{product.name}}
         </h2>
         <div class="mb-4">
@@ -153,10 +153,10 @@
             >{{reviews.count}} reviews</span
           >
         </div>
-        <var class="text-secondary fw-bold fs-3 font-rubik"
+        <var class="text-secondary fw-bold fs-2 font-rubik"
           >&#8377;{{product.price}}</var
         >
-        <p class="text-white font-dm-sans fs-5">{{product.description}}</p>
+        <p class="text-light font-dm-sans fs-5">{{product.description}}</p>
       </div>
 
       <form
@@ -198,7 +198,10 @@
             id="gift"
             name="gift"
           />
-          <label class="form-check-label fw-semibold text-white font-karla" for="gift">
+          <label
+            class="form-check-label fw-semibold text-white font-karla"
+            for="gift"
+          >
             🎁Want to wrap as a gift?
           </label>
         </div>
@@ -243,88 +246,45 @@
             class="form-check-input d-none"
             type="radio"
             name="rating"
-            id="star10"
+            id="star5"
             value="5"
           />
-          <label class="form-check-label" for="star10" title="5"></label>
-          <input
-            class="form-check-input d-none"
-            type="radio"
-            name="rating"
-            id="star9"
-            value="4.5"
-          />
-          <label class="form-check-label half" for="star9" title="4.5"></label>
-          <input
-            class="form-check-input d-none"
-            type="radio"
-            name="rating"
-            id="star8"
-            value="4"
-          />
-          <label class="form-check-label" for="star8" title="4"></label>
-
-          <input
-            class="form-check-input d-none"
-            type="radio"
-            name="rating"
-            id="star7"
-            value="3.5"
-          />
-          <label class="form-check-label half" for="star7" title="3.5"></label>
-
-          <input
-            class="form-check-input d-none"
-            type="radio"
-            name="rating"
-            id="star6"
-            value="3"
-          />
-          <label class="form-check-label" for="star6" title="3"></label>
-
-          <input
-            class="form-check-input d-none"
-            type="radio"
-            name="rating"
-            id="star5"
-            value="2.5"
-          />
-          <label class="form-check-label half" for="star5" title="2.5"></label>
+          <label class="form-check-label" for="star5" title="5"></label>
           <input
             class="form-check-input d-none"
             type="radio"
             name="rating"
             id="star4"
-            value="2"
+            value="4"
           />
-          <label class="form-check-label" for="star4" title="2"></label>
+          <label class="form-check-label" for="star4" title="4"></label>
 
           <input
             class="form-check-input d-none"
             type="radio"
             name="rating"
             id="star3"
-            value="1.5"
+            value="3"
           />
-          <label class="form-check-label half" for="star3" title="1.5"></label>
+          <label class="form-check-label" for="star3" title="3"></label>
 
           <input
             class="form-check-input d-none"
             type="radio"
             name="rating"
             id="star2"
-            value="1"
+            value="2"
           />
-          <label class="form-check-label" for="star2" title="1"></label>
+          <label class="form-check-label" for="star2" title="2"></label>
 
           <input
             class="form-check-input d-none"
             type="radio"
             name="rating"
             id="star1"
-            value="0.5"
+            value="1"
           />
-          <label class="form-check-label half" for="star1" title="0.5"></label>
+          <label class="form-check-label" for="star1" title="1"></label>
         </div>
       </div>
       <div class="mb-3">
@@ -371,7 +331,7 @@
       </p>
       {% endif %}
     </form>
-    <h3 class="font-poppins fw-bold mt-5 text-white">Customer Reviews</h3>
+    <h3 class="font-dm-sans fw-bold mt-5 text-white">Customer Reviews</h3>
     <div class="mb-4">
       {% if product.average_rating > 0 and product.average_rating <= 0.5 %}
       <i class="bi bi-star-half text-warning"></i>

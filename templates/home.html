@@ -51,7 +51,7 @@
         class="img-thumbnail rounded-5 bg-dark border-0 shadow-sm"
         alt="{{ category.name }}"
       />
-      <span class="d-block text-center text-white font-poppins small mt-2"
+      <span class="d-block text-center text-white font-poppins fw-semibold small mt-2"
         >{{ category.name }}</span
       >
     </a>
@@ -61,8 +61,8 @@
 <br />
 <br /><br />
 <section class="container-fluid mt-5">
-  <div class="d-flex mx-md-2 mx-lg-5 font-poppins">
-    <h2 class="text-white">New Arrivals</h2>
+  <div class="d-flex mx-md-2 mx-lg-5">
+    <h2 class="text-white font-dm-sans">New Arrivals</h2>
     <a href="{% url 'store' %} " class="ms-auto text-decoration-none font-inter"
       ><button class="btn btn-primary">View All</button>
     </a>
@@ -87,7 +87,7 @@
         alt="{{ product.name }}"
       />
       <div class="card-body">
-        <p class="card-text font-poppins text-capitalize">{{ product.name }}</p>
+        <p class="card-text font-dm-sans fw-semibold text-capitalize">{{ product.name }}</p>
         <div class="d-flex">
           <var class="card-text font-rubik text-secondary fw-bold">&#8377;{{product.price}}</var>
           <div class="ms-auto">

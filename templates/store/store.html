@@ -111,44 +111,6 @@
               </div>
             </div>
           </aside>
-          <aside class="mt-2">
-            <div class="card bg-dark border">
-              <header class="card-header bg-secondary text-white">
-                <div
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapse_animes"
-                  aria-expanded="true"
-                  class="d-flex"
-                  role="button"
-                >
-                  <h6 class="title font-poppins">Anime</h6>
-                  <i class="bi bi-chevron-down ms-auto"></i>
-                </div>
-              </header>
-              <div class="collapse" id="collapse_animes">
-                <div class="card-body">
-                  <ul class="list-unstyled">
-                    <li>
-                      <a
-                        href="{% url 'store' %}"
-                        class="text-decoration-none font-rubik"
-                        >All Products</a
-                      >
-                    </li>
-                    {% for anime in animes %}
-                    <li>
-                      <a
-                        href="#"
-                        class="text-decoration-none text-secondary font-rubik"
-                        >{{anime.name}}</a
-                      >
-                    </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </aside>
         </div>
         <main class="col-md-9 col-xl-10">
           <header class="mb-4 font-rubik fs-6 text-white">

@@ -19,6 +19,13 @@ def store(request, category_slug=None):
         products = products.filter(category=categories).order_by("-created_date")
         products_count = products.count()
         
+    if request.GET.get("category"):
+        #get all the categories from the request
+        categories = request.GET.getlist("category")
+        #get all the products that belong to the categories
+        products = products.filter(category__name__in=categories).distinct().order_by("-created_date")
+        products_count = products.count()
+    
     if request.GET.get("sort"):
         sort = request.GET.get("sort")
         if sort == "best-sellers":

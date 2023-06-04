@@ -290,26 +290,45 @@
         <label for="title" class="form-label text-white font-karla"
           >Review Title</label
         >
+        {% if not user.is_authenticated or not order_product %}
         <input
           type="text"
           class="form-control bg-dark text-white border border-secondary font-karla disabled"
           id="title"
           name="title"
           placeholder="Awesome T-shirt"
-          {% if not user.is_authenticated or not order_product %}disabled{% endif %}
+          disabled
         />
+        {% else %}
+        <input
+          type="text"
+          class="form-control bg-dark text-white border border-secondary font-karla"
+          id="title"
+          name="title"
+          placeholder="Awesome T-shirt"
+        />
+        {% endif %}
       </div>
       <div class="mb-3">
         <label for="review" class="form-label text-white font-karla"
           >Write a review</label
         >
+        {% if not user.is_authenticated or not order_product %}
         <textarea
           class="form-control bg-dark text-white border border-secondary"
           id="review"
           rows="3"
           name="review"
-          {% if not user.is_authenticated or not order_product %}disabled{% endif %}
+          disabled
         ></textarea>
+        {% else %}
+        <textarea
+          class="form-control bg-dark text-white border border-secondary"
+          id="review"
+          rows="3"
+          name="review"
+        ></textarea>
+        {% endif %}
       </div>
 
       {% if user.is_authenticated %}
@@ -410,7 +429,9 @@
           />
           <h6 class="mt-auto font-rubik text-white">{{review.user}}</h6>
         </div>
-        <date class="ms-auto font-rubik text-secondary">{{review.updated_at}}</date>
+        <date class="ms-auto font-rubik text-secondary"
+          >{{review.updated_at}}</date
+        >
       </div>
       <div class="mb-3">
         {% if review.rating == 5 %}

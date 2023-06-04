@@ -13,11 +13,35 @@
         onchange="this.form.submit()"
       >
         <option selected disabled>Sort by</option>
-        <option value="best-sellers" {% if "best-sellers" in request.get_full_path %}selected{% endif %}>Best Sellers</option>
-        <option value="price-low-to-high" {% if "price-low-to-high" in request.get_full_path %}selected{% endif %}>Price: Low to High</option>
-        <option value="price-high-to-low" {% if "price-high-to-low" in request.get_full_path %}selected{% endif %}>Price: High to Low</option>
-        <option value="newest" {% if "newest" in request.get_full_path %}selected{% endif %}>Newest</option>
-        <option value="avg-rating" {% if "avg-rating" in request.get_full_path %}selected{% endif %}>Avg. Rating</option>
+        {% if "best-sellers" in request.get_full_path %}
+        <option value="best-sellers" selected>Best Sellers</option>
+        {% else %}
+        <option value="best-sellers">Best Sellers</option>
+        {% endif %}
+        <!-- separator -->
+        {% if "price-low-to-high" in request.get_full_path %}
+        <option value="price-low-to-high" selected>Price: Low to High</option>
+        {% else %}
+        <option value="price-low-to-high">Price: Low to High</option>
+        {% endif %}
+        <!-- separator -->
+        {% if "price-high-to-low" in request.get_full_path %}
+        <option value="price-high-to-low" selected>Price: High to Low</option>
+        {% else %}
+        <option value="price-high-to-low">Price: High to Low</option>
+        {% endif %}
+        <!-- separator -->
+        {% if "newest" in request.get_full_path %}
+        <option value="newest" selected>Newest</option>
+        {% else %}
+        <option value="newest">Newest</option>
+        {% endif %}
+        <!-- separator -->
+        {% if "avg-rating" in request.get_full_path %}
+        <option value="avg-rating" selected>Average Rating</option>
+        {% else %}
+        <option value="avg-rating">Average Rating</option>
+        {% endif %}
       </select>
     </form>
   </div>

@@ -13,7 +13,7 @@ from order.models import OrderProduct
 def store(request, category_slug=None):
     categories = None
     products = Product.objects.filter(is_available=True).order_by("-created_date")
-
+    products_count = products.count()
     if category_slug:
         categories = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=categories).order_by("-created_date")

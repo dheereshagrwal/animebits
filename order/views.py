@@ -127,6 +127,7 @@ def payment_success(request):
         # reduce the quantity of the sold products
         product = Product.objects.get(id=item.product.id)
         product.stock -= item.quantity
+        product.sold += item.quantity
         product.save()
 
     # 

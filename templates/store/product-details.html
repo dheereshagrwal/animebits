@@ -66,7 +66,7 @@
     </div>
     <main class="col-lg-7 d-flex flex-column justify-content-between mx-auto">
       <div>
-        <h2 class="font-dm-sans text-white fs-1 fw-semibold text-capitalize">
+        <h2 class="font-dm-sans text-white fs-2 fw-semibold text-capitalize">
           {{product.name}}
         </h2>
         <div class="mb-4">
@@ -149,7 +149,7 @@
           <i class="bi bi-star-fill text-warning"></i>
           <i class="bi bi-star-fill text-warning"></i>
           {% endif %}
-          <span class="text-secondary font-rubik"
+          <span class="text-secondary font-rubik ms-2"
             >{{reviews.count}} reviews</span
           >
         </div>
@@ -276,7 +276,6 @@
             value="2"
           />
           <label class="form-check-label" for="star2" title="2"></label>
-
           <input
             class="form-check-input d-none"
             type="radio"
@@ -293,10 +292,11 @@
         >
         <input
           type="text"
-          class="form-control bg-dark text-white border border-secondary font-karla"
+          class="form-control bg-dark text-white border border-secondary font-karla disabled"
           id="title"
           name="title"
           placeholder="Awesome T-shirt"
+          {% if not user.is_authenticated or not order_product %}disabled{% endif %}
         />
       </div>
       <div class="mb-3">
@@ -308,8 +308,10 @@
           id="review"
           rows="3"
           name="review"
+          {% if not user.is_authenticated or not order_product %}disabled{% endif %}
         ></textarea>
       </div>
+
       {% if user.is_authenticated %}
       <!-- separator -->
       {% if order_product %}
@@ -319,13 +321,15 @@
         value="Submit Review"
       />
       {% else %}
-      <p class="text-white font-karla">
+      <p class="text-warning font-karla">
+        <i class="bi bi-exclamation-triangle-fill"></i>
         You must purchase this product to add a review.
       </p>
       {% endif %}
       <!-- separator -->
       {% else %}
-      <p class="text-white font-dm-sans">
+      <p class="text-warning font-dm-sans">
+        <i class="bi bi-exclamation-triangle-fill"></i>
         You must be logged in to post a review.
         <a href="{% url 'login' %}" class="text-decoration-none">Login now</a>
       </p>
@@ -392,10 +396,10 @@
       <i class="bi bi-star-fill text-warning"></i>
       <i class="bi bi-star-fill text-warning"></i>
       {% endif %}
-      <span class="text-white font-rubik">{{reviews.count}} reviews</span>
+      <span class="text-white font-rubik ms-2">{{reviews.count}} reviews</span>
     </div>
     {% for review in reviews %}
-    <div class="px-3 pt-3 bg-light">
+    <div class="px-3 pt-3 bg-dark">
       <div class="d-flex">
         <div class="d-flex gap-2">
           <img
@@ -404,9 +408,9 @@
             width="30"
             height="30"
           />
-          <h6 class="mt-auto">{{review.user}}</h6>
+          <h6 class="mt-auto font-rubik text-white">{{review.user}}</h6>
         </div>
-        <date class="ms-auto">{{review.updated_at}}</date>
+        <date class="ms-auto font-rubik text-secondary">{{review.updated_at}}</date>
       </div>
       <div class="mb-3">
         {% if review.rating == 5 %}
@@ -471,9 +475,10 @@
         <i class="bi bi-star"></i>
         {% endif %}
       </div>
-      <h6>{{review.title}}</h6>
-      <p>{{review.review}}</p>
+      <h6 class="font-rubik text-white">{{review.title}}</h6>
+      <p class="font-karla text-white">{{review.review}}</p>
     </div>
+    <hr class="text-secondary" />
     {% endfor %}
   </div>
 </section>

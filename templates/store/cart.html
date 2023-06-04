@@ -2,9 +2,9 @@
 <section class="container-fluid mt-5">
   {% if not cart_items %}
   <div class="d-flex flex-column align-items-center text-white">
-    <h2>Your Shopping Cart is Empty</h2>
+    <h2 class="font-dm-sans">Your Shopping Cart is Empty</h2>
     <br />
-    <a href="{% url 'store' %}" class="btn btn-outline-primary text-center"
+    <a href="{% url 'store' %}" class="btn btn-primary text-center font-inter"
       >Continue Shopping</a
     >
   </div>
@@ -40,12 +40,12 @@
                     >
                       <a
                         href="{{cart_item.product.get_url}}"
-                        class="text-white text-decoration-none font-poppins small d-md-none text-capitalize"
+                        class="text-white text-decoration-none font-dm-sans small d-md-none text-capitalize"
                         >{{cart_item.product.name}}</a
                       >
                       <a
                         href="{{cart_item.product.get_url}}"
-                        class="text-white text-decoration-none font-poppins d-none fs-5 d-md-inline text-capitalize"
+                        class="text-white text-decoration-none font-dm-sans d-none fs-5 d-md-inline text-capitalize"
                       >
                         {{cart_item.product.name}}
                       </a>

@@ -17,8 +17,30 @@ def store(request, category_slug=None):
     if category_slug:
         categories = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=categories).order_by("-created_date")
+        products_count = products.count()
+        
+    if request.GET.get("sort"):
+        sort = request.GET.get("sort")
+        if sort == "best-sellers":
+            products = products.order_by("-sold")
+            products_count = products.count()
+        elif sort == "price-low-to-high":
+            products = products.order_by("price")
+            products_count = products.count()
+        elif sort == "price-high-to-low":
+            products = products.order_by("-price")
+            products_count = products.count()
+        elif sort == "newest":
+            products = products.order_by("-created_date")
+            products_count = products.count()
+        elif sort == "avg-rating":
+            #average_rating is a function in product/models.py
+            products = sorted(products, key=lambda x: x.average_rating(), reverse=True)
+            products_count = len(products)
+            
 
-    products_count = products.count()
+    print(f"products: {products}")
+    
     paginator = Paginator(products, 6)
     page_number = request.GET.get("page")
 

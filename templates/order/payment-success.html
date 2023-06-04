@@ -6,7 +6,7 @@
         class="bi bi-check-circle-fill text-success fs-1"
       ></i>
       <h2 class="font-dm-sans text-white">Payment Successful</h2>
-      <a href="{% url 'store' %}" class="btn btn-success mt-5 font-inter">Shop more</a>
+      <a href="{% url 'store' %}" class="btn btn-success my-3 font-inter">Shop more</a>
     </div>
     <div class="col-lg-8 card mt-3 mx-auto bg-dark border">
       <div class="p-4">
@@ -60,12 +60,12 @@
                   >
                     <a
                       href="{{ordered_product.product.get_url}}"
-                      class="text-white text-decoration-none font-poppins small d-md-none text-capitalize"
+                      class="text-white text-decoration-none font-dm-sans small d-md-none text-capitalize"
                       >{{ordered_product.product.name}}</a
                     >
                     <a
                       href="{{ordered_product.product.get_url}}"
-                      class="text-white text-decoration-none font-poppins d-none fs-5 d-md-inline text-capitalize"
+                      class="text-white text-decoration-none font-dm-sans d-none fs-5 d-md-inline text-capitalize"
                     >
                       {{ordered_product.product.name}}
                     </a>

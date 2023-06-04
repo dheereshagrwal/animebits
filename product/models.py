@@ -17,7 +17,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to="images/products")
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
-
+    sold = models.IntegerField(default=0)
     def get_url(self):
         return reverse("product_details", args=[self.category.slug, self.slug])
 

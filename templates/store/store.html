@@ -1,11 +1,25 @@
 {%extends 'base.html' %} {% load static %} {% block content %}
 <section class="container-fluid mt-5">
-  <div class="mx-2 mx-lg-5">
+  <div class="mx-2 mx-lg-5 d-flex justify-content-between">
     {% if 'search' in request.path %}
     <h2 class="title-page text-white">Search Results</h2>
     {% else %}
     <h2 class="title-page text-white font-poppins">Our Store</h2>
     {% endif %}
+    <form method="GET" action="{% url 'store' %}">
+      <select
+        class="form-select bg-dark text-white font-karla"
+        name="sort"
+        onchange="this.form.submit()"
+      >
+        <option selected disabled>Sort by</option>
+        <option value="best-sellers" {% if "best-sellers" in request.get_full_path %}selected{% endif %}>Best Sellers</option>
+        <option value="price-low-to-high" {% if "price-low-to-high" in request.get_full_path %}selected{% endif %}>Price: Low to High</option>
+        <option value="price-high-to-low" {% if "price-high-to-low" in request.get_full_path %}selected{% endif %}>Price: High to Low</option>
+        <option value="newest" {% if "newest" in request.get_full_path %}selected{% endif %}>Newest</option>
+        <option value="avg-rating" {% if "avg-rating" in request.get_full_path %}selected{% endif %}>Avg. Rating</option>
+      </select>
+    </form>
   </div>
 </section>
 <section class="container-fluid mt-5">
@@ -30,7 +44,9 @@
               <div class="card-body">
                 <ul class="list-unstyled">
                   <li>
-                    <a href="{% url 'store' %}" class="text-decoration-none font-karla"
+                    <a
+                      href="{% url 'store' %}"
+                      class="text-decoration-none font-rubik"
                       >All Products</a
                     >
                   </li>
@@ -38,7 +54,7 @@
                   <li>
                     <a
                       href="{{category.get_url}}"
-                      class="text-decoration-none font-karla {% if category.get_url in request.path %}text-success{% else %}text-white{% endif %}"
+                      class="text-decoration-none font-rubik {% if category.get_url in request.path %}text-success{% else %}text-white{% endif %}"
                     >
                       {{category.name}}
                     </a>
@@ -67,13 +83,17 @@
               <div class="card-body">
                 <ul class="list-unstyled">
                   <li>
-                    <a href="{% url 'store' %}" class="text-decoration-none font-karla"
+                    <a
+                      href="{% url 'store' %}"
+                      class="text-decoration-none font-rubik"
                       >All Products</a
                     >
                   </li>
                   {% for anime in animes %}
                   <li>
-                    <a href="#" class="text-decoration-none text-secondary font-karla"
+                    <a
+                      href="#"
+                      class="text-decoration-none text-secondary font-rubik"
                       >{{anime.name}}</a
                     >
                   </li>
@@ -110,9 +130,13 @@
               alt="{{ product.name }}"
             />
             <div class="card-body">
-              <p class="card-text fs-6 font-dm-sans">{{ product.name }}</p>
+              <p class="card-text fs-6 font-dm-sans text-capitalize">
+                {{ product.name }}
+              </p>
               <div class="d-flex">
-                <var class="card-text fw-bold font-rubik text-secondary">&#8377;{{product.price}}</var>
+                <var class="card-text fw-bold font-rubik text-secondary"
+                  >&#8377;{{product.price}}</var
+                >
                 <div class="ms-auto">
                   <i class="bi bi-star-fill text-warning"></i>
                   <i class="bi bi-star-fill text-warning"></i>
@@ -126,7 +150,9 @@
           {% endfor %}
           <!-- - -->
           {% else %}
-          <h2 class="text-info">Senpai could not find anything!</h2>
+          <h2 class="text-info font-dm-sans">
+            Senpai could not find anything! 😢😢
+          </h2>
           {% endif %}
         </div>
         {% if products.has_other_pages %}

@@ -1,13 +1,13 @@
 <aside class="col-md-3 col-xl-2">
   <ul class="list-group">
     <a
-      class="list-group-item {% if '/my_orders/' == request.path %}active{% endif %}"
+      class="list-group-item font-karla {% if '/my_orders/' == request.path %}active{% endif %}"
       href="{% url 'my_orders' %}"
       >Order History</a
     >
   </ul>
   <br />
-  <a class="btn btn-outline-dark" href="{% url 'logout' %}">
+  <a class="btn btn-outline-light font-inter" href="{% url 'logout' %}">
     <span>Logout</span><i class="bi bi-box-arrow-right ms-2"></i>
   </a>
 </aside>

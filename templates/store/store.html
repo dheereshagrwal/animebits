@@ -19,25 +19,25 @@
           {% else %}
           <option value="best-sellers">Best Sellers</option>
           {% endif %}
-          <!-- separator -->
+          <!-- prettier-ignore -->
           {% if "price-low-to-high" in request.get_full_path %}
           <option value="price-low-to-high" selected>Price: Low to High</option>
           {% else %}
           <option value="price-low-to-high">Price: Low to High</option>
           {% endif %}
-          <!-- separator -->
+          <!-- prettier-ignore -->
           {% if "price-high-to-low" in request.get_full_path %}
           <option value="price-high-to-low" selected>Price: High to Low</option>
           {% else %}
           <option value="price-high-to-low">Price: High to Low</option>
           {% endif %}
-          <!-- separator -->
+          <!-- prettier-ignore -->
           {% if "newest" in request.get_full_path %}
           <option value="newest" selected>Newest</option>
           {% else %}
           <option value="newest">Newest</option>
           {% endif %}
-          <!-- separator -->
+          <!-- prettier-ignore -->
           {% if "avg-rating" in request.get_full_path %}
           <option value="avg-rating" selected>Average Rating</option>
           {% else %}
@@ -165,9 +165,6 @@
             <a
               href="{{product.get_url}}"
               class="text-decoration-none hvr-grow card shadow-sm rounded-5"
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              title="{{ product.name }}"
               style="width: 16rem"
             >
               <img
@@ -176,19 +173,99 @@
                 alt="{{ product.name }}"
               />
               <div class="card-body">
-                <p class="card-text fs-6 font-dm-sans text-capitalize">
+                <p class="card-text font-dm-sans fw-semibold text-capitalize">
                   {{ product.name }}
                 </p>
                 <div class="d-flex">
                   <var class="card-text fw-bold font-rubik text-secondary"
                     >&#8377;{{product.price}}</var
                   >
-                  <div class="ms-auto">
+                  <div
+                    class="ms-auto"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="{{ product.average_rating }}"
+                  >
+                    <!-- prettier-ignore -->
+                    {% if product.average_rating > 0 and product.average_rating <= 0.5 %}
+                    <i class="bi bi-star-half text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    {% endif %}
+                    <!-- prettier-ignore -->
+                    {% if product.average_rating > 0.5 and product.average_rating <= 1 %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    {% endif %}
+                    <!-- prettier-ignore -->
+                    {% if product.average_rating > 1 and product.average_rating <= 1.5 %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-half text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    {% endif %}
+                    <!-- prettier-ignore -->
+                    {% if product.average_rating > 1.5 and product.average_rating <= 2 %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    {% endif %}
+                    <!-- prettier-ignore -->
+                    {% if product.average_rating > 2 and product.average_rating <= 2.5 %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-half text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    {% endif %}
+                    <!-- prettier-ignore -->
+                    {% if product.average_rating > 2.5 and product.average_rating <= 3 %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    {% endif %}
+                    <!-- prettier-ignore -->
+                    {% if product.average_rating > 3 and product.average_rating <= 3.5 %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-half text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    {% endif %}
+                    <!-- prettier-ignore -->
+                    {% if product.average_rating > 3.5 and product.average_rating <= 4 %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    {% endif %}
+                    <!-- prettier-ignore -->
+                    {% if product.average_rating > 4 and product.average_rating <= 4.5 %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-half text-warning"></i>
+                    {% endif %}
+                    <!-- prettier-ignore -->
+                    {% if product.average_rating > 4.5 and product.average_rating <= 5 %}
                     <i class="bi bi-star-fill text-warning"></i>
                     <i class="bi bi-star-fill text-warning"></i>
                     <i class="bi bi-star-fill text-warning"></i>
                     <i class="bi bi-star-fill text-warning"></i>
                     <i class="bi bi-star-fill text-warning"></i>
+                    {% endif %}
                   </div>
                 </div>
               </div>

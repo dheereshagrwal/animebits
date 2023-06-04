@@ -12,7 +12,8 @@
               {{order.address_1}}, {{order.address_2}}
             </p>
             <p class="card-text mb-0">
-              {{order.city}}, {{order.state}}, <span class="font-rubik">{{order.zip}}</span>
+              {{order.city}}, {{order.state}},
+              <span class="font-rubik">{{order.zip}}</span>
             </p>
             <p class="card-text mb-0">{{order.email}}</p>
             <p class="card-text mb-0 font-rubik">{{order.phone}}</p>
@@ -59,27 +60,27 @@
                         {{cart_item.product.name}}
                       </a>
 
-                     <p class="text-secondary font-poppins small">
-                      {% for variation in cart_item.variations.all %}
-                      <!-- separator -->
-                      {% if variation.variation_category|lower == "gift" %}
-                      <!-- separator -->
-                      {% if variation.variation_value|lower != "no" %}
-                      <!-- separator -->
-                      🎁
-                      <!-- separator -->
-                      {% endif %}
-                      <!-- separator -->
-                      {% else %}
-                      <!-- separator -->
-                      {{ variation.variation_category|title }}:
-                      <!-- separator -->
-                      {{ variation.variation_value }}
-                      <!-- separator -->
-                      {% endif %}
-                      <!-- separator -->
-                      {% endfor %}
-                    </p>
+                      <p class="text-secondary font-poppins small">
+                        {% for variation in cart_item.variations.all %}
+                        <!-- prettier-ignore -->
+                        {% if variation.variation_category|lower == "gift" %}
+                        <!-- prettier-ignore -->
+                        {% if variation.variation_value|lower != "no" %}
+                        <!-- prettier-ignore -->
+                        🎁
+                        <!-- prettier-ignore -->
+                        {% endif %}
+                        <!-- prettier-ignore -->
+                        {% else %}
+                        <!-- prettier-ignore -->
+                        {{ variation.variation_category|title }}:
+                        <!-- prettier-ignore -->
+                        {{ variation.variation_value }}
+                        <!-- prettier-ignore -->
+                        {% endif %}
+                        <!-- prettier-ignore -->
+                        {% endfor %}
+                      </p>
                     </figcaption>
                   </figure>
                 </td>

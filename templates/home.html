@@ -51,7 +51,8 @@
         class="img-thumbnail rounded-5 bg-dark border-0 shadow-sm"
         alt="{{ category.name }}"
       />
-      <span class="d-block text-center text-white font-poppins fw-semibold small mt-2"
+      <span
+        class="d-block text-center text-white font-poppins fw-semibold small mt-2"
         >{{ category.name }}</span
       >
     </a>
@@ -76,9 +77,6 @@
     <a
       href="{{product.get_url}}"
       class="text-decoration-none hvr-grow card shadow-sm rounded-5 mx-auto"
-      data-bs-toggle="tooltip"
-      data-bs-placement="top"
-      title="{{ product.name }}"
       style="width: 18rem"
     >
       <img
@@ -87,10 +85,19 @@
         alt="{{ product.name }}"
       />
       <div class="card-body">
-        <p class="card-text font-dm-sans fw-semibold text-capitalize">{{ product.name }}</p>
+        <p class="card-text font-dm-sans fw-semibold text-capitalize">
+          {{ product.name }}
+        </p>
         <div class="d-flex">
-          <var class="card-text font-rubik text-secondary fw-bold">&#8377;{{product.price}}</var>
-          <div class="ms-auto">
+          <var class="card-text font-rubik text-secondary fw-bold"
+            >&#8377;{{product.price}}</var
+          >
+          <div
+            class="ms-auto"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title="{{ product.average_rating }}"
+          >
             {%if product.average_rating > 0 and product.average_rating <= 0.5%}
             <i class="bi bi-star-half text-warning"></i>
             <i class="bi bi-star text-warning"></i>
@@ -98,7 +105,7 @@
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             {% endif %}
-            <!-- separator -->
+            <!-- prettier-ignore -->
             {%if product.average_rating > 0.5 and product.average_rating <= 1%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star text-warning"></i>
@@ -106,7 +113,7 @@
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             {% endif %}
-            <!-- separator -->
+            <!-- prettier-ignore -->
             {%if product.average_rating > 1 and product.average_rating <= 1.5%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-half text-warning"></i>
@@ -114,7 +121,7 @@
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             {% endif %}
-            <!-- separator -->
+            <!-- prettier-ignore -->
             {%if product.average_rating > 1.5 and product.average_rating <= 2%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
@@ -122,7 +129,7 @@
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             {% endif %}
-            <!-- separator -->
+            <!-- prettier-ignore -->
             {%if product.average_rating > 2 and product.average_rating <= 2.5%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
@@ -130,7 +137,7 @@
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             {% endif %}
-            <!-- separator -->
+            <!-- prettier-ignore -->
             {%if product.average_rating > 2.5 and product.average_rating <= 3%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
@@ -138,7 +145,7 @@
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             {% endif %}
-            <!-- separator -->
+            <!-- prettier-ignore -->
             {%if product.average_rating > 3 and product.average_rating <= 3.5%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
@@ -146,7 +153,7 @@
             <i class="bi bi-star-half text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             {% endif %}
-            <!-- separator -->
+            <!-- prettier-ignore -->
             {%if product.average_rating > 3.5 and product.average_rating <= 4%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
@@ -154,7 +161,7 @@
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             {% endif %}
-            <!-- separator -->
+            <!-- prettier-ignore -->
             {%if product.average_rating > 4 and product.average_rating <= 4.5%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
@@ -162,7 +169,7 @@
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-half text-warning"></i>
             {% endif %}
-            <!-- separator -->
+            <!-- prettier-ignore -->
             {%if product.average_rating > 4.5 and product.average_rating <= 5%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>

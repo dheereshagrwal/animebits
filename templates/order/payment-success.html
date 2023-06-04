@@ -2,11 +2,11 @@
 <section class="container-fluid mt-5">
   <div>
     <div class="text-center">
-      <i
-        class="bi bi-check-circle-fill text-success fs-1"
-      ></i>
+      <i class="bi bi-check-circle-fill text-success fs-1"></i>
       <h2 class="font-dm-sans text-white">Payment Successful</h2>
-      <a href="{% url 'store' %}" class="btn btn-success my-3 font-inter">Shop more</a>
+      <a href="{% url 'store' %}" class="btn btn-success my-3 font-inter"
+        >Shop more</a
+      >
     </div>
     <div class="col-lg-8 card mt-3 mx-auto bg-dark border">
       <div class="p-4">
@@ -22,7 +22,10 @@
             <p class="mb-0 fw-bold">Invoiced To</p>
             <p class="mb-0">{{user_info.name}}</p>
             <p class="mb-0">{{order.address_1}}, {{order.address_2}}</p>
-            <p class="mb-0">{{order.city}}, {{order.state}}, <span class="font-rubik">{{order.zip}}</span></p>
+            <p class="mb-0">
+              {{order.city}}, {{order.state}},
+              <span class="font-rubik">{{order.zip}}</span>
+            </p>
             <p class="mb-0">{{order.email}}</p>
             <p class="mb-0 font-rubik">{{order.phone}}</p>
             {% if order.note %}
@@ -71,23 +74,23 @@
                     </a>
                     <p class="text-secondary font-poppins small">
                       {% for variation in ordered_product.variations.all %}
-                      <!-- separator -->
+                      <!-- prettier-ignore -->
                       {% if variation.variation_category|lower == "gift" %}
-                      <!-- separator -->
+                      <!-- prettier-ignore -->
                       {% if variation.variation_value|lower != "no" %}
-                      <!-- separator -->
+                      <!-- prettier-ignore -->
                       🎁
-                      <!-- separator -->
+                      <!-- prettier-ignore -->
                       {% endif %}
-                      <!-- separator -->
+                      <!-- prettier-ignore -->
                       {% else %}
-                      <!-- separator -->
+                      <!-- prettier-ignore -->
                       {{ variation.variation_category|title }}:
-                      <!-- separator -->
+                      <!-- prettier-ignore -->
                       {{ variation.variation_value }}
-                      <!-- separator -->
+                      <!-- prettier-ignore -->
                       {% endif %}
-                      <!-- separator -->
+                      <!-- prettier-ignore -->
                       {% endfor %}
                     </p>
                   </figcaption>

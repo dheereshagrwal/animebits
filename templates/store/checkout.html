@@ -5,14 +5,20 @@
       <aside class="col-lg-6">
         <div class="card bg-dark border">
           <div class="card-body">
-            <h4 class="card-title font-poppins mb-4 text-white">Billing Details</h4>
+            <h4 class="card-title font-poppins mb-4 text-white">
+              Billing Details
+            </h4>
             <form action="{% url 'place_order' %}" method="POST">
               {% csrf_token %}
               <div class="row g-4">
                 <div class="col-auto">
                   <label class="visually-hidden" for="phone">Phone</label>
                   <div class="input-group">
-                    <div class="input-group-text bg-secondary text-white font-rubik">+91</div>
+                    <div
+                      class="input-group-text bg-secondary text-white font-rubik"
+                    >
+                      +91
+                    </div>
                     <input
                       type="text"
                       class="form-control bg-dark text-white font-rubik"
@@ -27,7 +33,11 @@
                   </div>
                 </div>
                 <div class="col-12">
-                  <label for="address_1" class="form-label text-white font-karla">Address</label>
+                  <label
+                    for="address_1"
+                    class="form-label text-white font-karla"
+                    >Address</label
+                  >
                   <input
                     type="text"
                     class="form-control bg-dark text-white font-karla border-secondary"
@@ -38,7 +48,11 @@
                   />
                 </div>
                 <div class="col-12">
-                  <label for="address_2" class="form-label text-white font-karla">Address 2</label>
+                  <label
+                    for="address_2"
+                    class="form-label text-white font-karla"
+                    >Address 2</label
+                  >
                   <input
                     type="text"
                     class="form-control bg-dark text-white font-karla border-secondary"
@@ -49,7 +63,9 @@
                   />
                 </div>
                 <div class="col-md-6">
-                  <label for="city" class="form-label text-white font-karla">City</label>
+                  <label for="city" class="form-label text-white font-karla"
+                    >City</label
+                  >
                   <input
                     type="text"
                     class="form-control bg-dark text-white font-karla border-secondary"
@@ -60,8 +76,15 @@
                   />
                 </div>
                 <div class="col-md-4">
-                  <label for="state" class="form-label text-white font-karla">State</label>
-                  <select id="state" class="form-select bg-dark text-white font-karla border-secondary" name="state" required>
+                  <label for="state" class="form-label text-white font-karla"
+                    >State</label
+                  >
+                  <select
+                    id="state"
+                    class="form-select bg-dark text-white font-karla border-secondary"
+                    name="state"
+                    required
+                  >
                     <option selected disabled>Choose...</option>
                     <option>Andaman and Nicobar Islands</option>
                     <option>Andhra Pradesh</option>
@@ -103,7 +126,9 @@
                 </div>
 
                 <div class="col-md-2">
-                  <label for="zip" class="form-label font-karla text-white">Zip</label>
+                  <label for="zip" class="form-label font-karla text-white"
+                    >Zip</label
+                  >
                   <input
                     type="text"
                     class="form-control bg-dark text-white font-rubik border-secondary"
@@ -117,7 +142,9 @@
                   />
                 </div>
                 <div>
-                  <label for="note" class="form-label text-white font-karla">Order Note</label>
+                  <label for="note" class="form-label text-white font-karla"
+                    >Order Note</label
+                  >
                   <textarea
                     class="form-control bg-dark text-white font-karla border-secondary"
                     id="note"
@@ -129,7 +156,10 @@
                 <div class="d-flex">
                   <i class="ci ci-cashfree ci-2x"></i>
                   <br />
-                  <button class="btn btn-primary ms-auto font-inter" type="submit">
+                  <button
+                    class="btn btn-primary ms-auto font-inter"
+                    type="submit"
+                  >
                     Place Order
                   </button>
                 </div>
@@ -177,30 +207,32 @@
 
                       <p class="text-secondary font-poppins small">
                         {% for variation in cart_item.variations.all %}
-                        <!-- separator -->
+                        <!-- prettier-ignore -->
                         {% if variation.variation_category|lower == "gift" %}
-                        <!-- separator -->
+                        <!-- prettier-ignore -->
                         {% if variation.variation_value|lower != "no" %}
-                        <!-- separator -->
+                        <!-- prettier-ignore -->
                         🎁
-                        <!-- separator -->
+                        <!-- prettier-ignore -->
                         {% endif %}
-                        <!-- separator -->
+                        <!-- prettier-ignore -->
                         {% else %}
-                        <!-- separator -->
+                        <!-- prettier-ignore -->
                         {{ variation.variation_category|title }}:
-                        <!-- separator -->
+                        <!-- prettier-ignore -->
                         {{ variation.variation_value }}
-                        <!-- separator -->
+                        <!-- prettier-ignore -->
                         {% endif %}
-                        <!-- separator -->
+                        <!-- prettier-ignore -->
                         {% endfor %}
                       </p>
                     </figcaption>
                   </figure>
                 </td>
                 <td class="px-5 px-md-0">
-                  <div class="text-white font-rubik">{{cart_item.quantity}}</div>
+                  <div class="text-white font-rubik">
+                    {{cart_item.quantity}}
+                  </div>
                 </td>
                 <td>
                   <div class="font-rubik text-white">

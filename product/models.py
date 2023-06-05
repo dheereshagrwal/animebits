@@ -9,7 +9,7 @@ from django.db.models import Avg
 class Product(models.Model):
     name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=50, unique=True)
-    description = models.TextField(max_length=500, blank=True)
+    description = models.TextField(max_length=1000, blank=True)
     price = models.IntegerField(default=99)
     stock = models.IntegerField(default=10, validators=[MinValueValidator(0)])
     is_available = models.BooleanField(default=True)

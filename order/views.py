@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from cart.models import Cart, CartItem
 from django.contrib.auth.decorators import login_required
+from utils.utils import *
 from .forms import OrderForm
 from .models import Order, OrderProduct, Payment
 from product.models import Product
@@ -18,12 +19,14 @@ def payment(request, order_id):
     if request.user.is_superuser:
         return redirect("home")
     try:
-        order = Order.objects.get(user=request.user, is_ordered=False, order_id=order_id)
+        order = Order.objects.get(
+            user=request.user, is_ordered=False, order_id=order_id
+        )
     except Order.DoesNotExist:
         raise Http404("Order does not exist")
     # check if order already exists
     url = f"https://sandbox.cashfree.com/pg/orders/{order_id}"
-
+    print("url", url)
     headers = {
         "accept": "application/json",
         "x-client-id": "TEST389775d23cbf608bdfac150118577983",
@@ -33,6 +36,7 @@ def payment(request, order_id):
 
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
+        print(response.text)
         payment_session_id = response.json()["payment_session_id"]
         print("payment_session_id", payment_session_id)
         context = {"payment_session_id": payment_session_id, "order": order}
@@ -40,11 +44,12 @@ def payment(request, order_id):
 
     url = "https://sandbox.cashfree.com/pg/orders"
     return_url = request.build_absolute_uri(reverse("payment_success"))[:-1]
+    print("order.phone", order.phone)
     payload = {
         "customer_details": {
             "customer_id": "d6a-4ea6-9f19-07daecb93080",
             "customer_email": request.user.email,
-            "customer_phone": "9411245528",
+            "customer_phone": order.phone,
         },
         "order_meta": {"return_url": return_url + "?order_id={order_id}"},
         "order_id": order_id,
@@ -130,7 +135,7 @@ def payment_success(request):
         product.sold += item.quantity
         product.save()
 
-    # 
+    #
     ordered_products = OrderProduct.objects.filter(order=order)
     cart_items.delete()
     mail_subject = "Thank you for your order!"
@@ -157,8 +162,7 @@ def place_order(request):
     if cart_items_count <= 0:
         return redirect("store")
 
-    total, tax, grand_total, gift_charges = calculate_totals(cart_items)
-    print(total, tax, grand_total, gift_charges)
+    total, quantity, tax, grand_total, gift_charges = calculate_totals(cart_items)
     if request.method == "POST":
         form = OrderForm(request.POST)
         print(form.errors)
@@ -189,27 +193,5 @@ def place_order(request):
             }
             return render(request, "order/payment.html", context)
     else:
+        print("else")
         return redirect("checkout")
-
-
-def calculate_totals(cart_items):
-    total = 0
-    quantity = 0
-    tax = 0
-    grand_total = 0
-    gift_charges = 0
-
-    for cart_item in cart_items:
-        for variation in cart_item.variations.all():
-            if (
-                variation.variation_category == "gift"
-                and variation.variation_value == "gift"
-            ):
-                gift_charges += 10 * cart_item.quantity
-        total += cart_item.product.price * cart_item.quantity
-        quantity += cart_item.quantity
-
-    tax = (5 * total) / 100
-    grand_total = total + tax
-
-    return total, tax, grand_total, gift_charges

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from product.models import Product, Variation
+from utils.utils import calculate_totals
 from .models import Cart, CartItem
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
@@ -12,7 +13,7 @@ def add_cart(request, product_id):
     product = Product.objects.get(id=product_id)
     product_variations = []
     if request.method == "POST":
-        #check if "gift"is in request.POST
+        # check if "gift"is in request.POST
         if "gift" not in request.POST:
             request.POST._mutable = True
             request.POST["gift"] = "no"
@@ -99,27 +100,13 @@ def remove_cart_item(request, product_id, cart_item_id):
 
 def cart_checkout(request, template_name):
     try:
-        total = 0
-        quantity = 0
-        cart_items = None
-        tax = 0
-        grand_total = 0
-        gift_charges = 0
         cart = Cart.objects.get(user=request.user)
         cart_items = CartItem.objects.filter(cart=cart, is_active=True)
-        for cart_item in cart_items:
-            for variation in cart_item.variations.all():
-                if (
-                    variation.variation_category == "gift"
-                    and variation.variation_value == "gift"
-                ):
-                    gift_charges += 10 * cart_item.quantity
-            total += cart_item.product.price * cart_item.quantity
-            quantity += cart_item.quantity
-        tax = (5 * total) / 100
-        grand_total = total + tax
     except ObjectDoesNotExist:
-        pass
+        cart_items = None
+
+    total, quantity, tax, grand_total, gift_charges = calculate_totals(cart_items)
+
     context = {
         "total": total,
         "quantity": quantity,
@@ -127,6 +114,7 @@ def cart_checkout(request, template_name):
         "gift_charges": gift_charges,
         "grand_total": grand_total,
     }
+
     return render(request, template_name, context)
 
 

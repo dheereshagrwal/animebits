@@ -72,11 +72,11 @@
 <br />
 <br /><br />
 <section class="container-fluid">
-  <div class="d-flex flex-wrap mt-1">
+  <div class="d-flex flex-wrap mt-1 justify-content-evenly">
     {% for product in products %}
     <a
       href="{{product.get_url}}"
-      class="text-decoration-none hvr-shrink card shadow rounded-5 mx-auto bg-dark border border-black mb-5"
+      class="text-decoration-none hvr-shrink card shadow rounded-5 bg-dark border border-black mb-5"
       style="width: 18rem"
     >
       <img

@@ -13,11 +13,11 @@ class Product(models.Model):
     price = models.IntegerField(default=99)
     stock = models.IntegerField(default=10, validators=[MinValueValidator(0)])
     is_available = models.BooleanField(default=True)
+    sold = models.IntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="images/products")
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
-    sold = models.IntegerField(default=0)
     def get_url(self):
         return reverse("product_details", args=[self.category.slug, self.slug])
 

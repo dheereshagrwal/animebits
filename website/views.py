@@ -13,7 +13,7 @@ def post_login(sender, user, request, **kwargs):
 
 # Create your views here.
 def home(request):
-    products = Product.objects.all().filter(is_available=True)
+    products = Product.objects.all().filter(is_available=True).order_by("-created_date")[:10]
     products_count = products.count()
     context = {"products": products, "products_count": products_count}
     return render(request, "home.html", context)

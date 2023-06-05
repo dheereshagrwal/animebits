@@ -22,6 +22,7 @@ class ProductAdmin(admin.ModelAdmin):
         "created_date",
         "modified_date",
         "is_available",
+        "sold",
     )
     # description is prepopulated from name
     prepopulated_fields = {
@@ -29,6 +30,7 @@ class ProductAdmin(admin.ModelAdmin):
     }
     inlines = [ProductGalleryInline]
     search_fields = ["name", "slug", "description"]
+    list_editable = ("price", "stock", "is_available", "sold")
 
 
 class VariationAdmin(admin.ModelAdmin):

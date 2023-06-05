@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "cart",
     "order",
     "review",
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 SOCIALACCOUNT_PROVIDERS = {

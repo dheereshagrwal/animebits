@@ -22,6 +22,7 @@
           placeholder="Search"
           aria-label="Search"
           name="keyword"
+          value="{{ request.GET.keyword }}"
         />
         <button class="btn btn-outline-success" type="submit">
           <i class="bi bi-search-heart"></i>
@@ -70,6 +71,7 @@
         type="search"
         placeholder="Search"
         aria-label="Search"
+        value="{{ request.GET.keyword }}"
       />
       <button class="btn btn-outline-success" type="submit">
         <i class="bi bi-search-heart" aria-hidden="true"></i>

@@ -49,7 +49,7 @@ def payment(request, order_id):
         "customer_details": {
             "customer_id": "d6a-4ea6-9f19-07daecb93080",
             "customer_email": request.user.email,
-            "customer_phone": order.phone,
+            "customer_phone": str(order.phone),
         },
         "order_meta": {"return_url": return_url + "?order_id={order_id}"},
         "order_id": order_id,

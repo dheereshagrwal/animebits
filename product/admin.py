@@ -24,7 +24,7 @@ class ProductAdmin(admin.ModelAdmin):
         "slug": ("name",),
     }
     inlines = [ProductGalleryInline]
-    search_fields = ["name", "slug", "description", "category"]
+    search_fields = ["name", "slug", "description"]
 
 
 class VariationAdmin(admin.ModelAdmin):

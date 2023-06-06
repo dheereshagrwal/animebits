@@ -23,12 +23,12 @@ TIME_ZONE = "Asia/Kolkata"
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY")
+SECRET_KEY = "django-insecure-vorhrr+^uw*y0in+44*k@q9d@io)4-&b*jcbadvy*2$ur+9y@l"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", default=True, cast=bool)
+DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://greatkart-three.eba-mze2pb2m.us-west-2.elasticbeanstalk.com']
 
 # Application definition
 SITE_ID = 1
@@ -147,10 +147,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR / "website" / "static"]
 
 # static root is base dir parent folder then static
 STATIC_ROOT = BASE_DIR / "static"
+STATICFILES_DIRS = ["website/static"]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -169,6 +169,6 @@ MEDIA_ROOT = BASE_DIR / "media"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER = config("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = "dheereshaggarwal@gmail.com"
+EMAIL_HOST_PASSWORD = "gqzcwzucfuyzlwkx"
 EMAIL_USE_TLS = True

@@ -15,7 +15,7 @@ def get_constant_data(request):
         cart = Cart.objects.create(cart_id=cart_id)
 
     print(
-        f"cart.cart_id {cart.cart_id} cart.user {cart.user} request.user {request.user}"
+        f"cart.cart_id {cart.cart_id} request.user {request.user}"
     )
     user_info = get_user_info(request)
     return {"user_info": user_info, "cart": cart}

@@ -5,11 +5,11 @@ from .models import Cart, CartItem
 
 
 class CartAdmin(admin.ModelAdmin):
-    list_display = ("user", "id")
+    list_display = ("cart_id",)
 
 
 class CartItemAdmin(admin.ModelAdmin):
-    list_display = ("product", "cart", "quantity", "is_active")
+    list_display = ("product", "cart", "quantity", "is_active", "user")
 
 
 admin.site.register(Cart, CartAdmin)

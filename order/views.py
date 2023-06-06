@@ -43,7 +43,7 @@ def payment(request, order_id):
         return render(request, "order/payment.html", context)
 
     url = "https://sandbox.cashfree.com/pg/orders"
-    return_url = request.build_absolute_uri(reverse("payment_success"))[:-1]
+    return_url = request.build_absolute_uri(reverse("payment-success"))[:-1]
     print("order.phone", order.phone)
     payload = {
         "customer_details": {
@@ -112,27 +112,26 @@ def payment_success(request):
     order.payment = payment
     order.is_ordered = True
     order.save()
-    cart = Cart.objects.get(user=request.user)
-    cart_items = CartItem.objects.filter(cart=cart, is_active=True)
-    for item in cart_items:
+    cart_items = CartItem.objects.filter(user=request.user, is_active=True)
+    for cart_item in cart_items:
         order_product = OrderProduct()
         order_product.order = order
         order_product.payment = payment
         order_product.user = request.user
-        order_product.product = item.product
-        order_product.quantity = item.quantity
+        order_product.product = cart_item.product
+        order_product.quantity = cart_item.quantity
         order_product.ordered = True
         order_product.save()
 
-        cart_item = CartItem.objects.get(id=item.id)
+        cart_item = CartItem.objects.get(id=cart_item.id)
         product_variation = cart_item.variations.all()
         order_product = OrderProduct.objects.get(id=order_product.id)
         order_product.variations.set(product_variation)
         order_product.save()
         # reduce the quantity of the sold products
-        product = Product.objects.get(id=item.product.id)
-        product.stock -= item.quantity
-        product.sold += item.quantity
+        product = Product.objects.get(id=cart_item.product.id)
+        product.stock -= cart_item.quantity
+        product.sold += cart_item.quantity
         product.save()
 
     #
@@ -155,9 +154,8 @@ def payment_success(request):
 
 @login_required(login_url="login")
 def place_order(request):
-    cart = Cart.objects.get(user=request.user)
     # check if there are any items in the cart
-    cart_items = CartItem.objects.filter(cart=cart, is_active=True)
+    cart_items = CartItem.objects.filter(user=request.user, is_active=True)
     cart_items_count = cart_items.count()
     if cart_items_count <= 0:
         return redirect("store")

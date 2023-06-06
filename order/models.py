@@ -51,7 +51,10 @@ class Order(models.Model):
     awb = models.CharField(max_length=255, null=True, blank=True)
 
     def email(self):
-        return self.user.email
+        if self.user and self.user.email:
+            return self.user.email
+        else:
+            return
 
     def __str__(self):
         return str(self.user)

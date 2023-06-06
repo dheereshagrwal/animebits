@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,8 +26,8 @@ SECRET_KEY = "django-insecure-vorhrr+^uw*y0in+44*k@q9d@io)4-&b*jcbadvy*2$ur+9y@l
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = ['http://greatkart-three.eba-mze2pb2m.us-west-2.elasticbeanstalk.com']
+#allow all hosts
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 SITE_ID = 1
@@ -77,7 +76,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "website.urls"
+ROOT_URLCONF = "animer.urls"
 
 TEMPLATES = [
     {
@@ -90,7 +89,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "website.context_processors.get_constant_data",
+                "animer.context_processors.get_constant_data",
                 "category.context_processors.get_categories",
                 "cart.context_processors.get_cart_items",
             ],
@@ -98,7 +97,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "website.wsgi.application"
+WSGI_APPLICATION = "animer.wsgi.application"
 
 
 # Database

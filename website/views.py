@@ -17,7 +17,7 @@ def post_login(sender, user, request, **kwargs):
     cart_id = request.session.get("cart_id")
 
     cart = Cart.objects.get(cart_id=cart_id)
-    
+
     cart_items = CartItem.objects.filter(cart=cart)
     product_variations = []
     for cart_item in cart_items:
@@ -44,7 +44,6 @@ def post_login(sender, user, request, **kwargs):
             for cart_item in cart_items:
                 cart_item.user = user
                 cart_item.save()
-    
 
 
 # Create your views here.
@@ -57,10 +56,12 @@ def home(request):
 
 def login(request):
     provider_login_url = "http://127.0.0.1:8000/accounts/google/login/"
-    # Get the current relative URL
-    current_url = request.META.get("HTTP_REFERER")
-    current_url = urlparse(current_url).path
-    redirect_url = f"{provider_login_url}?next={current_url}"
+    # Get the next url
+    next_url = request.GET.get("next")
+    if next_url:
+        redirect_url = f"{provider_login_url}?next={next_url}"
+    else:
+        redirect_url = provider_login_url
     return redirect(redirect_url)
 
 

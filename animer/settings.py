@@ -119,7 +119,7 @@ WSGI_APPLICATION = "animer.wsgi.app"
 
 import dj_database_url
 
-DATABASES = {"default": dj_database_url.parse(env("DATABASE_URL"))}
+DATABASES = {"default": dj_database_url.parse("postgres://dheer:1JL4N0mmidpB4A3KPG05c9QlF3e8Jbb9@dpg-chvqn433cv26tfm3lupg-a.oregon-postgres.render.com/animer")}
 
 
 # Password validation

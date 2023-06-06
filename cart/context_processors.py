@@ -1,17 +1,17 @@
 from .models import Cart, CartItem
 
 
-def get_cart_items_count(request):
-    if "admin" in request.path:
+def get_cart_items(request):
+    if request.user.is_superuser:
         return {}
-    elif not request.user.is_authenticated:
-        return {}
+    if request.user.is_authenticated:
+        print(f'request.user {request.user}')
+        cart = Cart.objects.get(user=request.user)
+        cart_items = CartItem.objects.filter(cart=cart, is_active=True)
+        cart_items_count = cart_items.count()
     else:
-        try:
-            cart = Cart.objects.get(user=request.user)
-            cart_items = CartItem.objects.filter(cart=cart, is_active=True)
-            cart_items_count = cart_items.count()
-        except Cart.DoesNotExist:
-            cart_items_count = 0
-            cart_items = None
-    return dict(cart_items_count=cart_items_count,cart_items=cart_items)
+        cart = Cart.objects.get(cart_id=request.session.get("cart_id"))
+        cart_items = CartItem.objects.filter(cart=cart, is_active=True)
+        cart_items_count = cart_items.count()
+        print(f'cart_id inside cart context processors {cart.cart_id}')
+    return dict(cart_items_count=cart_items_count, cart_items=cart_items)

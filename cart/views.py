@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
-@login_required(login_url="login")
+# @login_required(login_url="login")
 def add_cart(request, product_id):
     product = Product.objects.get(id=product_id)
     product_variations = []
@@ -30,11 +30,12 @@ def add_cart(request, product_id):
                 product_variations.append(variation)
             except:
                 pass
-    try:
+    if request.user.is_authenticated:
         cart = Cart.objects.get(user=request.user)
-    except Cart.DoesNotExist:
-        cart = Cart.objects.create(user=request.user)
-        cart.save()
+    else:
+        cart_id = request.session.get("cart_id")
+        print("cart_id inside cart views", cart_id)
+        cart = Cart.objects.get(cart_id=cart_id)
 
     is_cart_item_exists = CartItem.objects.filter(
         product=product, cart=cart, is_active=True
@@ -73,9 +74,11 @@ def add_cart(request, product_id):
     return redirect("cart")
 
 
-@login_required(login_url="login")
 def remove_cart(request, product_id, cart_item_id):
-    cart = Cart.objects.get(user=request.user)
+    if request.user.is_authenticated:
+        cart = Cart.objects.get(user=request.user)
+    else:
+        cart = Cart.objects.get(cart_id=request.session.get("cart_id"))
     product = get_object_or_404(Product, id=product_id)
     try:
         cart_item = CartItem.objects.get(product=product, cart=cart, id=cart_item_id)
@@ -89,9 +92,11 @@ def remove_cart(request, product_id, cart_item_id):
     return redirect("cart")
 
 
-@login_required(login_url="login")
 def remove_cart_item(request, product_id, cart_item_id):
-    cart = Cart.objects.get(user=request.user)
+    if request.user.is_authenticated:
+        cart = Cart.objects.get(user=request.user)
+    else:
+        cart = Cart.objects.get(cart_id=request.session.get("cart_id"))
     product = get_object_or_404(Product, id=product_id)
     cart_item = CartItem.objects.get(product=product, cart=cart, id=cart_item_id)
     cart_item.delete()
@@ -99,14 +104,7 @@ def remove_cart_item(request, product_id, cart_item_id):
 
 
 def cart_checkout(request, template_name):
-    try:
-        cart = Cart.objects.get(user=request.user)
-        cart_items = CartItem.objects.filter(cart=cart, is_active=True)
-    except ObjectDoesNotExist:
-        cart_items = None
-
-    total, quantity, tax, grand_total, gift_charges = calculate_totals(cart_items)
-
+    total, quantity, tax, grand_total, gift_charges = 0, 0, 0, 0, 0
     context = {
         "total": total,
         "quantity": quantity,
@@ -114,11 +112,21 @@ def cart_checkout(request, template_name):
         "gift_charges": gift_charges,
         "grand_total": grand_total,
     }
+    if request.user.is_superuser:
+        return render(request, template_name, context)
+    if request.user.is_authenticated:
+        cart = Cart.objects.get(user=request.user)
+        cart_items = CartItem.objects.filter(cart=cart, is_active=True)
+    else:
+        cart = Cart.objects.get(cart_id=request.session.get("cart_id"))
+        cart_items = CartItem.objects.filter(cart=cart, is_active=True)
+
+    total, quantity, tax, grand_total, gift_charges = calculate_totals(cart_items)
 
     return render(request, template_name, context)
 
 
-@login_required(login_url="login")
+# @login_required(login_url="login")
 def cart(request):
     return cart_checkout(request, "store/cart.html")
 

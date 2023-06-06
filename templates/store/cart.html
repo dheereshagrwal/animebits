@@ -1,9 +1,8 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <section class="container-fluid mt-5">
   {% if not cart_items %}
-  <div class="d-flex flex-column align-items-center text-white">
-    <h2 class="font-dm-sans">Your Shopping Cart is Empty</h2>
-    <br />
+  <div class="text-white text-center">
+    <h2 class="font-dm-sans mb-4">Your Shopping Cart is Empty</h2>
     <a href="{% url 'store' %}" class="btn btn-primary text-center font-inter"
       >Continue Shopping</a
     >

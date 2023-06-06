@@ -99,7 +99,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "animer.wsgi.application"
+WSGI_APPLICATION = "animer.wsgi.app"
 
 
 # Database

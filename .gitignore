@@ -155,7 +155,7 @@ static
 .mypy_cache/
 .dmypy.json
 dmypy.json
-
+django-env
 # Pyre type checker
 .pyre/
 

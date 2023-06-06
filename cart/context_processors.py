@@ -6,7 +6,6 @@ def get_cart_items(request):
     if request.user.is_superuser:
         return {}
     if request.user.is_authenticated:
-        print(f"request.user {request.user}")
         cart_items = CartItem.objects.filter(user=request.user, is_active=True)
         cart_items_count = cart_items.count()
     else:

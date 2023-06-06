@@ -12,39 +12,45 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.http import Http404
 
+headers = {
+    "accept": "application/json",
+    "x-client-id": "TEST389775d23cbf608bdfac150118577983",
+    "x-client-secret": "TEST22f3e90a364cf1b20b9b5f7cdd0f7f82c8027e21",
+    "x-api-version": "2022-09-01",
+}
 
 @login_required(login_url="login")
 def payment(request, order_id):
-    # check if user is admin
     if request.user.is_superuser:
         return redirect("home")
+
     try:
         order = Order.objects.get(
             user=request.user, is_ordered=False, order_id=order_id
         )
     except Order.DoesNotExist:
         raise Http404("Order does not exist")
-    # check if order already exists
-    url = f"https://sandbox.cashfree.com/pg/orders/{order_id}"
-    print("url", url)
-    headers = {
-        "accept": "application/json",
-        "x-client-id": "TEST389775d23cbf608bdfac150118577983",
-        "x-client-secret": "TEST22f3e90a364cf1b20b9b5f7cdd0f7f82c8027e21",
-        "x-api-version": "2022-09-01",
-    }
 
+    payment_session_id = get_payment_session_id(order_id, order, request)
+    print(
+        "payment_session_id",
+        payment_session_id,
+        "order",
+        order,
+    )
+    context = {"payment_session_id": payment_session_id, "order": order}
+    return render(request, "order/payment.html", context)
+
+
+def get_payment_session_id(order_id, order, request):
+    url = f"https://sandbox.cashfree.com/pg/orders/{order_id}"
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
-        print(response.text)
         payment_session_id = response.json()["payment_session_id"]
-        print("payment_session_id", payment_session_id)
-        context = {"payment_session_id": payment_session_id, "order": order}
-        return render(request, "order/payment.html", context)
+        return payment_session_id
 
     url = "https://sandbox.cashfree.com/pg/orders"
     return_url = request.build_absolute_uri(reverse("payment-success"))[:-1]
-    print("order.phone", order.phone)
     payload = {
         "customer_details": {
             "customer_id": "d6a-4ea6-9f19-07daecb93080",
@@ -56,22 +62,11 @@ def payment(request, order_id):
         "order_amount": order.grand_total,
         "order_currency": "INR",
     }
-    headers = {
-        "accept": "application/json",
-        "x-client-id": "TEST389775d23cbf608bdfac150118577983",
-        "x-client-secret": "TEST22f3e90a364cf1b20b9b5f7cdd0f7f82c8027e21",
-        "x-api-version": "2022-09-01",
-        "content-type": "application/json",
-    }
+    headers["content-type"] = "application/json"
 
     response = requests.post(url, json=payload, headers=headers)
-
-    print(response.text)
-    # get payment_session_id from the response
     payment_session_id = response.json()["payment_session_id"]
-    print("payment_session_id", payment_session_id)
-    context = {"payment_session_id": payment_session_id, "order": order}
-    return render(request, "order/payment.html", context)
+    return payment_session_id
 
 
 @login_required(login_url="login")
@@ -89,16 +84,13 @@ def payment_success(request):
         return render(request, "order/payment-success.html", context)
 
     url = f"https://sandbox.cashfree.com/pg/orders/{order_id}/payments"
-    headers = {
-        "accept": "application/json",
-        "x-client-id": "TEST389775d23cbf608bdfac150118577983",
-        "x-client-secret": "TEST22f3e90a364cf1b20b9b5f7cdd0f7f82c8027e21",
-        "x-api-version": "2022-09-01",
-    }
     response = requests.get(url, headers=headers)
     response = response.json()[0]
     payment_id = response["cf_payment_id"]
     status = response["payment_status"]
+    if status != "SUCCESS":
+        return redirect("payment", order_id=order_id)
+
     payment_method = response["payment_method"]
     payment_method = list(payment_method.keys())[0]
     payment = Payment(
@@ -137,20 +129,16 @@ def payment_success(request):
     #
     ordered_products = OrderProduct.objects.filter(order=order)
     cart_items.delete()
-    mail_subject = "Thank you for your order!"
-    message = render_to_string(
-        "order/order-received-email.html",
-        {
-            "order": order,
-        },
-    )
-    to_email = request.user.email
-    send_email = EmailMessage(mail_subject, message, to=[to_email])
-    send_email.content_subtype = "html"
-    send_email.send()
+    send_order_confirmation_email(request.user.email, order)
     context = {"order": order, "ordered_products": ordered_products}
     return render(request, "order/payment-success.html", context)
 
+def send_order_confirmation_email(email, order):
+    mail_subject = "Thank you for your order!"
+    message = render_to_string("order/order-received-email.html", {"order": order})
+    send_email = EmailMessage(mail_subject, message, to=[email])
+    send_email.content_subtype = "html"
+    send_email.send()
 
 @login_required(login_url="login")
 def place_order(request):
@@ -163,7 +151,6 @@ def place_order(request):
     total, quantity, tax, grand_total, gift_charges = calculate_totals(cart_items)
     if request.method == "POST":
         form = OrderForm(request.POST)
-        print(form.errors)
         if form.is_valid():
             order_id = "ORD-" + str(uuid.uuid4()).upper().replace("-", "")
             data = Order()
@@ -191,5 +178,4 @@ def place_order(request):
             }
             return render(request, "order/payment.html", context)
     else:
-        print("else")
         return redirect("checkout")

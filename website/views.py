@@ -14,9 +14,7 @@ def post_login(sender, user, request, **kwargs):
     if request.user.is_superuser:
         return
 
-    print("user_logged_in")
     cart_id = request.session.get("cart_id")
-    print("cart_id post login", cart_id)
 
     cart = Cart.objects.get(cart_id=cart_id)
     
@@ -63,7 +61,6 @@ def login(request):
     current_url = request.META.get("HTTP_REFERER")
     current_url = urlparse(current_url).path
     redirect_url = f"{provider_login_url}?next={current_url}"
-    print("redirect_url", redirect_url)
     return redirect(redirect_url)
 
 

@@ -46,7 +46,6 @@ def store(request, category_slug=None):
             products_count = len(products)
             
 
-    print(f"products: {products}")
     
     paginator = Paginator(products, 12)
     page_number = request.GET.get("page")
@@ -94,7 +93,6 @@ def product_details(request, category_slug, product_slug):
 def search(request):
     if "keyword" in request.GET:
         keyword = request.GET["keyword"]
-        print(f"keyword: {keyword}")
         if keyword:
             products = Product.objects.order_by("-created_date").filter(
                 Q(description__icontains=keyword) | Q(name__icontains=keyword)

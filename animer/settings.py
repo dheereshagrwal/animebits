@@ -149,7 +149,9 @@ STATIC_URL = "static/"
 
 # static root is base dir parent folder then static
 STATIC_ROOT = BASE_DIR / "static"
-STATICFILES_DIRS = ["website/static"]
+STATICFILES_DIRS = ["animer/static"]
+print('static root',STATIC_ROOT)
+print('static files',STATICFILES_DIRS)
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

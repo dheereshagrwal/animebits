@@ -107,22 +107,20 @@ WSGI_APPLICATION = "animer.wsgi.app"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
-
-import dj_database_url
-
 DATABASES = {
-    "default": dj_database_url.parse(
-        "postgres://dheer:1JL4N0mmidpB4A3KPG05c9QlF3e8Jbb9@dpg-chvqn433cv26tfm3lupg-a.oregon-postgres.render.com/animer"
-    )
+    # "default": {
+    #     "ENGINE": "django.db.backends.postgresql",
+    #     "NAME": "neondb",
+    #     "USER": "dheereshagrwal",
+    #     "PASSWORD": "wYZO8y4pRBCN",
+    #     "HOST": "ep-black-mouse-288685.ap-southeast-1.aws.neon.tech",
+    #     "PORT": "5432",
+    # },
+    'default':{
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

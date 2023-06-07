@@ -166,15 +166,29 @@
       >
         {% csrf_token %}
         <!-- prettier-ignore -->
-        {% if product.variation.set.sizes %}
         <div>
-          <h6 class="text-white">Select Size</h6>
+          <h6 class="text-white">Select Size:</h6>
           <div
-            class="btn-group btn-group-lg"
+            class="btn-group font-inter"
             role="group"
             aria-label="Size options"
           >
             {% for i in product.variation_set.sizes %}
+            <!-- prettier-ignore -->
+            {% if i.variation_value == 'default' %}
+            <input
+              type="radio"
+              class="btn-check"
+              name="size"
+              id="{{ i.variation_value }}"
+              value="{{ i.variation_value }}"
+              required
+              checked
+            />
+            <label class="badge text-bg-secondary text-capitalize" for="{{ i.variation_value }}"
+              >{{ i.variation_value }}</label
+            >
+            {% else %}
             <input
               type="radio"
               class="btn-check"
@@ -186,10 +200,11 @@
             <label class="btn btn-outline-primary" for="{{ i.variation_value }}"
               >{{ i.variation_value }}</label
             >
+            {% endif %}
+            <!-- prettier-ignore -->
             {% endfor %}
           </div>
         </div>
-        {% endif %}
         <br />
         <div
           class="form-check animate__animated animate__headShake animate__delay-2s"

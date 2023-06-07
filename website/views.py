@@ -57,7 +57,7 @@ def home(request):
 
 
 def login(request):
-    provider_login_url = "http://127.0.0.1:8000/accounts/google/login/"
+    provider_login_url = "https://animebits.vercel.app/accounts/google/login/"
     # Get the next url
     next_url = request.GET.get("next")
     if next_url:

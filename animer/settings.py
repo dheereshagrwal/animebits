@@ -12,10 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-import environ
 
-env = environ.Env()
-environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -56,6 +53,7 @@ INSTALLED_APPS = [
     "order",
     "review",
     "django_cleanup.apps.CleanupConfig",
+    "storages",
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -119,7 +117,11 @@ WSGI_APPLICATION = "animer.wsgi.app"
 
 import dj_database_url
 
-DATABASES = {"default": dj_database_url.parse("postgres://dheer:1JL4N0mmidpB4A3KPG05c9QlF3e8Jbb9@dpg-chvqn433cv26tfm3lupg-a.oregon-postgres.render.com/animer")}
+DATABASES = {
+    "default": dj_database_url.parse(
+        "postgres://dheer:1JL4N0mmidpB4A3KPG05c9QlF3e8Jbb9@dpg-chvqn433cv26tfm3lupg-a.oregon-postgres.render.com/animer"
+    )
+}
 
 
 # Password validation
@@ -158,9 +160,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-# static root is base dir parent folder then static
-STATIC_ROOT = BASE_DIR / "static"
-STATICFILES_DIRS = ["animer/static"]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -182,3 +182,10 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "dheereshaggarwal@gmail.com"
 EMAIL_HOST_PASSWORD = "gqzcwzucfuyzlwkx"
 EMAIL_USE_TLS = True
+
+# AWS_ACCESS_KEY_ID = "AKIAW55SMZOJOMC63PEH"
+# AWS_SECRET_ACCESS_KEY = "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"
+# AWS_STORAGE_BUCKET_NAME = "test-dheeresh"
+# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+# STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+# AWS_S3_CUSTOM_DOMAIN = "animer.s3.amazonaws.com"

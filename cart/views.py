@@ -19,6 +19,7 @@ def add_cart(request, product_id):
         for item in request.POST:
             key = item
             value = request.POST[key]
+            print(f'key: {key}, value: {value}')
             try:
                 variation = Variation.objects.get(
                     product=product,

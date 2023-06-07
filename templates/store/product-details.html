@@ -165,6 +165,8 @@
         method="POST"
       >
         {% csrf_token %}
+        <!-- prettier-ignore -->
+        {% if product.variation.set.sizes %}
         <div>
           <h6 class="text-white">Select Size</h6>
           <div
@@ -187,6 +189,7 @@
             {% endfor %}
           </div>
         </div>
+        {% endif %}
         <br />
         <div
           class="form-check animate__animated animate__headShake animate__delay-2s"

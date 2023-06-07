@@ -7,6 +7,10 @@ from django.dispatch import receiver
 from order.models import Order
 from cart.models import Cart, CartItem
 from product.models import Product
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 @receiver(user_logged_in)
@@ -55,7 +59,9 @@ def home(request):
 
 
 def login(request):
-    provider_login_url = "https://animebits.vercel.app/accounts/google/login/"
+    # take provider login url from environment variable
+    print(os.getenv("PROVIDER_LOGIN_URL"))
+    provider_login_url = os.getenv("PROVIDER_LOGIN_URL")
     # Get the next url
     next_url = request.GET.get("next")
     if next_url:

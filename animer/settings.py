@@ -116,10 +116,10 @@ DATABASES = {
         "HOST": "ep-black-mouse-288685.ap-southeast-1.aws.neon.tech",
         "PORT": "5432",
     },
-    'sqlite':{
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "sqlite": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    },
 }
 
 
@@ -172,9 +172,6 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
-
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
@@ -182,9 +179,9 @@ EMAIL_HOST_USER = "dheereshaggarwal@gmail.com"
 EMAIL_HOST_PASSWORD = "gqzcwzucfuyzlwkx"
 EMAIL_USE_TLS = True
 
-# AWS_ACCESS_KEY_ID = "AKIAW55SMZOJOMC63PEH"
-# AWS_SECRET_ACCESS_KEY = "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"
-# AWS_STORAGE_BUCKET_NAME = "test-dheeresh"
-# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-# STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-# AWS_S3_CUSTOM_DOMAIN = "animer.s3.amazonaws.com"
+AWS_ACCESS_KEY_ID = "AKIAW55SMZOJOMC63PEH"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_STORAGE_BUCKET_NAME = "test-dheeresh"
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME

@@ -79,7 +79,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "animer.urls"
+ROOT_URLCONF = "website.urls"
 
 TEMPLATES = [
     {
@@ -92,7 +92,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "animer.context_processors.get_constant_data",
+                "website.context_processors.get_constant_data",
                 "category.context_processors.get_categories",
                 "cart.context_processors.get_cart_items",
             ],
@@ -100,7 +100,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "animer.wsgi.app"
+WSGI_APPLICATION = "website.wsgi.app"
 
 
 # Database

@@ -141,6 +141,7 @@ env.bak/
 venv.bak/
 media
 static
+data.json
 # Spyder project settings
 .spyderproject
 .spyproject

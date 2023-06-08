@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,7 +30,7 @@ SECRET_KEY = "django-insecure-vorhrr+^uw*y0in+44*k@q9d@io)4-&b*jcbadvy*2$ur+9y@l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 # allow all hosts
-ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -126,13 +128,7 @@ import dj_database_url
 
 # elephant sql
 
-DATABASES = {
-    "default": dj_database_url.parse(
-        "postgres://xmeagvtv:UNkm5-rWLMN6FIRTdIb-YrYIUddwrG0E@lucky.db.elephantsql.com/xmeagvtv"
-    )
-}
-
-
+DATABASES = {"default": dj_database_url.parse(os.getenv("DB_URL"))}
 
 
 # Password validation

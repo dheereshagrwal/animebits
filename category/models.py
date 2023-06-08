@@ -7,7 +7,7 @@ from django.urls import reverse
 class Category(models.Model):
     name = models.CharField(max_length=25, unique=True)
     slug = models.SlugField(max_length=25, unique=True)
-    image = models.ImageField(upload_to="images/categories")
+    image = models.ImageField(upload_to="static/images/categories")
 
     class Meta:
         verbose_name_plural = "Categories"

@@ -27,7 +27,7 @@ class Order(models.Model):
         ("Refunded", "Refunded"),
         ("Completed", "Completed")
     )
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     payment = models.ForeignKey(
         Payment, on_delete=models.SET_NULL, null=True, blank=True
     )

@@ -107,20 +107,32 @@ WSGI_APPLICATION = "website.wsgi.app"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     },
+# }
+
+import dj_database_url
+
+# neon db
+
+# DATABASES = {
+#     "default": dj_database_url.parse(
+#         "postgres://dheereshagrwal:2hu3cpdHMlSR@ep-black-wind-718099.us-east-2.aws.neon.tech/neondb"
+#     )
+# }
+
+# elephant sql
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "neondb",
-        "USER": "dheereshagrwal",
-        "PASSWORD": "wYZO8y4pRBCN",
-        "HOST": "ep-black-mouse-288685.ap-southeast-1.aws.neon.tech",
-        "PORT": "5432",
-    },
-    "sqlite": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    },
+    "default": dj_database_url.parse(
+        "postgres://xmeagvtv:UNkm5-rWLMN6FIRTdIb-YrYIUddwrG0E@lucky.db.elephantsql.com/xmeagvtv"
+    )
 }
+
+
 
 
 # Password validation

@@ -21,8 +21,8 @@ headers = {
 
 @login_required(login_url="login")
 def payment(request, order_id):
-    if request.user.is_superuser:
-        return redirect("home")
+    # if request.user.is_superuser:
+    #     return redirect("home")
 
     try:
         order = Order.objects.get(

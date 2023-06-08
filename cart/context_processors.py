@@ -4,7 +4,9 @@ from utils.utils import calculate_totals
 
 def get_cart_items(request):
     if request.user.is_superuser:
-        return {}
+        cart = Cart.objects.get(cart_id=request.session.get("cart_id"))
+        cart_items = CartItem.objects.filter(cart=cart, is_active=True)
+        cart_items_count = cart_items.count()
     if request.user.is_authenticated:
         cart_items = CartItem.objects.filter(user=request.user, is_active=True)
         cart_items_count = cart_items.count()

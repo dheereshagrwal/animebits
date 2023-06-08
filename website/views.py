@@ -6,7 +6,6 @@ from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
 from order.models import Order
 from cart.models import Cart, CartItem
-from product.models import Product
 import os
 from dotenv import load_dotenv
 

@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Product, Variation, ProductGallery
 import admin_thumbnails
-
 # Register your models here.
 
 
@@ -18,6 +17,7 @@ class ProductAdmin(admin.ModelAdmin):
         "slug",
         "price",
         "category",
+        'description',
     )
     # description is prepopulated from name
     prepopulated_fields = {

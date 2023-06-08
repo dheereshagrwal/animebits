@@ -32,7 +32,7 @@ class Order(models.Model):
         Payment, on_delete=models.SET_NULL, null=True, blank=True
     )
     order_id = models.CharField(max_length=255, null=True)
-    phone = models.IntegerField()
+    phone = models.CharField(max_length=10, null=True)
     address_1 = models.CharField(max_length=255)
     address_2 = models.CharField(max_length=255, blank=True)
     state = models.CharField(max_length=30)

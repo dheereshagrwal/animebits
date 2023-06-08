@@ -6,6 +6,7 @@ from django.db.models import Q
 from review.models import ReviewRating
 from review.forms import ReviewForm
 from order.models import OrderProduct
+from utils.utils import get_user_info
 
 # Create your views here.
 
@@ -18,14 +19,18 @@ def store(request, category_slug=None):
         categories = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=categories).order_by("-created_date")
         products_count = products.count()
-        
+
     if request.GET.get("category"):
-        #get all the categories from the request
+        # get all the categories from the request
         categories = request.GET.getlist("category")
-        #get all the products that belong to the categories
-        products = products.filter(category__name__in=categories).distinct().order_by("-created_date")
+        # get all the products that belong to the categories
+        products = (
+            products.filter(category__name__in=categories)
+            .distinct()
+            .order_by("-created_date")
+        )
         products_count = products.count()
-    
+
     if request.GET.get("sort"):
         sort = request.GET.get("sort")
         if sort == "best-sellers":
@@ -41,12 +46,10 @@ def store(request, category_slug=None):
             products = products.order_by("-created_date")
             products_count = products.count()
         elif sort == "avg-rating":
-            #average_rating is a function in product/models.py
+            # average_rating is a function in product/models.py
             products = sorted(products, key=lambda x: x.average_rating(), reverse=True)
             products_count = len(products)
-            
 
-    
     paginator = Paginator(products, 12)
     page_number = request.GET.get("page")
 
@@ -106,9 +109,12 @@ def search(request):
 
 def submit_review(request, product_id):
     url = request.META.get("HTTP_REFERER")
+    user_info = get_user_info(request)
     if request.method == "POST":
         try:
             review = ReviewRating.objects.get(user=request.user, product__id=product_id)
+            review.user_picture = user_info["picture"]
+            print("review.user_picture", review.user_picture)
             form = ReviewForm(request.POST, instance=review)
             form.save()
             return redirect(url)
@@ -120,6 +126,8 @@ def submit_review(request, product_id):
                 data.rating = form.cleaned_data["rating"]
                 data.review = form.cleaned_data["review"]
                 data.ip = request.META.get("REMOTE_ADDR")
+                data.user_picture = user_info["picture"]
+                print("data.user_picture", data.user_picture)
                 data.product_id = product_id
                 data.user = request.user
                 data.save()

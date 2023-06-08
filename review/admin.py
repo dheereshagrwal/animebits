@@ -3,7 +3,15 @@ from .models import ReviewRating
 
 
 class ReviewRatingAdmin(admin.ModelAdmin):
-    list_display = ["user", "product", "title", "rating", "status", "created_at"]
+    list_display = [
+        "user",
+        "product",
+        "title",
+        "rating",
+        "status",
+        "created_at",
+        "user_picture",
+    ]
     list_filter = ["status", "created_at", "user"]
 
 

@@ -44,14 +44,18 @@ def post_login(sender, user, request, **kwargs):
             item.user = user
             item.save()
         else:
-            for cart_item in cart_items:
-                cart_item.user = user
-                cart_item.save()
+            # for cart_item in cart_items:
+            #     cart_item.user = user
+            #     cart_item.save()
+            index = product_variations.index(product_variation)
+            item = CartItem.objects.get(id=cart_items[index].id)
+            item.user = user
+            item.save()
 
 
 # Create your views here.
 def home(request):
-    products = Product.objects.all().filter(is_available=True).order_by("-created_date")
+    products = Product.objects.all().filter(is_available=True).order_by("-created_date")[:10]
     products_count = products.count()
     context = {"products": products, "products_count": products_count}
     return render(request, "home.html", context)

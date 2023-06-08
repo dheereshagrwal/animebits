@@ -80,6 +80,7 @@
                       <label
                         class="form-check-label text-white font-rubik"
                         for="{{category.name}}"
+                        style="cursor: pointer"
                       >
                         {{category.name}}
                       </label>
@@ -120,7 +121,9 @@
             <span>{{products_count}} items found </span>
             {% endif %}
           </header>
-          <div class="d-flex flex-wrap gap-3 gap-lg-5 justify-content-center justify-content-md-start">
+          <div
+            class="d-flex flex-wrap gap-3 gap-lg-5 justify-content-center justify-content-md-start"
+          >
             {% if products %}
             <!-- looping through products -->
             {% for product in products %}
@@ -135,7 +138,9 @@
                 alt="{{ product.name }}"
               />
               <div class="card-body">
-                <p class="card-text font-rubik fw-semibold text-capitalize text-white small">
+                <p
+                  class="card-text font-rubik fw-semibold text-capitalize text-white small"
+                >
                   {{ product.name }}
                 </p>
                 <div class="d-flex">
@@ -253,7 +258,9 @@
               </li>
               {% else %}
               <li class="page-item disabled">
-                <a class="page-link font-rubik bg-secondary text-white-50">Previous</a>
+                <a class="page-link font-rubik bg-secondary text-white-50"
+                  >Previous</a
+                >
               </li>
               {% endif %}
               <!-- blank line -->
@@ -263,7 +270,9 @@
               <li class="page-item active"><a class="page-link">{{i}}</a></li>
               {% else %}
               <li class="page-item">
-                <a class="page-link bg-dark text-white" href="?page={{i}}">{{i}}</a>
+                <a class="page-link bg-dark text-white" href="?page={{i}}"
+                  >{{i}}</a
+                >
               </li>
               {% endif %}
               <!-- blank line -->
@@ -271,13 +280,17 @@
               <!-- blank line -->
               {% if products.has_next %}
               <li class="page-item">
-                <a class="page-link font-rubik bg-dark text-white" href="?page={{products.next_page_number}}"
+                <a
+                  class="page-link font-rubik bg-dark text-white"
+                  href="?page={{products.next_page_number}}"
                   >Next</a
                 >
               </li>
               {% else %}
               <li class="page-item disabled">
-                <a class="page-link font-rubik bg-secondary text-white-50">Next</a>
+                <a class="page-link font-rubik bg-secondary text-white-50"
+                  >Next</a
+                >
               </li>
               {% endif %}
             </ul>

@@ -12,7 +12,7 @@ class ReviewRatingAdmin(admin.ModelAdmin):
         "created_at",
         "user_picture",
     ]
-    list_filter = ["status", "created_at", "user"]
+    list_filter = ["status", "created_at", "user", "product"]
 
 
 # Register your models here.

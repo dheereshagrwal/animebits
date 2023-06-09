@@ -18,11 +18,13 @@ class ProductAdmin(admin.ModelAdmin):
         "price",
         "category",
         'description',
+        'avg_rating',
     )
     # description is prepopulated from name
     prepopulated_fields = {
         "slug": ("name",),
     }
+    list_editable = ("price",)
     inlines = [ProductGalleryInline]
     search_fields = ["name", "slug", "description"]
 

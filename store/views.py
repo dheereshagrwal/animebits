@@ -14,11 +14,9 @@ from utils.utils import get_user_info
 def store(request, category_slug=None):
     categories = None
     products = Product.objects.filter(is_available=True).order_by("-created_date")
-    products_count = products.count()
     if category_slug:
         categories = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=categories).order_by("-created_date")
-        products_count = products.count()
 
     if request.GET.get("category"):
         # get all the categories from the request
@@ -29,27 +27,21 @@ def store(request, category_slug=None):
             .distinct()
             .order_by("-created_date")
         )
-        products_count = products.count()
 
     if request.GET.get("sort"):
         sort = request.GET.get("sort")
         if sort == "best-sellers":
             products = products.order_by("-sold")
-            products_count = products.count()
         elif sort == "price-low-to-high":
             products = products.order_by("price")
-            products_count = products.count()
         elif sort == "price-high-to-low":
             products = products.order_by("-price")
-            products_count = products.count()
         elif sort == "newest":
             products = products.order_by("-created_date")
-            products_count = products.count()
         elif sort == "avg-rating":
-            # average_rating is a function in product/models.py
-            products = sorted(products, key=lambda x: x.average_rating(), reverse=True)
-            products_count = len(products)
-
+            products = products.order_by("-avg_rating")
+    
+    products_count = products.count()
     paginator = Paginator(products, 12)
     page_number = request.GET.get("page")
 
@@ -109,15 +101,20 @@ def search(request):
 
 def submit_review(request, product_id):
     url = request.META.get("HTTP_REFERER")
+    product = get_object_or_404(Product, id=product_id)
     user_info = get_user_info(request)
     if request.method == "POST":
         try:
-            review = ReviewRating.objects.get(user=request.user, product__id=product_id)
+            review = ReviewRating.objects.get(user=request.user, product=product)
+            prev_rating = review.rating
             review.user_picture = user_info["picture"]
-            print("review.user_picture", review.user_picture)
             form = ReviewForm(request.POST, instance=review)
             form.save()
+            product.avg_rating = (product.avg_rating * product.total_reviews - prev_rating + form.cleaned_data["rating"]) / product.total_reviews
+            product.save()
+
             return redirect(url)
+        
         except ReviewRating.DoesNotExist:
             form = ReviewForm(request.POST)
             if form.is_valid():
@@ -128,7 +125,13 @@ def submit_review(request, product_id):
                 data.ip = request.META.get("REMOTE_ADDR")
                 data.user_picture = user_info["picture"]
                 print("data.user_picture", data.user_picture)
-                data.product_id = product_id
+                data.product = product
                 data.user = request.user
                 data.save()
+                product.avg_rating = (product.avg_rating * product.total_reviews + data.rating) / (product.total_reviews + 1)
+                product.total_reviews += 1
+                product.save()
+
+                print(f'product.avg_rating: {product.avg_rating} product.total_reviews: {product.total_reviews} data.rating: {data.rating}')
+                
                 return redirect(url)

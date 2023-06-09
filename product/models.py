@@ -5,6 +5,7 @@ from django.core.validators import MinValueValidator
 from review.models import ReviewRating
 from django.db.models import Avg
 
+
 # Create your models here.
 class Product(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -18,26 +19,26 @@ class Product(models.Model):
     image = models.ImageField(upload_to="static/images/products")
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
+    avg_rating = models.FloatField(default=0)
+    total_reviews = models.IntegerField(default=0)
     def get_url(self):
         return reverse("product-details", args=[self.category.slug, self.slug])
 
     def __str__(self):
         return self.name
 
-    def average_rating(self):
-        reviews = ReviewRating.objects.filter(product=self, status=True).aggregate(average=Avg("rating"))
-        avg = 0
-        if reviews["average"] is not None:
-            avg = float(reviews["average"])
-        return avg
-
 
 class VariationManager(models.Manager):
     def gifts(self):
-        return super(VariationManager, self).filter(variation_category="gift", is_active=True)
+        return super(VariationManager, self).filter(
+            variation_category="gift", is_active=True
+        )
 
     def sizes(self):
-        return super(VariationManager, self).filter(variation_category="size", is_active=True)
+        return super(VariationManager, self).filter(
+            variation_category="size", is_active=True
+        )
+
 
 class Variation(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -51,8 +52,10 @@ class Variation(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     objects = VariationManager()
+
     def __str__(self):
         return self.variation_value
+
 
 class ProductGallery(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -60,6 +63,7 @@ class ProductGallery(models.Model):
 
     def __str__(self):
         return self.product.name
+
     class Meta:
         verbose_name = "Product gallery"
         verbose_name_plural = "Product gallery"

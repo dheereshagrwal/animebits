@@ -109,20 +109,29 @@ WSGI_APPLICATION = "website.wsgi.app"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    },
-}
-
-# import dj_database_url
-
 # DATABASES = {
-#     "default": dj_database_url.parse(
-#         "postgresql://doadmin:AVNS_299pBbVoUmPmdelCzJC@test-do-user-14203587-0.b.db.ondigitalocean.com:25060/defaultdb?sslmode=require"
-#     )
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     },
 # }
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://default:x3inSmfk7EJD9UlAc9Chv633ijdXSuqQ@redis-12053.c265.us-east-1-2.ec2.cloud.redislabs.com:12053",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    }
+}
+import dj_database_url
+
+DATABASES = {
+    "default": dj_database_url.parse(
+        "postgresql://doadmin:AVNS_rnNxUe58QDSLcs6yn62@animer-do-user-14203587-0.b.db.ondigitalocean.com:25060/defaultdb?sslmode=require"
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

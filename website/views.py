@@ -77,7 +77,12 @@ def login(request):
     if next_url:
         redirect_url = f"{provider_login_url}?next={next_url}"
     else:
-        redirect_url = provider_login_url
+        prev_url = request.META.get("HTTP_REFERER")
+        prev_url = urlparse(prev_url).path
+        if prev_url:
+            redirect_url = f"{provider_login_url}?next={prev_url}"
+        else:
+            redirect_url = provider_login_url
     return redirect(redirect_url)
 
 

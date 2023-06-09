@@ -64,15 +64,11 @@
         </button>
       </div> -->
 
-      {% load cache %}
-      <!-- prettier-ignore -->
-      {% cache 86400 product_gallery product %}
       <img
         src="{{ product.image.url }}"
         alt="product image"
         class="img-fluid"
       />
-      {% endcache %}
     </div>
     <main class="col-lg-7 d-flex flex-column justify-content-between mx-auto">
       <div>

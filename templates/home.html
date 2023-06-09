@@ -1,6 +1,8 @@
 {%extends 'base.html' %} {% load static %} {% block content %}
 <!-- prettier-ignore -->
 {% load cache %}
+<!-- prettier-ignore -->
+{% cache 5184000 hero %}
 <section class="my-5 container-fluid">
   <div class="mx-5">
     <img
@@ -11,7 +13,6 @@
   </div>
 </section>
 
-{% cache 1000 'home' %}
 <!-- this is container only -->
 <section class="container mt-5">
   <div class="row row-cols-3 row-cols-md-6 g-4 g-lg-5 mx-auto">
@@ -36,6 +37,7 @@
     {% endfor %}
   </div>
 </section>
+{% endcache %}
 <br />
 <br /><br />
 <section class="container-fluid mt-5">
@@ -61,14 +63,17 @@
         class="card-img-top rounded-top-5"
         alt="{{ product.name }}"
       />
+
       <div class="card-body">
         <p class="card-text font-rubik fw-semibold text-capitalize text-white">
           {{ product.name }}
         </p>
+
         <div class="d-flex">
           <var class="card-text font-rubik text-white fs-5 fw-bold"
             >&#8377;{{product.price}}</var
           >
+
           <div
             class="ms-auto"
             data-bs-toggle="tooltip"
@@ -161,7 +166,7 @@
     {% endfor %}
   </div>
 </section>
-{% endcache %}
+
 <!-- prettier-ignore -->
 
 {% endblock %}

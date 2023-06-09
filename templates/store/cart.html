@@ -1,7 +1,17 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
+<style>
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+</style>
 <section class="container-fluid mt-5">
   {% if not cart_items %}
-  <div class="text-white text-center ">
+  <div class="text-white text-center">
     <h2 class="font-dm-sans mb-4">Your Shopping Cart is Empty</h2>
     <a href="{% url 'store' %}" class="btn btn-primary text-center font-inter"
       >Continue Shopping</a
@@ -85,6 +95,7 @@
                       </a>
                       <input
                         type="number"
+                        inputmode="numeric"
                         class="form-control text-center font-rubik bg-dark text-white border-0 hvr-box-shadow-inset"
                         value="{{cart_item.quantity}}"
                       />

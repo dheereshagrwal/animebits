@@ -6,9 +6,8 @@ from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
 from order.models import Order
 from cart.models import Cart, CartItem
-import os
 from decouple import config
-
+from category.models import Category
 
 @receiver(user_logged_in)
 def post_login(sender, user, request, **kwargs):
@@ -58,8 +57,8 @@ def post_login(sender, user, request, **kwargs):
 def home(request):
     products = Product.objects.filter(is_available=True).order_by("-created_date")[:10]
     products_count = products.count()
-
-    context = {"products": products, "products_count": products_count}
+    categories = Category.objects.all()
+    context = {"products": products, "products_count": products_count, "categories": categories}
     return render(request, "home.html", context)
 
 

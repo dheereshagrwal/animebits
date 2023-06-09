@@ -52,7 +52,8 @@ def store(request, category_slug=None):
     except EmptyPage:
         products = paginator.page(paginator.num_pages)
 
-    context = {"products": products, "products_count": products_count}
+    categories = Category.objects.all()
+    context = {"products": products, "products_count": products_count, "categories": categories}
     return render(request, "store/store.html", context)
 
 
@@ -95,7 +96,8 @@ def search(request):
             products_count = products.count()
         else:
             return redirect("store")
-    context = {"products": products, "products_count": products_count}
+    categories = Category.objects.all()
+    context = {"products": products, "products_count": products_count, "categories": categories}
     return render(request, "store/store.html", context)
 
 

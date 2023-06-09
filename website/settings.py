@@ -94,7 +94,6 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "website.context_processors.get_constant_data",
-                "category.context_processors.get_categories",
                 "cart.context_processors.get_cart_items",
             ],
         },

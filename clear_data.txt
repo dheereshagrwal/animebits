@@ -1,2 +1,4 @@
 from django.contrib.contenttypes.models import ContentType
 ContentType.objects.all().delete()
+
+ssh -R animer:80:127.0.0.1:8000 serveo.net

@@ -25,7 +25,7 @@ TIME_ZONE = "Asia/Kolkata"
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-vorhrr+^uw*y0in+44*k@q9d@io)4-&b*jcbadvy*2$ur+9y@l"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -35,7 +35,7 @@ ALLOWED_HOSTS = ["*"]
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://default:x3inSmfk7EJD9UlAc9Chv633ijdXSuqQ@redis-12053.c265.us-east-1-2.ec2.cloud.redislabs.com:12053",
+        "LOCATION": os.getenv("REDIS_URL"),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "SSL_CERTFILE": "/path/to/ssl/certificate.pem",  # Optional: Specify SSL certificate path if required
@@ -71,8 +71,8 @@ INSTALLED_APPS = [
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
         "APP": {
-            "client_id": "826094995012-s244o1udtf5nhmjom4s8ul8a0te4lcp1.apps.googleusercontent.com",
-            "secret": "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",
+            "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+            "secret": os.getenv("GOOGLE_CLIENT_SECRET"),
             "key": "",
         },
         "SCOPE": [
@@ -190,12 +190,12 @@ LOGOUT_REDIRECT_URL = "/"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "dheereshaggarwal@gmail.com"
-EMAIL_HOST_PASSWORD = "gqzcwzucfuyzlwkx"
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
 
-# AWS_ACCESS_KEY_ID = "AKIAW55SMZOJOMC63PEH"
-# AWS_SECRET_ACCESS_KEY = "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"
+# AWS_ACCESS_KEY_ID = ""
+# AWS_SECRET_ACCESS_KEY = ""
 # AWS_STORAGE_BUCKET_NAME = "test-dheeresh"
 # DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 # STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"

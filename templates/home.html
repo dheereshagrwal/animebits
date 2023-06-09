@@ -77,81 +77,72 @@
             class="ms-auto"
             data-bs-toggle="tooltip"
             data-bs-placement="top"
-            title="{{ product.average_rating }}"
+            title="{{ product.avg_rating }}"
           >
-            {%if product.average_rating > 0 and product.average_rating <= 0.5%}
+            {%if product.avg_rating > 0 and product.avg_rating <= 0.5%}
             <i class="bi bi-star-half text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
-            {% endif %}
             <!-- prettier-ignore -->
-            {%if product.average_rating > 0.5 and product.average_rating <= 1%}
+            {% elif product.avg_rating > 0.5 and product.avg_rating <= 1%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
-            {% endif %}
             <!-- prettier-ignore -->
-            {%if product.average_rating > 1 and product.average_rating <= 1.5%}
+            {% elif product.avg_rating > 1 and product.avg_rating <= 1.5%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-half text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
-            {% endif %}
             <!-- prettier-ignore -->
-            {%if product.average_rating > 1.5 and product.average_rating <= 2%}
+            {% elif product.avg_rating > 1.5 and product.avg_rating <= 2%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
-            {% endif %}
             <!-- prettier-ignore -->
-            {%if product.average_rating > 2 and product.average_rating <= 2.5%}
+            {% elif product.avg_rating > 2 and product.avg_rating <= 2.5%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-half text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
-            {% endif %}
             <!-- prettier-ignore -->
-            {%if product.average_rating > 2.5 and product.average_rating <= 3%}
+            {% elif product.avg_rating > 2.5 and product.avg_rating <= 3%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star text-warning"></i>
             <i class="bi bi-star text-warning"></i>
-            {% endif %}
             <!-- prettier-ignore -->
-            {%if product.average_rating > 3 and product.average_rating <= 3.5%}
+            {% elif product.avg_rating > 3 and product.avg_rating <= 3.5%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-half text-warning"></i>
             <i class="bi bi-star text-warning"></i>
-            {% endif %}
             <!-- prettier-ignore -->
-            {%if product.average_rating > 3.5 and product.average_rating <= 4%}
+            {% elif product.avg_rating > 3.5 and product.avg_rating <= 4%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star text-warning"></i>
-            {% endif %}
             <!-- prettier-ignore -->
-            {%if product.average_rating > 4 and product.average_rating <= 4.5%}
+            {% elif product.avg_rating > 4 and product.avg_rating <= 4.5%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-half text-warning"></i>
-            {% endif %}
             <!-- prettier-ignore -->
-            {%if product.average_rating > 4.5 and product.average_rating <= 5%}
+            {% else %}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>

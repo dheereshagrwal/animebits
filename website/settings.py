@@ -32,6 +32,16 @@ DEBUG = True
 # allow all hosts
 ALLOWED_HOSTS = ["*"]
 
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://default:x3inSmfk7EJD9UlAc9Chv633ijdXSuqQ@redis-12053.c265.us-east-1-2.ec2.cloud.redislabs.com:12053",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "SSL_CERTFILE": "/path/to/ssl/certificate.pem",  # Optional: Specify SSL certificate path if required
+        },
+    },
+}
 
 # Application definition
 SITE_ID = 1
@@ -109,26 +119,23 @@ WSGI_APPLICATION = "website.wsgi.app"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    },
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     },
+# }
 
 import dj_database_url
 
-# neon db
 
-# DATABASES = {
-#     "default": dj_database_url.parse(
-#         "postgres://dheereshagrwal:2hu3cpdHMlSR@ep-black-wind-718099.us-east-2.aws.neon.tech/neondb"
-#     )
-# }
+DATABASES = {
+    "default": dj_database_url.parse(
+        "postgresql://doadmin:AVNS_NfstgmV6qzaXVbZAvTX@dheeresh-do-user-14203587-0.b.db.ondigitalocean.com:25060/defaultdb?sslmode=require"
+    )
+}
 
 # elephant sql
-
-# DATABASES = {"default": dj_database_url.parse(os.getenv("DB_URL"))}
 
 
 # Password validation
@@ -187,9 +194,9 @@ EMAIL_HOST_USER = "dheereshaggarwal@gmail.com"
 EMAIL_HOST_PASSWORD = "gqzcwzucfuyzlwkx"
 EMAIL_USE_TLS = True
 
-# AWS_ACCESS_KEY_ID = "AKIAW55SMZOJOMC63PEH"
-# AWS_SECRET_ACCESS_KEY = "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"
-# AWS_STORAGE_BUCKET_NAME = "test-dheeresh"
-# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-# STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-# AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
+AWS_ACCESS_KEY_ID = "AKIAW55SMZOJOMC63PEH"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_STORAGE_BUCKET_NAME = "test-dheeresh"
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME

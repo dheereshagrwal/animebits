@@ -8,6 +8,7 @@ from order.models import Order
 from cart.models import Cart, CartItem
 import os
 from dotenv import load_dotenv
+from django.db.models import F
 
 load_dotenv()
 
@@ -58,10 +59,11 @@ def post_login(sender, user, request, **kwargs):
 
 # Create your views here.
 def home(request):
-    products = (
-        Product.objects.all().filter(is_available=True).order_by("-created_date")[:10]
-    )
+    products = Product.objects.filter(is_available=True).order_by(
+        F("created_date").desc(nulls_last=True)
+    )[:10]
     products_count = products.count()
+
     context = {"products": products, "products_count": products_count}
     return render(request, "home.html", context)
 

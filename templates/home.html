@@ -5,22 +5,16 @@
   type="text/css"
 /><!-- ========================= SECTION MAIN ========================= -->
 <section class="my-5 container-fluid">
-  <div
-    id="carouselExampleSlidesOnly"
-    class="carousel slide carousel-fade mx-lg-5"
-    data-bs-ride="carousel"
-  >
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img
-          src="{% static 'images/banners/cover1.jpg' %}"
-          class="img-fluid rounded-5"
-          alt="..."
-        />
-      </div>
-    </div>
+  <div class="mx-5">
+    <img
+      src="{% static 'images/banners/cover1.jpg' %}"
+      class="img-fluid rounded-5"
+      alt="..."
+    />
   </div>
 </section>
+<!-- prettier-ignore -->
+
 <!-- this is container only -->
 <section class="container mt-5">
   <div class="row row-cols-3 row-cols-md-6 g-4 g-lg-5 mx-auto">
@@ -170,4 +164,6 @@
     {% endfor %}
   </div>
 </section>
+<!-- prettier-ignore -->
+
 {% endblock %}

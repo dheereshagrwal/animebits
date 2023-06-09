@@ -3,8 +3,7 @@
 
 {% load cache %}
 <!-- prettier-ignore -->
-
-{% cache 86400 home %}
+{% cache 86400 banner %}
 <div class="mt-5 container-fluid">
   <div class="mx-3 mx-lg-5">
     <img
@@ -14,9 +13,12 @@
     />
   </div>
 </div>
-
 <br />
+{% endcache %}
 <!-- this is container only -->
+{% load cache %}
+<!-- prettier-ignore -->
+{% cache 86400 categories %}
 <section class="container mt-5">
   <div class="row row-cols-3 row-cols-md-6 g-4 g-lg-5 mx-auto">
     {% for category in categories %}

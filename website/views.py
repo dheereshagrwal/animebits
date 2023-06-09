@@ -7,10 +7,7 @@ from django.dispatch import receiver
 from order.models import Order
 from cart.models import Cart, CartItem
 import os
-from dotenv import load_dotenv
-from django.db.models import F
-
-load_dotenv()
+from decouple import config
 
 
 @receiver(user_logged_in)
@@ -68,8 +65,8 @@ def home(request):
 
 def login(request):
     # take provider login url from environment variable
-    print(os.getenv("PROVIDER_LOGIN_URL"))
-    provider_login_url = os.getenv("PROVIDER_LOGIN_URL")
+    provider_login_url = config("PROVIDER_LOGIN_URL")
+    print("provider_login_url", provider_login_url)
     # Get the next url
     next_url = request.GET.get("next")
     if next_url:

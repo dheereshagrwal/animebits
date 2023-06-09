@@ -32,17 +32,6 @@ DEBUG = True
 # allow all hosts
 ALLOWED_HOSTS = ["*"]
 
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": os.getenv("REDIS_URL"),
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "SSL_CERTFILE": "/path/to/ssl/certificate.pem",  # Optional: Specify SSL certificate path if required
-        },
-    },
-}
-
 # Application definition
 SITE_ID = 1
 SOCIALACCOUNT_LOGIN_ON_GET = True
@@ -91,6 +80,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+
 ROOT_URLCONF = "website.urls"
 
 TEMPLATES = [
@@ -125,8 +115,6 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     },
 }
-
-
 
 
 # Password validation

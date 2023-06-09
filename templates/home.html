@@ -1,14 +1,17 @@
 {%extends 'base.html' %} {% load static %} {% block content %}
 <!-- prettier-ignore -->
 
+{% load cache %}
+<!-- prettier-ignore -->
+{% cache 86400 hero %}
 <div class="mt-5 container-fluid">
-    <div class="mx-3 mx-lg-5">
-      <img
-        src="{% static 'images/banners/cover2.jpg' %}"
-        class="img-fluid rounded-5"
-        alt="..."
-      />
-    </div>
+  <div class="mx-3 mx-lg-5">
+    <img
+      src="{% static 'images/banners/cover2.jpg' %}"
+      class="img-fluid rounded-5"
+      alt="..."
+    />
+  </div>
 </div>
 
 <br />
@@ -36,7 +39,7 @@
     {% endfor %}
   </div>
 </section>
-
+{% endcache %}
 <br />
 <br /><br />
 <section class="container-fluid mt-5">
@@ -47,6 +50,7 @@
     </a>
   </div>
 </section>
+
 <br />
 <br /><br />
 <section class="container-fluid">

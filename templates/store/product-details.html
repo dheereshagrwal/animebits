@@ -64,8 +64,7 @@
         </button>
       </div> -->
 
-      {% load cache %}
-      {% cache 1000 product_gallery product.id %}
+      {% load cache %} {% cache 1000 product_gallery product.id %}
       <img
         src="{{ product.image.url }}"
         alt="product image"
@@ -75,12 +74,10 @@
     </div>
     <main class="col-lg-7 d-flex flex-column justify-content-between mx-auto">
       <div>
-        {% load cache %}
-        {% cache 1000 product_name product.id %}
+        {% load cache %} {% cache 1000 product product.id %}
         <h2 class="font-rubik text-white fs-2 fw-semibold text-capitalize">
           {{product.name}}
         </h2>
-        {% endcache %}
         <div class="mb-4">
           {% if product.average_rating > 0 and product.average_rating <= 0.5 %}
           <i class="bi bi-star-half text-warning"></i>
@@ -165,8 +162,6 @@
             >{{reviews.count}} reviews</span
           >
         </div>
-        {% load cache %}
-        {% cache 1000 product_details product.id %}
         <var class="text-white fw-bold fs-2 font-rubik"
           >&#8377;{{product.price}}</var
         >
@@ -202,7 +197,9 @@
               required
               checked
             />
-            <label class="badge text-bg-secondary text-capitalize" for="{{ i.variation_value }}"
+            <label
+              class="badge text-bg-secondary text-capitalize"
+              for="{{ i.variation_value }}"
               >{{ i.variation_value }}</label
             >
             {% else %}
@@ -395,6 +392,9 @@
       {% endif %}
     </form>
     <h3 class="font-dm-sans fw-bold mt-5 text-white">Customer Reviews</h3>
+    {% load cache %}
+    <!-- prettier-ignore -->
+    {% cache 86400 product_reviews product.id %}
     <div class="mb-4">
       {% if product.average_rating > 0 and product.average_rating <= 0.5 %}
       <i class="bi bi-star-half text-warning"></i>
@@ -457,7 +457,13 @@
       {% endif %}
       <span class="text-white font-rubik ms-2">{{reviews.count}} reviews</span>
     </div>
+    {% endcache %} 
+    <!-- prettier-ignore -->
     {% for review in reviews %}
+    
+    {% load cache %}
+    <!-- prettier-ignore -->
+    {% cache 86400 review %}
     <div class="px-3 pt-3 bg-dark">
       <div class="d-flex">
         <div class="d-flex gap-2">
@@ -539,6 +545,7 @@
       <h6 class="font-rubik text-white">{{review.title}}</h6>
       <p class="font-karla text-white">{{review.review}}</p>
     </div>
+    {% endcache %}
     <hr class="text-secondary" />
     {% endfor %}
   </div>

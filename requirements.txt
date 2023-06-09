@@ -4,7 +4,6 @@ certifi==2023.5.7
 cffi==1.15.1
 charset-normalizer==3.1.0
 cryptography==41.0.1
-dataclasses==0.6
 defusedxml==0.7.1
 dj-database-url==2.0.0
 Django==4.2.2
@@ -12,15 +11,12 @@ django-admin-thumbnails==0.2.8
 django-allauth==0.54.0
 django-cleanup==7.0.0
 django-redis==5.2.0
-djongo==1.2.31
-dnspython==2.3.0
 idna==3.4
 oauthlib==3.2.2
 Pillow==9.5.0
 psycopg2-binary==2.9.6
 pycparser==2.21
 PyJWT==2.7.0
-pymongo==4.3.3
 python-dotenv==1.0.0
 python3-openid==3.2.0
 redis==4.5.5

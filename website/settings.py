@@ -65,7 +65,7 @@ INSTALLED_APPS = [
     "order",
     "review",
     "django_cleanup.apps.CleanupConfig",
-    "storages",
+    # "storages",
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -126,16 +126,7 @@ DATABASES = {
     },
 }
 
-# import dj_database_url
 
-
-# DATABASES = {
-#     "default": dj_database_url.parse(
-#         ""
-#     )
-# }
-
-# elephant sql
 
 
 # Password validation

@@ -1,9 +1,6 @@
 {%extends 'base.html' %} {% load static %} {% block content %}
-<link
-  href="{% static 'css/carousel.css' %} "
-  rel="stylesheet"
-  type="text/css"
-/><!-- ========================= SECTION MAIN ========================= -->
+<!-- prettier-ignore -->
+{% load cache %}
 <section class="my-5 container-fluid">
   <div class="mx-5">
     <img
@@ -13,8 +10,8 @@
     />
   </div>
 </section>
-<!-- prettier-ignore -->
 
+{% cache 1000 'home' %}
 <!-- this is container only -->
 <section class="container mt-5">
   <div class="row row-cols-3 row-cols-md-6 g-4 g-lg-5 mx-auto">
@@ -164,6 +161,7 @@
     {% endfor %}
   </div>
 </section>
+{% endcache %}
 <!-- prettier-ignore -->
 
 {% endblock %}

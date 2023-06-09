@@ -64,17 +64,23 @@
         </button>
       </div> -->
 
+      {% load cache %}
+      {% cache 1000 product_gallery product.id %}
       <img
         src="{{ product.image.url }}"
         alt="product image"
         class="img-fluid"
       />
+      {% endcache %}
     </div>
     <main class="col-lg-7 d-flex flex-column justify-content-between mx-auto">
       <div>
+        {% load cache %}
+        {% cache 1000 product_name product.id %}
         <h2 class="font-rubik text-white fs-2 fw-semibold text-capitalize">
           {{product.name}}
         </h2>
+        {% endcache %}
         <div class="mb-4">
           {% if product.average_rating > 0 and product.average_rating <= 0.5 %}
           <i class="bi bi-star-half text-warning"></i>
@@ -159,10 +165,13 @@
             >{{reviews.count}} reviews</span
           >
         </div>
+        {% load cache %}
+        {% cache 1000 product_details product.id %}
         <var class="text-white fw-bold fs-2 font-rubik"
           >&#8377;{{product.price}}</var
         >
         <p class="text-light font-karla fs-5 mt-5">{{product.description}}</p>
+        {% endcache %}
       </div>
 
       <form
@@ -172,6 +181,8 @@
       >
         {% csrf_token %}
         <!-- prettier-ignore -->
+        {% load cache %}
+        {% cache 1000 product_variations product.id %}
         <div>
           <h6 class="text-white">Select Size:</h6>
           <div
@@ -211,6 +222,7 @@
             {% endfor %}
           </div>
         </div>
+        {% endcache %}
         <br />
         <div
           class="form-check animate__animated animate__headShake animate__delay-4s"

@@ -143,7 +143,7 @@ def send_order_confirmation_email(email, order):
 @login_required(login_url="login")
 def place_order(request):
     # check if there are any items in the cart
-    cart_items = CartItem.objects.filter(user=request.user, is_active=True)
+    cart_items = get_cart_items(request)
     cart_items_count = cart_items.count()
     if cart_items_count <= 0:
         return redirect("store")
@@ -175,6 +175,7 @@ def place_order(request):
             context = {
                 "order": order,
                 "payment_session_id": None,
+                'cart_items': cart_items,
             }
             return render(request, "order/payment.html", context)
     else:

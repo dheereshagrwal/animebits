@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from product.models import Product, Variation
-from utils.utils import calculate_totals
+from utils.utils import calculate_totals, get_cart_items
 from .models import Cart, CartItem
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
@@ -19,7 +19,7 @@ def add_cart(request, product_id):
         for item in request.POST:
             key = item
             value = request.POST[key]
-            print(f'key: {key}, value: {value}')
+            print(f"key: {key}, value: {value}")
             try:
                 variation = Variation.objects.get(
                     product=product,
@@ -152,9 +152,29 @@ def remove_cart_item(request, product_id, cart_item_id):
 
 
 def cart(request):
-    return render(request, "store/cart.html")
+    cart_items = get_cart_items(request)
+    total, quantity, tax, grand_total, gift_charges = calculate_totals(request)
+    context = {
+        "cart_items": cart_items,
+        "total": total,
+        "quantity": quantity,
+        "tax": tax,
+        "grand_total": grand_total,
+        "gift_charges": gift_charges,
+    }
+    return render(request, "store/cart.html", context)
 
 
 @login_required(login_url="login")
 def checkout(request):
-    return render(request, "store/checkout.html")
+    cart_items = get_cart_items(request)
+    total, quantity, tax, grand_total, gift_charges = calculate_totals(request)
+    context = {
+        "cart_items": cart_items,
+        "total": total,
+        "quantity": quantity,
+        "tax": tax,
+        "grand_total": grand_total,
+        "gift_charges": gift_charges,
+    }
+    return render(request, "store/checkout.html", context)

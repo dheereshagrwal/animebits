@@ -1,4 +1,6 @@
 from allauth.socialaccount.models import SocialAccount
+from cart.models import Cart, CartItem
+
 
 def get_user_info(request):
     user_info = {}
@@ -10,6 +12,7 @@ def get_user_info(request):
         except:
             pass
     return user_info
+
 
 def calculate_totals(cart_items):
     total = 0
@@ -33,3 +36,27 @@ def calculate_totals(cart_items):
         grand_total = total + tax
 
     return total, quantity, tax, grand_total, gift_charges
+
+
+def get_cart_items(request):
+    cart_items = None
+    if request.user.is_superuser:
+        try:
+            cart = Cart.objects.get(cart_id=request.session.get("cart_id"))
+            cart_items = CartItem.objects.filter(cart=cart, is_active=True)
+        except:
+            pass
+        return cart_items
+    # user is not superuser
+    if request.user.is_authenticated:
+        try:
+            cart_items = CartItem.objects.filter(user=request.user, is_active=True)
+        except:
+            pass
+    else:
+        try:
+            cart = Cart.objects.get(cart_id=request.session.get("cart_id"))
+            cart_items = CartItem.objects.filter(cart=cart, is_active=True)
+        except:
+            pass
+    return cart_items

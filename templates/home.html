@@ -3,7 +3,7 @@
 
 {% load cache %}
 <!-- prettier-ignore -->
-{% cache 86400 banner %}
+{% cache 864000 banner %}
 <div class="mt-5 container-fluid">
   <div class="mx-3 mx-md-5">
     <img
@@ -18,7 +18,7 @@
 <!-- this is container only -->
 {% load cache %}
 <!-- prettier-ignore -->
-{% cache 86400 categories %}
+{% cache 864000 categories %}
 <section class="container mt-5">
   <div class="row row-cols-3 row-cols-md-6 g-4 g-lg-5 mx-auto">
     {% for category in categories %}
@@ -149,7 +149,7 @@
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-half text-warning"></i>
             <!-- prettier-ignore -->
-            {% else %}
+            {% elif product.avg_rating > 4.5 and product.avg_rating <= 5%}
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>
             <i class="bi bi-star-fill text-warning"></i>

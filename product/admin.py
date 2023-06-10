@@ -24,7 +24,7 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {
         "slug": ("name",),
     }
-    list_editable = ("price",)
+    list_editable = ("price","avg_rating",)
     inlines = [ProductGalleryInline]
     search_fields = ["name", "slug", "description"]
 

@@ -153,7 +153,7 @@ def remove_cart_item(request, product_id, cart_item_id):
 
 def cart(request):
     cart_items = get_cart_items(request)
-    total, quantity, tax, grand_total, gift_charges = calculate_totals(request)
+    total, quantity, tax, grand_total, gift_charges = calculate_totals(cart_items)
     context = {
         "cart_items": cart_items,
         "total": total,
@@ -168,7 +168,7 @@ def cart(request):
 @login_required(login_url="login")
 def checkout(request):
     cart_items = get_cart_items(request)
-    total, quantity, tax, grand_total, gift_charges = calculate_totals(request)
+    total, quantity, tax, grand_total, gift_charges = calculate_totals(cart_items)
     context = {
         "cart_items": cart_items,
         "total": total,

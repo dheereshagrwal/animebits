@@ -1,7 +1,7 @@
 {%extends 'base.html' %} {% load static %} {% block content %}
 <form method="GET" action="{% url 'store' %}">
   <section class="container-fluid mt-5">
-    <div class="mx-2 mx-lg-5 d-flex justify-content-between">
+    <div class="mx-2 mx-md-5 d-flex justify-content-between">
       {% if 'search' in request.path %}
       <h2 class="title-page text-white font-poppins">Search Results</h2>
       {% else %}
@@ -48,7 +48,7 @@
     </div>
   </section>
   <section class="container-fluid mt-5">
-    <div class="mx-2 mx-lg-5">
+    <div class="mx-2 mx-md-5">
       <div class="row g-5">
         <div class="col-md-3 col-xl-2">
           <aside>

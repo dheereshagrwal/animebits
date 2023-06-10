@@ -16,7 +16,7 @@ class Product(models.Model):
     is_available = models.BooleanField(default=True)
     sold = models.IntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="static/images/products")
+    image = models.ImageField(upload_to="images/products")
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     avg_rating = models.FloatField(default=0)
@@ -59,7 +59,7 @@ class Variation(models.Model):
 
 class ProductGallery(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="static/images/products", max_length=255)
+    image = models.ImageField(upload_to="images/products", max_length=255)
 
     def __str__(self):
         return self.product.name

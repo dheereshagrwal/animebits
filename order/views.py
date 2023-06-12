@@ -104,7 +104,7 @@ def payment_success(request):
     order.payment = payment
     order.is_ordered = True
     order.save()
-    cart_items = CartItem.objects.filter(user=request.user, is_active=True)
+    cart_items = get_cart_items(request)
     for cart_item in cart_items:
         order_product = OrderProduct()
         order_product.order = order

@@ -65,6 +65,8 @@ def home(request):
 def login(request):
     # take provider login url from environment variable
     provider_login_url = config("PROVIDER_LOGIN_URL")
+    if '127.0.0.1' in request.build_absolute_uri():
+        provider_login_url = 'http://127.0.0.1:8000/accounts/google/login/'
     print("provider_login_url", provider_login_url)
     # Get the next url
     next_url = request.GET.get("next")

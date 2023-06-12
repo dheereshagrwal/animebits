@@ -46,9 +46,8 @@ def get_cart_items(request):
             cart_items = CartItem.objects.filter(cart=cart, is_active=True)
         except:
             pass
-        return cart_items
     # user is not superuser
-    if request.user.is_authenticated:
+    elif request.user.is_authenticated:
         try:
             cart_items = CartItem.objects.filter(user=request.user, is_active=True)
         except:

@@ -6,6 +6,7 @@
     margin: 0;
   }
   input[type="number"] {
+    appearance: textfield;
     -moz-appearance: textfield;
   }
 </style>
@@ -26,8 +27,8 @@
           <table class="table table-borderless">
             <thead class="text-secondary">
               <tr class="small text-lowercase font-poppins">
-                <th class="col-2 col-md-6">product</th>
-                <th class="col-4 col-md-2">quantity</th>
+                <th class="col-2 col-md-5">product</th>
+                <th class="col-4 col-md-3 px-md-4 px-xl-5">quantity</th>
                 <th class="px-md-5">price</th>
                 <th></th>
               </tr>
@@ -36,8 +37,8 @@
               {% for cart_item in cart_items %}
               <tr>
                 <td>
-                  <figure class="d-flex gap-md-4 flex-column flex-md-row">
-                    <div class="aside col-md-2">
+                  <figure class="d-flex gap-2 gap-md-4 flex-column flex-md-row">
+                    <div class="col-md-3">
                       <a href="{{cart_item.product.get_url}}"
                         ><img
                           src="{{cart_item.product.image.url}}"
@@ -83,7 +84,7 @@
                     </figcaption>
                   </figure>
                 </td>
-                <td>
+                <td class="px-md-4 px-xl-5">
                   <div>
                     <div class="input-group input-group-sm">
                       <a

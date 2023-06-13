@@ -130,7 +130,7 @@
             {% for product in products %}
             <a
               href="{{product.get_url}}"
-              class="text-decoration-none hvr-shrink card shadow rounded-5 bg-dark border border-black"
+              class="text-decoration-none hvr-shrink card shadow rounded-5 bg-dark border border-black d-none d-md-block"
               style="width: 16rem"
             >
               <img
@@ -229,6 +229,109 @@
                 </div>
               </div>
             </a>
+
+            <a
+              href="{{product.get_url}}"
+              class="text-decoration-none hvr-shrink card shadow rounded-5 bg-dark border border-black d-md-none"
+              style="width: 24rem"
+            >
+              <img
+                src="{{ product.image.url }}"
+                class="card-img-top rounded-top-5"
+                alt="{{ product.name }}"
+              />
+              <div class="card-body">
+                <p
+                  class="card-text font-rubik fw-semibold text-capitalize text-white"
+                >
+                  {{ product.name }}
+                </p>
+                <div class="d-flex">
+                  <var class="card-text fw-bold font-rubik text-white"
+                    >&#8377;{{product.price}}</var
+                  >
+                  <div
+                    class="ms-auto"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="{{ product.avg_rating }}"
+                  >
+                    <!-- prettier-ignore -->
+                    {% if product.avg_rating > 0 and product.avg_rating <= 0.5 %}
+                    <i class="bi bi-star-half text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <!-- prettier-ignore -->
+                    {% elif product.avg_rating > 0.5 and product.avg_rating <= 1 %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <!-- prettier-ignore -->
+                    {% elif product.avg_rating > 1 and product.avg_rating <= 1.5 %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-half text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <!-- prettier-ignore -->
+                    {% elif product.avg_rating > 1.5 and product.avg_rating <= 2 %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <!-- prettier-ignore -->
+                    {% elif product.avg_rating > 2 and product.avg_rating <= 2.5 %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-half text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <!-- prettier-ignore -->
+                    {% elif product.avg_rating > 2.5 and product.avg_rating <= 3 %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <!-- prettier-ignore -->
+                    {% elif product.avg_rating > 3 and product.avg_rating <= 3.5 %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-half text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <!-- prettier-ignore -->
+                    {% elif product.avg_rating > 3.5 and product.avg_rating <= 4 %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star text-warning"></i>
+                    <!-- prettier-ignore -->
+                    {% elif product.avg_rating > 4 and product.avg_rating <= 4.5 %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-half text-warning"></i>
+                    <!-- prettier-ignore -->
+                    {% else %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </a>
+
             {% endfor %}
             <!-- - -->
             {% else %}

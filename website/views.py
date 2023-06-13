@@ -8,6 +8,8 @@ from order.models import Order
 from cart.models import Cart, CartItem
 from decouple import config
 from category.models import Category
+from urllib.parse import urlparse
+
 
 @receiver(user_logged_in)
 def post_login(sender, user, request, **kwargs):
@@ -58,15 +60,20 @@ def home(request):
     products = Product.objects.filter(is_available=True).order_by("-created_date")[:10]
     products_count = products.count()
     categories = Category.objects.all()
-    context = {"products": products, "products_count": products_count, "categories": categories}
+    context = {
+        "products": products,
+        "products_count": products_count,
+        "categories": categories,
+    }
     return render(request, "home.html", context)
 
 
 def login(request):
-    # take provider login url from environment variable
-    provider_login_url = config("PROVIDER_LOGIN_URL")
-    if '127.0.0.1' in request.build_absolute_uri():
-        provider_login_url = 'http://127.0.0.1:8000/accounts/google/login/'
+    url = request.build_absolute_uri()
+    parsed_url = urlparse(url)
+    provider_login_url = (
+        f"{parsed_url.scheme}://{parsed_url.netloc}/accounts/google/login/"
+    )
     print("provider_login_url", provider_login_url)
     # Get the next url
     next_url = request.GET.get("next")

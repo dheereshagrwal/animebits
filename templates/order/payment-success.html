@@ -40,8 +40,8 @@
         <table class="table table-borderless">
           <thead class="text-secondary card-header border-0">
             <tr class="small text-lowercase font-poppins">
-              <th class="col-4 col-md-9">product</th>
-              <th class="col-4 col-md-2 px-5 px-md-0">quantity</th>
+              <th class="col-5 col-md-9">product</th>
+              <th class="col-3 col-md-2 px-4 px-md-0">quantity</th>
               <th class="">price</th>
             </tr>
           </thead>
@@ -49,7 +49,7 @@
             {% for ordered_product in ordered_products %}
             <tr>
               <td>
-                <figure class="d-flex gap-md-4 flex-column flex-md-row">
+                <figure class="d-flex gap-2 gap-md-4 flex-column flex-md-row">
                   <div class="col-md-2">
                     <a href="{{ordered_product.product.get_url}}"
                       ><img
@@ -95,7 +95,7 @@
                   </figcaption>
                 </figure>
               </td>
-              <td class="px-5 px-md-0 font-rubik text-white">
+              <td class="px-4 px-md-0 font-rubik text-white">
                 <div>{{ordered_product.quantity}}</div>
               </td>
               <td>

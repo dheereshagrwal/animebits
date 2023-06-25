@@ -17,18 +17,19 @@ def add_cart(request, product_id):
             request.POST._mutable = True
             request.POST["gift"] = "no"
         for item in request.POST:
-            key = item
-            value = request.POST[key]
-            print(f"key: {key}, value: {value}")
-            try:
-                variation = Variation.objects.get(
-                    product=product,
-                    variation_category__iexact=key,
-                    variation_value__iexact=value,
-                )
-                product_variations.append(variation)
-            except:
-                pass
+            if item != "csrfmiddlewaretoken":
+                key = item
+                value = request.POST[key]
+                print(f"key: {key}, value: {value}")
+                try:
+                    variation = Variation.objects.get(
+                        product=product,
+                        variation_category__iexact=key,
+                        variation_value__iexact=value,
+                    )
+                    product_variations.append(variation)
+                except:
+                    pass
 
     if request.user.is_authenticated:
         is_cart_item_exists = CartItem.objects.filter(

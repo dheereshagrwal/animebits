@@ -36,8 +36,6 @@ def store(request, category_slug=None):
             products = products.order_by("price")
         elif sort == "price-high-to-low":
             products = products.order_by("-price")
-        elif sort == "newest":
-            products = products.order_by("-created_date")
         elif sort == "avg-rating":
             products = products.order_by("-avg_rating")
     
